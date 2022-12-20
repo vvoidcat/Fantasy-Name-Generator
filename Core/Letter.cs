@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace NAMEGEN.Core {
     public class Letter {
+        public int index { get; private set; }
         public string uppercase { get; private set; }
         public string lowercase { get; private set; }
         public bool isVowel { get; private set; }
@@ -16,6 +17,11 @@ namespace NAMEGEN.Core {
             lowercase = lower;
             isVowel = vowel;
             isConsonant = consonant;
+            index = 0;
+        }
+
+        public void SetLetterIndex(int newIndex) {
+            index = newIndex;
         }
 
         public static bool operator ==(Letter a, Letter b) {

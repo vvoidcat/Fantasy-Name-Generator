@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NAMEGEN.Core {
     public class Alphabet {
-        Language language { get; set; }
+        public Language language { get; private set; }
         public int lettersCount { get; private set; }
         public List<Letter> letters { get; private set; }
 
@@ -26,6 +26,8 @@ namespace NAMEGEN.Core {
                     initENG();
                     break;
             }
+
+            AssignIndexToLetters();
         }
 
         private void initENG() {
@@ -59,8 +61,10 @@ namespace NAMEGEN.Core {
             letters.Add(new Letter("Z", "z", false, true));
         }
 
-        //private void initRU() {
-        //    lettersCount = 33;
-        //}
+        private void AssignIndexToLetters() {
+            for (int i = 0; i < lettersCount; i++) {
+                letters[i].SetLetterIndex(i);
+            }
+        }
     }
 }

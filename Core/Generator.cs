@@ -6,17 +6,13 @@ using System.Threading.Tasks;
 
 namespace NAMEGEN.Core {
     public class Generator {
-        Language language;
-        private Alphabet alphabet;
-        private List<string> generatedNames;
-        private Gender chosenGender;
+        public List<string> generatedNames { get; private set; }
+        private Settings settings;
+        
 
         public Generator() {
-            language = Language.English;
-            alphabet = new Alphabet(language);
-
             generatedNames = new List<string>();
-            chosenGender = Gender.Neutral;
+            settings = new Settings();
         }
 
         public static void updateSettings() {
@@ -24,11 +20,9 @@ namespace NAMEGEN.Core {
         }
 
         public void GenerateName() {
-            Name newName = new Name(alphabet, chosenGender, 3, 10);
+            Name newName = new Name(settings);
             newName.Generate();
-            generatedNames.Add(newName.namestring);       // this shouldnt be a stack
-
-            //return newName.namestring;
+            generatedNames.Add(newName.namestring);
         }
 
         public string GetLastName() {

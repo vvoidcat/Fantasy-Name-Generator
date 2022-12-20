@@ -7,59 +7,34 @@ using System.Threading.Tasks;
 namespace NAMEGEN.Core {
     public class Name {
         // properties
-
-        public int minLength { get; private set; }
-        public int maxLength { get; private set; }
-
         public int numVowels { get; private set; }
         public int numConsonants { get; private set; }
 
-
-        public int maxRowVows { get; private set; }
         public int numRowVowsCurrent { get; private set; }
-
         public int numRowConCurrent { get; private set; }
-        public int maxRowCons { get; private set; }
-
-        public double vowPercentageCorrection { get; private set; }
-        public double conPercentageCorrection { get; private set; }
 
         public int length { get; private set; }
         public string namestring { get; private set; }
 
-        public Gender gender { get; private set; }
-        private Alphabet alphabet;
         private Random random;
+        private Settings settings;
 
-        public Name(Alphabet chosenAlphabet, Gender nameGender, int nameMinLength, int nameMaxLength) {
+        public Name(Settings chosenSettings) {
             random = new Random();
+            settings = chosenSettings;
             namestring = "";
             numVowels = 0;
             numConsonants = 0;
-
-            // some of this should be stored in a separate settings object, initiated in a generator and passed here as an object
-            // choosing settings should be enabled via an enum (presets)
-            alphabet = chosenAlphabet;
-            gender = nameGender;
-            minLength = nameMinLength;
-            maxLength = nameMaxLength;
-            maxRowVows = 2;       // these should always be above 0
-            maxRowCons = 3;
-            vowPercentageCorrection = 0.0f;
-            conPercentageCorrection = 0.0f;
-            // allow consonant repeats
-            // allow vowel repeats
-            // allow special symbols
         }
 
         public void Generate() {
-            LinkedList<Letter> letters = new LinkedList<Letter>();
+            List<Letter> letters = new List<Letter>();
             length = GetRandomLength();
             int rowConsonants = 0;
             int rowVowels = 0;
 
             for (int i = 0; i < length; i++) {
-                Letter newLetter = ChooseLetter(IsConsonantChosen(rowConsonants, rowVowels));
+                Letter newLetter = ChooseLetter(rowConsonants, rowVowels, letters);
 
                 if (newLetter.isVowel) {
                     numVowels++;
@@ -69,7 +44,7 @@ namespace NAMEGEN.Core {
                     numConsonants++;
                 }
 
-                letters.Append(newLetter);
+                letters.Add(newLetter);
 
                 namestring += ChooseLetterCase(i, newLetter);
                 UpdateRowCounter(newLetter, ref rowConsonants, ref rowVowels);
@@ -80,18 +55,34 @@ namespace NAMEGEN.Core {
 
 
         private int GetRandomLength() {
-            return random.Next(minLength, maxLength);
+            return random.Next(settings.minLength, settings.maxLength);
         }
 
-        private Letter ChooseLetter(bool isConsonant) {
-            int index = random.Next(0, alphabet.letters.Count - 1);
-            Letter newLetter = alphabet.letters[index];
+        private bool IsChoosableIndex(int index, int rowConsonants, int rowVowels, List<Letter> letters) {
+            bool isChoosable = true;
+            Letter chosenLetter = settings.alphabet.letters[index];
 
-            if (newLetter.isConsonant != isConsonant) {
-                newLetter = ChooseLetter(isConsonant);
+            if (letters is not null && letters.Count > 0) {
+                bool isConsonant = IsConsonantChosen(rowConsonants, rowVowels);
+                bool isStaying = CalculateResultFromPercentage(settings.probabilityMatrix[letters.Last().index, index]);
+
+                if (chosenLetter.isConsonant != isConsonant || !isStaying) {
+                    isChoosable = false;
+                }
             }
 
-            return newLetter;
+            return isChoosable;
+        }
+
+        private Letter ChooseLetter(int rowConsonants, int rowVowels, List<Letter> letters) {
+            int index = 0;
+            bool isChosen = false;
+
+            while (!isChosen) {
+                index = random.Next(0, settings.alphabet.letters.Count - 1);
+                isChosen = IsChoosableIndex(index, rowConsonants, rowVowels, letters);
+            }
+            return settings.alphabet.letters[index];
         }
 
         private string ChooseLetterCase(int index, Letter newLetter) {
@@ -101,17 +92,17 @@ namespace NAMEGEN.Core {
         private bool IsConsonantChosen(int currentConRow, int currentVowRow) {
             bool isConsonant = false;
 
-            if (currentConRow == maxRowCons || (namestring.Length == length - 1 && numVowels == 0)) {
+            if (currentConRow == settings.maxRowCons || (namestring.Length == length - 1 && numVowels == 0)) {
                 isConsonant = false;
-            } else if (currentVowRow == maxRowVows) {
+            } else if (currentVowRow == settings.maxRowVows) {
                 isConsonant = true;
             } else {
                 double percentage = 0.50f;
 
                 if (currentVowRow > currentConRow) {
-                    percentage = CalculatePercentage(currentVowRow, maxRowVows, vowPercentageCorrection);
+                    percentage = CalculatePercentage(currentVowRow, settings.maxRowVows, settings.vowPercentageCorrection);
                 } else if (currentVowRow < currentConRow) {
-                    percentage = CalculatePercentage(currentConRow, maxRowCons, conPercentageCorrection);
+                    percentage = CalculatePercentage(currentConRow, settings.maxRowCons, settings.conPercentageCorrection);
                 }
                 isConsonant = CalculateResultFromPercentage(percentage);
             }
