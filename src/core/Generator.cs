@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace NAMEGEN.Core {
     public class Generator {
         public List<string> generatedNames { get; private set; }
+        // list of saved presets <Settings>
         private Settings settings;
         
 

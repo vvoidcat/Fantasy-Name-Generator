@@ -9,10 +9,8 @@ namespace NAMEGEN.Core {
         // properties
         public int numVowels { get; private set; }
         public int numConsonants { get; private set; }
-
         public int numRowVowsCurrent { get; private set; }
         public int numRowConCurrent { get; private set; }
-
         public int length { get; private set; }
         public string namestring { get; private set; }
 
@@ -36,42 +34,16 @@ namespace NAMEGEN.Core {
             for (int i = 0; i < length; i++) {
                 Letter newLetter = ChooseLetter(rowConsonants, rowVowels, letters);
 
-                if (newLetter.isVowel) {
-                    numVowels++;
-                }
-
-                if (newLetter.isConsonant) {
-                    numConsonants++;
-                }
-
                 letters.Add(newLetter);
 
                 namestring += ChooseLetterCase(i, newLetter);
-                UpdateRowCounter(newLetter, ref rowConsonants, ref rowVowels);
+                UpdateCounters(newLetter, ref rowConsonants, ref rowVowels);
             }
             letters.Clear();
         }
 
-
-
         private int GetRandomLength() {
             return random.Next(settings.minLength, settings.maxLength);
-        }
-
-        private bool IsChoosableIndex(int index, int rowConsonants, int rowVowels, List<Letter> letters) {
-            bool isChoosable = true;
-            Letter chosenLetter = settings.alphabet.letters[index];
-
-            if (letters is not null && letters.Count > 0) {
-                bool isConsonant = IsConsonantChosen(rowConsonants, rowVowels);
-                bool isStaying = CalculateResultFromPercentage(settings.probabilityMatrix[letters.Last().index, index]);
-
-                if (chosenLetter.isConsonant != isConsonant || !isStaying) {
-                    isChoosable = false;
-                }
-            }
-
-            return isChoosable;
         }
 
         private Letter ChooseLetter(int rowConsonants, int rowVowels, List<Letter> letters) {
@@ -87,6 +59,21 @@ namespace NAMEGEN.Core {
 
         private string ChooseLetterCase(int index, Letter newLetter) {
             return (index == 0) ? newLetter.uppercase : newLetter.lowercase;
+        }
+
+        private bool IsChoosableIndex(int index, int rowConsonants, int rowVowels, List<Letter> letters) {
+            bool isChoosable = true;
+
+            if (letters is not null && letters.Count > 0) {
+                bool isConsonant = IsConsonantChosen(rowConsonants, rowVowels);
+                bool isStaying = CalculateResultFromPercentage(settings.probabilityMatrix[letters.Last().index, index]);
+
+                if (settings.alphabet.letters[index].isConsonant != isConsonant || !isStaying) {
+                    isChoosable = false;
+                }
+            }
+
+            return isChoosable;
         }
 
         private bool IsConsonantChosen(int currentConRow, int currentVowRow) {
@@ -109,13 +96,15 @@ namespace NAMEGEN.Core {
             return isConsonant;
         }
 
-        private void UpdateRowCounter(Letter chosenLetter, ref int currentConsonantRow, ref int currentVowelRow) {
+        private void UpdateCounters(Letter chosenLetter, ref int currentConsonantRow, ref int currentVowelRow) {
             if (chosenLetter.isConsonant) {
                 currentConsonantRow++;
                 currentVowelRow = 0;
+                numConsonants++;
             } else {
                 currentVowelRow++;
                 currentConsonantRow = 0;
+                numVowels++;
             }
         }
 
