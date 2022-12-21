@@ -71,6 +71,7 @@ namespace NAMEGEN.Core {
 
             var config = new CsvConfiguration(CultureInfo.InvariantCulture) {
                 HasHeaderRecord = false,
+                MissingFieldFound = null
             };
 
             var csvReader = new CsvReader(textReader, config);
@@ -82,6 +83,8 @@ namespace NAMEGEN.Core {
                     UpdatePermutationMatrix((NameRecord)record);
                 }
             }
+
+            NormalizePermutationMatrix();
 
 
             //for (int i = 0; i < 26; i++) {
@@ -103,9 +106,10 @@ namespace NAMEGEN.Core {
         }
 
         private void UpdatePermutationMatrix(NameRecord record) {
-            if (gender == Gender.Male || gender == Gender.Neutral) {
+            if (!String.IsNullOrEmpty(record.maleName) && (gender == Gender.Male || gender == Gender.Neutral)) {
                 ProcessNameStr(record.maleName);
-            } else if (gender == Gender.Female || gender == Gender.Neutral) {
+            }
+            if (!String.IsNullOrEmpty(record.femaleName) && (gender == Gender.Female || gender == Gender.Neutral)) {
                 ProcessNameStr(record.femaleName);
             }
         }
@@ -132,11 +136,26 @@ namespace NAMEGEN.Core {
         }
 
         private void SetMatrixValue(int indexCurrent, int indexNext) {
-            permutationMatrix[indexCurrent, indexNext] += 0.01;
+            permutationMatrix[indexCurrent, indexNext] += 1.0f;
         }
 
         private void NormalizePermutationMatrix() {
-            // values cant be below zero or above 1
+            for (int i = 0; i < alphabet.lettersCount; i++) {
+                double max = 1.0f;
+                double sum = 0.0f;
+
+                for (int j = 0; j < alphabet.lettersCount; j++) {
+                    sum += permutationMatrix[i, j];
+                }
+
+                if (sum > 0.0f) {
+                    double norm = max / sum;
+
+                    for (int j = 0; j < alphabet.lettersCount; j++) {
+                        permutationMatrix[i, j] = permutationMatrix[i, j] * norm;
+                    }
+                }
+            }
         }
     }
 }
