@@ -14,6 +14,7 @@ namespace NAMEGEN.Core {
         public class NameRecord {
             [Index(0)] public string maleName { get; set; }
             [Index(1)] public string femaleName { get; set; }
+            // familyName ?
         }
 
         public int minLength { get; private set; }
@@ -27,9 +28,10 @@ namespace NAMEGEN.Core {
 
         public Gender gender { get; private set; }
         public Alphabet alphabet { get; private set; }
-        public double[,] probabilityMatrix { get; private set; }
+        public double[,] permutationMatrix { get; private set; }
 
-        //private TextReader textReader;
+        // probability matrix to count individual letter frequency
+        // calculate vow and con percentage correction
 
 
         public Settings() {
@@ -40,7 +42,7 @@ namespace NAMEGEN.Core {
 
             // these should always be above 0
             minLength = 3;
-            maxLength = 11;
+            maxLength = 10;
             maxRowVows = 2;
             maxRowCons = 3;
 
@@ -65,7 +67,7 @@ namespace NAMEGEN.Core {
             // check sha-sum of the csv, if it's changed - re-parse 
             // handle file not found situation
 
-            InitProbabilityMatrix();
+            InitPermutationMatrix(0.0f);
 
             var config = new CsvConfiguration(CultureInfo.InvariantCulture) {
                 HasHeaderRecord = false,
@@ -77,55 +79,64 @@ namespace NAMEGEN.Core {
                 var record = csvReader.GetRecord<NameRecord>();
 
                 if (record is not null) {
-                    Console.WriteLine("male: {0} | female: {1}", record.maleName, record.femaleName);
-                    UpdateProbabilityMatrix(record);
+                    UpdatePermutationMatrix((NameRecord)record);
                 }
             }
+
+
+            //for (int i = 0; i < 26; i++) {
+            //    for (int j = 0; j < 26; j++) {
+            //        Console.Write(permutationMatrix[i, j] + " ");
+            //    }
+            //    Console.Write("\n");
+            //}
         }
 
-        private void InitProbabilityMatrix() {
-            probabilityMatrix = new double[alphabet.lettersCount, alphabet.lettersCount];
+        private void InitPermutationMatrix(double value) {
+            permutationMatrix = new double[alphabet.lettersCount, alphabet.lettersCount];
 
             for (int i = 0; i < alphabet.lettersCount; i++) {
                 for (int j = 0; j < alphabet.lettersCount; j++) {
-                    probabilityMatrix[i, j] = 0.5f;
+                    permutationMatrix[i, j] = value;
                 }
             }
         }
 
-        private void UpdateProbabilityMatrix(NameRecord record) {
+        private void UpdatePermutationMatrix(NameRecord record) {
             if (gender == Gender.Male || gender == Gender.Neutral) {
-                // update with male name
+                ProcessNameStr(record.maleName);
             } else if (gender == Gender.Female || gender == Gender.Neutral) {
-                // update with female name
+                ProcessNameStr(record.femaleName);
             }
-
-            //for (int i = 0; i < alphabet.lettersCount; i++) {
-            //    probabilityMatrix[0, i] = 0.001f;
-            //    probabilityMatrix[4, i] = 0.001f;
-
-            //    probabilityMatrix[22, i] = 0.001f;
-            //    probabilityMatrix[i, 22] = 0.001f;
-
-            //    probabilityMatrix[23, i] = 0.001f;
-            //    probabilityMatrix[i, 23] = 0.001f;
-
-            //    probabilityMatrix[25, i] = 0.001f;
-            //    probabilityMatrix[i, 25] = 0.001f;
-
-
-            //}
-            //probabilityMatrix[0, 4] = 1.0f;
-            //probabilityMatrix[4, 0] = 0.9f;
         }
 
-        private void SetMatrixValue(double newValue) {
+        private void ProcessNameStr(string name) {
+            for (int i = 1; i < name.Length; i++) {
+                int indexCurrent = i - 1;
+                int indexNext = i;
+                string currentLetterLower = name[indexCurrent].ToString().ToLower();
+                string nextLetterLower = name[indexNext].ToString().ToLower();
 
+                for (int j = 0; j < alphabet.lettersCount; j++) {
+                    Letter alphabetLetter = alphabet.letters[j];
+                    if (currentLetterLower == alphabetLetter.lowercase) {
+                        indexCurrent = alphabetLetter.index;
+                    }
+                    if (nextLetterLower == alphabetLetter.lowercase) {
+                        indexNext = alphabetLetter.index;
+                    }
+                }
+
+                SetMatrixValue(indexCurrent, indexNext);
+            }
         }
 
-        private void NormalizeProbabilityMatrix() {
+        private void SetMatrixValue(int indexCurrent, int indexNext) {
+            permutationMatrix[indexCurrent, indexNext] += 0.01;
+        }
+
+        private void NormalizePermutationMatrix() {
             // values cant be below zero or above 1
-            // may be redundant
         }
     }
 }

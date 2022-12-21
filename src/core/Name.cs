@@ -66,7 +66,7 @@ namespace NAMEGEN.Core {
 
             if (letters is not null && letters.Count > 0) {
                 bool isConsonant = IsConsonantChosen(rowConsonants, rowVowels);
-                bool isStaying = CalculateResultFromPercentage(settings.probabilityMatrix[letters.Last().index, index]);
+                bool isStaying = CalculateResultFromPercentage(settings.permutationMatrix[letters.Last().index, index]);
 
                 if (settings.alphabet.letters[index].isConsonant != isConsonant || !isStaying) {
                     isChoosable = false;

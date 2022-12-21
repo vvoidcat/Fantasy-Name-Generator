@@ -26,12 +26,14 @@ namespace NAMEGEN.Core {
 
         public static bool operator ==(Letter a, Letter b) {
             return (a.isConsonant == b.isConsonant && a.isVowel == b.isVowel
-                && String.Equals(a.uppercase, b.uppercase) && String.Equals(a.lowercase, b.lowercase)) ? true : false;
+                        && String.Equals(a.uppercase, b.uppercase)
+                            && String.Equals(a.lowercase, b.lowercase) && a.index == b.index) ? true : false;
         }
 
         public static bool operator !=(Letter a, Letter b) {
             return (a.isConsonant != b.isConsonant || a.isVowel != b.isVowel
-                || !String.Equals(a.uppercase, b.uppercase) || !String.Equals(a.lowercase, b.lowercase)) ? true : false;
+                        || !String.Equals(a.uppercase, b.uppercase)
+                            || !String.Equals(a.lowercase, b.lowercase) || a.index != b.index) ? true : false;
         }
     }
 }
