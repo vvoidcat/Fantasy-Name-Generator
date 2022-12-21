@@ -38,12 +38,12 @@ namespace NAMEGEN.Core {
             //textReader = new StreamReader("filename");
 
             alphabet = new Alphabet(Language.English);
-            gender = Gender.Neutral;
+            gender = Gender.Female;
 
             // these should always be above 0
-            minLength = 3;
+            minLength = 5;
             maxLength = 10;
-            maxRowVows = 2;
+            maxRowVows = 3;  // min 1, max 3
             maxRowCons = 3;
 
             vowPercentageCorrection = 0.0f;
@@ -53,6 +53,13 @@ namespace NAMEGEN.Core {
             // allow vowel repeats
             // allow special symbols
 
+            // nln nnn
+            // forbid 3 same letter repeats
+            // first letter generation
+            // last letter generation based on gender (consonant choice percentage correction)
+            // max row percentage correction
+            // name length percentage correction variable
+
             ParseSourceTable();     // arg source table
         }
 
@@ -61,7 +68,7 @@ namespace NAMEGEN.Core {
         }
 
         private void ParseSourceTable() {
-            TextReader textReader = new StreamReader("D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\human_generic.csv");
+            TextReader textReader = new StreamReader("D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\elven_generic.csv");
 
             // take path as an arg
             // check sha-sum of the csv, if it's changed - re-parse 
