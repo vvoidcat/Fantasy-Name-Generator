@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace NAMEGEN.Core {
     public class Name {
-        // properties
         public int numVowels { get; private set; }
         public int numConsonants { get; private set; }
         public int numRowVowsCurrent { get; private set; }
@@ -32,7 +31,13 @@ namespace NAMEGEN.Core {
             int rowVowels = 0;
 
             for (int i = 0; i < length; i++) {
-                Letter newLetter = ChooseLetter(rowConsonants, rowVowels, letters);
+                Letter newLetter;
+                
+                if (i == 0) {
+                    newLetter = ChooseFirstLetter();
+                } else {
+                    newLetter = ChooseLetter(rowConsonants, rowVowels, letters);
+                }
 
                 letters.Add(newLetter);
 
@@ -46,12 +51,29 @@ namespace NAMEGEN.Core {
             return random.Next(settings.minLength, settings.maxLength);
         }
 
+        private int GetRandomIndex() {
+            return random.Next(0, settings.alphabet.letters.Count - 1);
+        }
+
+        private Letter ChooseFirstLetter() {
+            // based on probability matrix
+
+            int index = 0;
+            bool isChosen = false;
+
+            while (!isChosen) {
+                index = GetRandomIndex();
+                isChosen = CalculateResultFromPercentage(settings.probabilityMatrix[0, index]);
+            }
+            return settings.alphabet.letters[index];
+        }
+
         private Letter ChooseLetter(int rowConsonants, int rowVowels, List<Letter> letters) {
             int index = 0;
             bool isChosen = false;
 
             while (!isChosen) {
-                index = random.Next(0, settings.alphabet.letters.Count - 1);
+                index = GetRandomIndex();
                 isChosen = IsChoosableIndex(index, rowConsonants, rowVowels, letters);
             }
             return settings.alphabet.letters[index];
@@ -65,15 +87,30 @@ namespace NAMEGEN.Core {
             bool isChoosable = true;
 
             if (letters is not null && letters.Count > 0) {
+                Letter chosenLetter = settings.alphabet.letters[index];
                 bool isConsonant = IsConsonantChosen(rowConsonants, rowVowels);
-                bool isStaying = CalculateResultFromPercentage(settings.permutationMatrix[letters.Last().index, index]);
+                bool isAllowedPermutation = CalculateResultFromPercentage(settings.permutationMatrix[letters.Last().index, index]);
 
-                if (settings.alphabet.letters[index].isConsonant != isConsonant || !isStaying) {
+                if (chosenLetter.isConsonant != isConsonant || !isAllowedPermutation || IsForbiddenRepeat(chosenLetter, letters)) {
                     isChoosable = false;
                 }
             }
-
             return isChoosable;
+        }
+
+        private bool IsForbiddenRepeat(Letter chosenLetter, List<Letter> letters) {
+            bool result = false;
+
+            if (letters.Count > 3) {
+                Letter lastLetter = letters[letters.Count - 1];
+                Letter prevLetter = letters[letters.Count - 2];
+
+                if ((lastLetter == prevLetter && lastLetter == chosenLetter)
+                    || (chosenLetter.isConsonant && !chosenLetter.isVowel && prevLetter == chosenLetter)) {
+                    result = true;
+                }
+            }
+            return result;
         }
 
         private bool IsConsonantChosen(int currentConRow, int currentVowRow) {

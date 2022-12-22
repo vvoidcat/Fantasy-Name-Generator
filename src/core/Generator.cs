@@ -8,12 +8,12 @@ namespace NAMEGEN.Core {
     public class Generator {
         public List<string> generatedNames { get; private set; }
         // list of saved presets <Settings>
-        private Settings settings;
-        
+        public Settings settings { get; private set; }
 
-        public Generator() {
+
+        public Generator(string filepath) {
             generatedNames = new List<string>();
-            settings = new Settings();
+            settings = new Settings(filepath);
         }
 
         public static void updateSettings() {

@@ -8,6 +8,7 @@ using CsvHelper;
 using System.Globalization;
 using CsvHelper.Configuration;
 using CsvHelper.Configuration.Attributes;
+using System.Data;
 
 namespace NAMEGEN.Core {
     public class Settings {
@@ -29,34 +30,33 @@ namespace NAMEGEN.Core {
         public Gender gender { get; private set; }
         public Alphabet alphabet { get; private set; }
         public double[,] permutationMatrix { get; private set; }
+        public double[,] probabilityMatrix { get; private set; }
 
-        // probability matrix to count individual letter frequency
+        // probability matrix to count individual letter frequency (now influences only the first letter choice)
         // calculate vow and con percentage correction
 
+        private string filepath { get; set; }
 
-        public Settings() {
-            //textReader = new StreamReader("filename");
 
+        public Settings(string newPath) {
             alphabet = new Alphabet(Language.English);
-            gender = Gender.Female;
+            gender = Gender.Neutral;
+
+            filepath = newPath;
 
             // these should always be above 0
-            minLength = 5;
+            minLength = 4;
             maxLength = 10;
-            maxRowVows = 3;  // min 1, max 3
+            maxRowVows = 2;  // min 1, max 3
             maxRowCons = 3;
 
             vowPercentageCorrection = 0.0f;
             conPercentageCorrection = 0.0f;
 
-            // allow consonant repeats
-            // allow vowel repeats
             // allow special symbols
 
-            // nln nnn
-            // forbid 3 same letter repeats
-            // first letter generation
-            // last letter generation based on gender (consonant choice percentage correction)
+            // first letter(s) separate generation
+            // last letter(s) separate generation based on gender (consonant choice percentage correction)
             // max row percentage correction
             // name length percentage correction variable
 
@@ -68,13 +68,14 @@ namespace NAMEGEN.Core {
         }
 
         private void ParseSourceTable() {
-            TextReader textReader = new StreamReader("D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\elven_generic.csv");
+            TextReader textReader = new StreamReader(filepath);
 
             // take path as an arg
             // check sha-sum of the csv, if it's changed - re-parse 
-            // handle file not found situation
+            // handle file not found situation -> delegate to ui?
 
-            InitPermutationMatrix(0.0f);
+            permutationMatrix = InitMatrix(alphabet.lettersCount, alphabet.lettersCount, 0.0f);
+            probabilityMatrix = InitMatrix(1, alphabet.lettersCount, 0.0f);
 
             var config = new CsvConfiguration(CultureInfo.InvariantCulture) {
                 HasHeaderRecord = false,
@@ -87,32 +88,26 @@ namespace NAMEGEN.Core {
                 var record = csvReader.GetRecord<NameRecord>();
 
                 if (record is not null) {
-                    UpdatePermutationMatrix((NameRecord)record);
+                    UpdateMatrices((NameRecord)record);
                 }
             }
 
-            NormalizePermutationMatrix();
-
-
-            //for (int i = 0; i < 26; i++) {
-            //    for (int j = 0; j < 26; j++) {
-            //        Console.Write(permutationMatrix[i, j] + " ");
-            //    }
-            //    Console.Write("\n");
-            //}
+            NormalizeMatrix(permutationMatrix);
+            NormalizeMatrix(probabilityMatrix);
         }
 
-        private void InitPermutationMatrix(double value) {
-            permutationMatrix = new double[alphabet.lettersCount, alphabet.lettersCount];
+        private double[,] InitMatrix(int y, int x, double value) {
+            double[,] matrix = new double[y, x];
 
-            for (int i = 0; i < alphabet.lettersCount; i++) {
-                for (int j = 0; j < alphabet.lettersCount; j++) {
-                    permutationMatrix[i, j] = value;
+            for (int i = 0; i < y; i++) {
+                for (int j = 0; j < x; j++) {
+                    matrix[i, j] = value;
                 }
             }
+            return matrix;
         }
 
-        private void UpdatePermutationMatrix(NameRecord record) {
+        private void UpdateMatrices(NameRecord record) {
             if (!String.IsNullOrEmpty(record.maleName) && (gender == Gender.Male || gender == Gender.Neutral)) {
                 ProcessNameStr(record.maleName);
             }
@@ -136,30 +131,38 @@ namespace NAMEGEN.Core {
                     if (nextLetterLower == alphabetLetter.lowercase) {
                         indexNext = alphabetLetter.index;
                     }
+
+                    //SetProbabilityMatrixValue()
                 }
 
-                SetMatrixValue(indexCurrent, indexNext);
+                if (i == 1) {
+                    IncrementMatrixValue(probabilityMatrix, 0, indexCurrent);
+                }
+
+                IncrementMatrixValue(permutationMatrix, indexCurrent, indexNext);
             }
         }
 
-        private void SetMatrixValue(int indexCurrent, int indexNext) {
-            permutationMatrix[indexCurrent, indexNext] += 1.0f;
+        private void IncrementMatrixValue(double[,] matrix, int indexY, int indexX) {
+            matrix[indexY, indexX] += 1.0f;
         }
 
-        private void NormalizePermutationMatrix() {
-            for (int i = 0; i < alphabet.lettersCount; i++) {
+        private void NormalizeMatrix(double[,] matrix) {
+            int y = matrix.Length / alphabet.lettersCount;
+
+            for (int i = 0; i < y; i++) {
                 double max = 1.0f;
                 double sum = 0.0f;
 
                 for (int j = 0; j < alphabet.lettersCount; j++) {
-                    sum += permutationMatrix[i, j];
+                    sum += matrix[i, j];
                 }
 
                 if (sum > 0.0f) {
                     double norm = max / sum;
 
                     for (int j = 0; j < alphabet.lettersCount; j++) {
-                        permutationMatrix[i, j] = permutationMatrix[i, j] * norm;
+                        matrix[i, j] = matrix[i, j] * norm;
                     }
                 }
             }
