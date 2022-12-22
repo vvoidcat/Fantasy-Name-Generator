@@ -11,7 +11,17 @@ namespace NAMEGEN.Core {
             string human = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\human_generic.csv";
 
             Generator elvenGen = new Generator(elven);
+           // elvenGen.settings.maxRowCons = 2;
+            //elvenGen.settings.maxRowVows = 2;
+
+            //elvenGen.settings.conPercentageCorrection -= 0.10f;     // less cons
+            //elvenGen.settings.vowPercentageCorrection += 0.10f;     // less vows
+
+
             Generator humanGen = new Generator(human);
+            //humanGen.settings.maxRowVows = 2;
+            //humanGen.settings.maxRowCons = 3;
+
 
             for (int i = 0; i < 20; i++) {
                 elvenGen.GenerateName();
@@ -25,11 +35,11 @@ namespace NAMEGEN.Core {
             for (int i = 0; i < elvenGen.GetAllNames().Count; i++) {
                 Console.WriteLine(elvenGen.GetAllNames()[i]);
             }
-            Console.Write("\n");
+            //Console.Write("\n");
 
-            for (int i = 0; i < 26; i++) {
-                Console.Write(elvenGen.settings.probabilityMatrix[0, i] + "  ");
-            }
+            //for (int i = 0; i < 26; i++) {
+            //    Console.Write(elvenGen.settings.probabilityMatrix[0, i] + "  ");
+            //}
 
 
             Console.Write("\n\nhuman\n\n");
@@ -37,11 +47,12 @@ namespace NAMEGEN.Core {
             for (int i = 0; i < humanGen.GetAllNames().Count; i++) {
                 Console.WriteLine(humanGen.GetAllNames()[i]);
             }
-            Console.Write("\n");
 
-            for (int i = 0; i < 26; i++) {
-                Console.Write(humanGen.settings.probabilityMatrix[0, i] + "  ");
-            }
+            //Console.Write("\n");
+
+            //for (int i = 0; i < 26; i++) {
+            //    Console.Write(humanGen.settings.probabilityMatrix[0, i] + "  ");
+            //}
         }
     }
 }

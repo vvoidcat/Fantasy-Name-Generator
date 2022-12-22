@@ -31,8 +31,10 @@ namespace NAMEGEN.Core {
             int rowVowels = 0;
 
             for (int i = 0; i < length; i++) {
+                //Letter newLetter = ChooseLetter(rowConsonants, rowVowels, letters);
+
                 Letter newLetter;
-                
+
                 if (i == 0) {
                     newLetter = ChooseFirstLetter();
                 } else {
@@ -48,7 +50,7 @@ namespace NAMEGEN.Core {
         }
 
         private int GetRandomLength() {
-            return random.Next(settings.minLength, settings.maxLength);
+            return random.Next(settings.minLength + 2, settings.maxLength - 2);
         }
 
         private int GetRandomIndex() {
@@ -90,8 +92,10 @@ namespace NAMEGEN.Core {
                 Letter chosenLetter = settings.alphabet.letters[index];
                 bool isConsonant = IsConsonantChosen(rowConsonants, rowVowels);
                 bool isAllowedPermutation = CalculateResultFromPercentage(settings.permutationMatrix[letters.Last().index, index]);
+                bool isAllowedProbability = CalculateResultFromPercentage(settings.probabilityMatrix[0, index]);
 
-                if (chosenLetter.isConsonant != isConsonant || !isAllowedPermutation || IsForbiddenRepeat(chosenLetter, letters)) {
+                if (chosenLetter.isConsonant != isConsonant || (!isAllowedPermutation || !isAllowedProbability)
+                    || IsForbiddenRepeat(chosenLetter, letters)) {
                     isChoosable = false;
                 }
             }
@@ -105,8 +109,7 @@ namespace NAMEGEN.Core {
                 Letter lastLetter = letters[letters.Count - 1];
                 Letter prevLetter = letters[letters.Count - 2];
 
-                if ((lastLetter == prevLetter && lastLetter == chosenLetter)
-                    || (chosenLetter.isConsonant && !chosenLetter.isVowel && prevLetter == chosenLetter)) {
+                if (lastLetter == prevLetter && lastLetter == chosenLetter) {
                     result = true;
                 }
             }

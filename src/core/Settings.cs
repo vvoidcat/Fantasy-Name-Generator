@@ -18,14 +18,14 @@ namespace NAMEGEN.Core {
             // familyName ?
         }
 
-        public int minLength { get; private set; }
-        public int maxLength { get; private set; }
+        public int minLength { get; private set; }  // + probability
+        public int maxLength { get; private set; }  // + probability
 
-        public int maxRowVows { get; private set; }
-        public int maxRowCons { get; private set; }
+        public int maxRowVows { get; set; }
+        public int maxRowCons { get; set; }
 
-        public double vowPercentageCorrection { get; private set; }
-        public double conPercentageCorrection { get; private set; }
+        public double vowPercentageCorrection { get; set; }
+        public double conPercentageCorrection { get; set; }
 
         public Gender gender { get; private set; }
         public Alphabet alphabet { get; private set; }
@@ -40,22 +40,27 @@ namespace NAMEGEN.Core {
 
         public Settings(string newPath) {
             alphabet = new Alphabet(Language.English);
-            gender = Gender.Neutral;
+            gender = Gender.Male;
 
             filepath = newPath;
 
             // these should always be above 0
             minLength = 4;
-            maxLength = 10;
-            maxRowVows = 2;  // min 1, max 3
+            maxLength = 7;
+            maxRowVows = 3;  // min 1, max 3
             maxRowCons = 3;
 
             vowPercentageCorrection = 0.0f;
             conPercentageCorrection = 0.0f;
 
+            // same letter repetition percentage chance (con and vow separate)
+
             // allow special symbols
 
-            // first letter(s) separate generation
+            // fix forbidden repeat (more than 3 in a row)
+            
+            // forbid names > 3 that consist of the same letters (repeated con, repeated vow = Annanana)
+            // forbid > 3 repetitions of the same permutation (nanana, lalala)
             // last letter(s) separate generation based on gender (consonant choice percentage correction)
             // max row percentage correction
             // name length percentage correction variable
@@ -94,6 +99,7 @@ namespace NAMEGEN.Core {
 
             NormalizeMatrix(permutationMatrix);
             NormalizeMatrix(probabilityMatrix);
+
         }
 
         private double[,] InitMatrix(int y, int x, double value) {
@@ -116,7 +122,20 @@ namespace NAMEGEN.Core {
             }
         }
 
+        private void UpdateLengthParams(string name) {
+            if (name.Length > 0) {
+                if (name.Length < minLength) {
+                    minLength = name.Length;
+                }
+                if (name.Length > maxLength) {
+                    maxLength = name.Length;
+                }
+            }
+        }
+
         private void ProcessNameStr(string name) {
+            UpdateLengthParams(name);
+
             for (int i = 1; i < name.Length; i++) {
                 int indexCurrent = i - 1;
                 int indexNext = i;
@@ -131,11 +150,11 @@ namespace NAMEGEN.Core {
                     if (nextLetterLower == alphabetLetter.lowercase) {
                         indexNext = alphabetLetter.index;
                     }
-
-                    //SetProbabilityMatrixValue()
                 }
 
-                if (i == 1) {
+                if (i == name.Length - 1) {
+                    IncrementMatrixValue(probabilityMatrix, 0, indexNext);
+                } else {
                     IncrementMatrixValue(probabilityMatrix, 0, indexCurrent);
                 }
 
