@@ -8,7 +8,8 @@ namespace NAMEGEN.Core {
     public static class Program {
         public static void Main() {
             string elven = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\elven_generic.csv";
-            string human = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\human_generic.csv";
+            // string human = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\human_generic.csv";
+            string human = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\italian.csv";
 
             Generator elvenGen = new Generator(elven);
            // elvenGen.settings.maxRowCons = 2;
@@ -19,8 +20,8 @@ namespace NAMEGEN.Core {
 
 
             Generator humanGen = new Generator(human);
-            //humanGen.settings.maxRowVows = 2;
-            //humanGen.settings.maxRowCons = 3;
+            humanGen.settings.maxRowVows = 2;
+            humanGen.settings.maxRowCons = 2;
 
 
             for (int i = 0; i < 20; i++) {

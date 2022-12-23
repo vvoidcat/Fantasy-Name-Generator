@@ -30,39 +30,41 @@ namespace NAMEGEN.Core {
         public Gender gender { get; private set; }
         public Alphabet alphabet { get; private set; }
         public double[,] permutationMatrix { get; private set; }
-        public double[,] probabilityMatrix { get; private set; }
+        public double[,] probabilityMatrixStart { get; private set; }
+        public double[,] probabilityMatrixEnd { get; private set; }
 
-        // probability matrix to count individual letter frequency (now influences only the first letter choice)
-        // calculate vow and con percentage correction
 
         private string filepath { get; set; }
 
 
         public Settings(string newPath) {
             alphabet = new Alphabet(Language.English);
-            gender = Gender.Male;
+            gender = Gender.Neutral;
 
             filepath = newPath;
 
             // these should always be above 0
             minLength = 4;
-            maxLength = 7;
+            maxLength = 12;
             maxRowVows = 3;  // min 1, max 3
             maxRowCons = 3;
 
             vowPercentageCorrection = 0.0f;
             conPercentageCorrection = 0.0f;
 
+            // first letter or prefix separate generation
+            // last letter or ending separate generation
+
             // same letter repetition percentage chance (con and vow separate)
 
             // allow special symbols
 
-            // fix forbidden repeat (more than 3 in a row)
-            
+            // fix forbidden repeat (more than 3 in a row, lll works, Lll doesn't)
+
             // forbid names > 3 that consist of the same letters (repeated con, repeated vow = Annanana)
             // forbid > 3 repetitions of the same permutation (nanana, lalala)
-            // last letter(s) separate generation based on gender (consonant choice percentage correction)
             // max row percentage correction
+            // calculate vow and con percentage correction
             // name length percentage correction variable
 
             ParseSourceTable();     // arg source table
@@ -80,7 +82,9 @@ namespace NAMEGEN.Core {
             // handle file not found situation -> delegate to ui?
 
             permutationMatrix = InitMatrix(alphabet.lettersCount, alphabet.lettersCount, 0.0f);
-            probabilityMatrix = InitMatrix(1, alphabet.lettersCount, 0.0f);
+            probabilityMatrixStart = InitMatrix(1, alphabet.lettersCount, 0.0f);
+            probabilityMatrixEnd = InitMatrix(1, alphabet.lettersCount, 0.0f);
+
 
             var config = new CsvConfiguration(CultureInfo.InvariantCulture) {
                 HasHeaderRecord = false,
@@ -98,8 +102,8 @@ namespace NAMEGEN.Core {
             }
 
             NormalizeMatrix(permutationMatrix);
-            NormalizeMatrix(probabilityMatrix);
-
+            NormalizeMatrix(probabilityMatrixStart);
+            NormalizeMatrix(probabilityMatrixEnd);
         }
 
         private double[,] InitMatrix(int y, int x, double value) {
@@ -134,7 +138,7 @@ namespace NAMEGEN.Core {
         }
 
         private void ProcessNameStr(string name) {
-            UpdateLengthParams(name);
+            //UpdateLengthParams(name);
 
             for (int i = 1; i < name.Length; i++) {
                 int indexCurrent = i - 1;
@@ -152,10 +156,10 @@ namespace NAMEGEN.Core {
                     }
                 }
 
-                if (i == name.Length - 1) {
-                    IncrementMatrixValue(probabilityMatrix, 0, indexNext);
-                } else {
-                    IncrementMatrixValue(probabilityMatrix, 0, indexCurrent);
+                if (i == 1) {
+                    IncrementMatrixValue(probabilityMatrixStart, 0, indexCurrent);
+                } else if (i == name.Length - 1) {
+                    IncrementMatrixValue(probabilityMatrixEnd, 0, indexNext);
                 }
 
                 IncrementMatrixValue(permutationMatrix, indexCurrent, indexNext);
