@@ -9,8 +9,6 @@ namespace NAMEGEN.Core {
     public class Name {
         public int numVowels { get; private set; }
         public int numConsonants { get; private set; }
-        public int numRowVowsCurrent { get; private set; }
-        public int numRowConCurrent { get; private set; }
         public int length { get; private set; }
         public string namestring { get; private set; }
 

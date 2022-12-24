@@ -52,14 +52,9 @@ namespace NAMEGEN.Core {
             vowPercentageCorrection = 0.0f;
             conPercentageCorrection = 0.0f;
 
-            // first letter or prefix separate generation
-            // last letter or ending separate generation
-
             // same letter repetition percentage chance (con and vow separate)
 
             // allow special symbols
-
-            // fix forbidden repeat (more than 3 in a row, lll works, Lll doesn't)
 
             // forbid names > 3 that consist of the same letters (repeated con, repeated vow = Annanana)
             // forbid > 3 repetitions of the same permutation (nanana, lalala)
