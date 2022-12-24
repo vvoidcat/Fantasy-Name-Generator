@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:fantasy_namegen"
         mc:Ignorable="d"
-        Title="fantasy-namegen" Height="650" Width="900"
-                                MinHeight="600" MinWidth="800">
+        Title="fantasy-namegen" Height="600" Width="800"
+                                MinHeight="600" MinWidth="800"
+                                MaxHeight="600" MaxWidth="800">
+    
     <StackPanel>
 
-        <!-- BUTTONS -->
+        <!-- APP SETTINGS -->
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -27,19 +29,8 @@
         </Grid>
 
         <TextBox Text="aboba aboba aboba aboba"/>
-
-        <!-- ABOBA -->
-
-        <!--<TextBlock Text="aboba flex"
-                   Margin="10 50 10 10"
-                   FontSize="40"
-                   FontWeight="Bold"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Bottom"
-                   />
-        -->
-
         
+
         <!-- GENERATE -->
 
         <StackPanel>
@@ -96,13 +87,20 @@
 
         <!-- LOGO -->
 
-        <Image />
-        <TextBlock Name="textLogo"
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Name="textLogo"
                    Text="fantasy-namegen"
                    Margin="0 100 20 0"
                    FontSize="10"
                    FontWeight="Bold"
-                   HorizontalAlignment="Right"/>
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Bottom"/>
+        </Grid>
 
     </StackPanel>
 
