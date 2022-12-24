@@ -52,6 +52,9 @@ namespace NAMEGEN.Core {
             vowPercentageCorrection = 0.0f;
             conPercentageCorrection = 0.0f;
 
+            // TODO
+            // rework gender choosing system & probability matrix assignment based on it
+
             // same letter repetition percentage chance (con and vow separate)
 
             // allow special symbols
