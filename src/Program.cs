@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace NAMEGEN.Core {
     public static class Program {
-        public static void Main() {
-            Test();
-        }
+        //public static void Main() {
+        //    Test();
+        //}
 
 
 
