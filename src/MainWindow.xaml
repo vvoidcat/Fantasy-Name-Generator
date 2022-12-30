@@ -11,10 +11,9 @@
     
     <StackPanel>
 
-        <!-- APP SETTINGS -->
+        <!-- APP SETTINGS CONROL -->
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -22,24 +21,20 @@
             </Grid.ColumnDefinitions>
 
             <Button
-                Name="buttonControl"
-                Grid.Column="0"
-                Content="show/hide" />
-            <Button
                 Name="buttonSettings"
-                Grid.Column="1"
+                Grid.Column="0"
                 Content="settings" />
             <Button
                 Name="buttonPresets"
-                Grid.Column="2"
+                Grid.Column="1"
                 Content="presets" />
             <Button
                 Name="buttonCustom"
-                Grid.Column="3"
+                Grid.Column="2"
                 Content="custom" />
             <Button
                 Name="buttonHistory"
-                Grid.Column="4"
+                Grid.Column="3"
                 Content="history" />
         </Grid>
 
@@ -47,13 +42,45 @@
         <TextBox Text="aboba aboba aboba aboba" />
         -->
 
-        <Image 
-            Source="../materials/images/temp.jpg"
-            Height="120"
-            Width="800"
-            Stretch="Fill"
-            >
-        </Image>
+        <!-- APP SETTINGS -->
+        <Canvas>
+            <Rectangle
+                Name="bgOverlay"
+                Height="120"
+                Width="800" 
+                Fill="LightGray"
+                Canvas.ZIndex="1" />
+
+            <Grid Canvas.ZIndex="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock
+                    Name="tblockFilepath"
+                    Text="source table:"
+                    FontSize="15"
+                    Margin="5 5 5 5"
+                    Grid.Column="0"/>
+
+                <TextBox
+                    Name="tboxFilepath"
+                    Text="filepath"
+                    FontSize="15"
+                    Width="200"
+                    Margin="5 5 5 5"
+                    Grid.Column="1"/>
+            </Grid>
+
+            <Image
+                Name="bgImage"
+                Source="../materials/images/temp.jpg"
+                Height="120"
+                Width="800"
+                Stretch="Fill" 
+                Canvas.ZIndex="0" />
+        </Canvas>
 
         <!-- GENERATE -->
 
@@ -62,7 +89,7 @@
                 Name="buttonGenerate"
                 Content="generate"
                 FontSize="19"
-                Margin="10 50 10 10"
+                Margin="10 170 10 10"
                 Width="150"
                 Height="35"
                 HorizontalContentAlignment="Center"
