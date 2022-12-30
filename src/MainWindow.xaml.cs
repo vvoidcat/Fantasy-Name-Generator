@@ -17,10 +17,12 @@ using System.Windows.Shapes;
 namespace fantasy_namegen {
     public partial class MainWindow : Window {
 
-        //    string filepath = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\elven_generic.csv";
-        //    string filepath = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\human_generic.csv";
-        string filepath = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\italian.csv";
+        //    string filepath = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\elven_generic.csv";
+        //    string filepath = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\human_generic.csv";
+        string filepath = @"D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\italian.csv";
+        //string filepath = @"nosuchfile";
         Language lang = NAMEGEN.Core.Language.English;
+        Gender gender = Gender.Neutral;
 
         public Settings currentPreset { get; private set; }
         private Generator gen;

@@ -64,16 +64,25 @@ namespace NAMEGEN.Core {
         }
 
         private void ParseSourceTable() {
-            TextReader textReader = new StreamReader(filepath);
-
             // take path as an arg
             // check sha-sum of the csv, if it's changed - re-parse 
             // handle file not found situation -> delegate to ui?
 
-            //permutationMatrix = InitMatrix(alphabet.lettersCount, alphabet.lettersCount, 0.0f);
-            //probabilityMatrixStart = InitMatrix(1, alphabet.lettersCount, 0.0f);
-            //probabilityMatrixEnd = InitMatrix(1, alphabet.lettersCount, 0.0f);
+            if (File.Exists(filepath)) {
+                ReadSourceFile();
+            } else {
+                permutationMatrix = InitMatrix(alphabet.lettersCount, alphabet.lettersCount, 0.5f);
+                probabilityMatrixStart = InitMatrix(1, alphabet.lettersCount, 0.5f);
+                probabilityMatrixEnd = InitMatrix(1, alphabet.lettersCount, 0.5f);
+            }
 
+            NormalizeMatrix(permutationMatrix);
+            NormalizeMatrix(probabilityMatrixStart);
+            NormalizeMatrix(probabilityMatrixEnd);
+        }
+
+        private void ReadSourceFile() {
+            TextReader textReader = new StreamReader(filepath);
 
             var config = new CsvConfiguration(CultureInfo.InvariantCulture) {
                 HasHeaderRecord = false,
@@ -89,10 +98,6 @@ namespace NAMEGEN.Core {
                     UpdateMatrices((NameRecord)record);
                 }
             }
-
-            NormalizeMatrix(permutationMatrix);
-            NormalizeMatrix(probabilityMatrixStart);
-            NormalizeMatrix(probabilityMatrixEnd);
         }
 
         private double[,] InitMatrix(int y, int x, double value) {
