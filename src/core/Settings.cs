@@ -37,11 +37,11 @@ namespace NAMEGEN.Core {
         private string filepath { get; set; }
 
 
-        public Settings(string newPath) {
-            alphabet = new Alphabet(Language.English);
-            gender = Gender.Neutral;
-
+        public Settings(string newPath, Language lang) {
+            alphabet = new Alphabet(lang);
             filepath = newPath;
+
+            gender = Gender.Neutral;
 
             // these should always be above 0
             minLength = 4;
@@ -52,18 +52,9 @@ namespace NAMEGEN.Core {
             vowPercentageCorrection = 0.0f;
             conPercentageCorrection = 0.0f;
 
-            // TODO
-            // rework gender choosing system & probability matrix assignment based on it
-
-            // same letter repetition percentage chance (con and vow separate)
-
-            // allow special symbols
-
-            // forbid names > 3 that consist of the same letters (repeated con, repeated vow = Annanana)
-            // forbid > 3 repetitions of the same permutation (nanana, lalala)
-            // max row percentage correction
-            // calculate vow and con percentage correction
-            // name length percentage correction variable
+            permutationMatrix = InitMatrix(alphabet.lettersCount, alphabet.lettersCount, 0.0f);
+            probabilityMatrixStart = InitMatrix(1, alphabet.lettersCount, 0.0f);
+            probabilityMatrixEnd = InitMatrix(1, alphabet.lettersCount, 0.0f);
 
             ParseSourceTable();     // arg source table
         }
@@ -79,9 +70,9 @@ namespace NAMEGEN.Core {
             // check sha-sum of the csv, if it's changed - re-parse 
             // handle file not found situation -> delegate to ui?
 
-            permutationMatrix = InitMatrix(alphabet.lettersCount, alphabet.lettersCount, 0.0f);
-            probabilityMatrixStart = InitMatrix(1, alphabet.lettersCount, 0.0f);
-            probabilityMatrixEnd = InitMatrix(1, alphabet.lettersCount, 0.0f);
+            //permutationMatrix = InitMatrix(alphabet.lettersCount, alphabet.lettersCount, 0.0f);
+            //probabilityMatrixStart = InitMatrix(1, alphabet.lettersCount, 0.0f);
+            //probabilityMatrixEnd = InitMatrix(1, alphabet.lettersCount, 0.0f);
 
 
             var config = new CsvConfiguration(CultureInfo.InvariantCulture) {

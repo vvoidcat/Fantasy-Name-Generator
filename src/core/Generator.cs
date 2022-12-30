@@ -6,34 +6,36 @@ using System.Threading.Tasks;
 
 namespace NAMEGEN.Core {
     public class Generator {
-        public List<string> generatedNames { get; private set; }
-        // list of saved presets <Settings>
-        public Settings settings { get; private set; }
+        public Stack<string> generatedNames { get; private set; }
+        // list of saved presets <Settings> ?
+        public Settings currentPreset { get; private set; }
 
 
-        public Generator(string filepath) {
-            generatedNames = new List<string>();
-            settings = new Settings(filepath);
+        public Generator(Settings newPreset) {
+            generatedNames = new Stack<string>();
+            currentPreset = newPreset;
         }
 
-        public static void updateSettings() {
-            // 
+        public void UpdateSettings(Settings newPreset) {
+            currentPreset = newPreset;
         }
 
         public void GenerateName() {
-            Name newName = new Name(settings);
+            Name newName = new Name(currentPreset);
             newName.Generate();
-            generatedNames.Add(newName.namestring);
+            generatedNames.Push(newName.namestring);
         }
 
         public string GetLastName() {
             return generatedNames.Last();
         }
 
-        public List<string> GetAllNames() {
-            return generatedNames;
+        public string GetNameAtIndex(int index) {
+            return generatedNames.ElementAt(index);
         }
 
-        //private static 
+        public Stack<string> GetAllNames() {
+            return generatedNames;
+        }
     }
 }
