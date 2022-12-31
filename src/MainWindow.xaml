@@ -51,28 +51,118 @@
                 Fill="LightGray"
                 Canvas.ZIndex="1" />
 
-            <Grid Canvas.ZIndex="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+            <StackPanel Canvas.ZIndex="2"
+                        Width="800">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!-- FILEPATH -->
+                    <TextBlock
+                        Name="tblockFilepath"
+                        Text="source table:"
+                        FontSize="15"
+                        Margin="5 5 5 2"
+                        Grid.Column="0"
+                        Grid.Row="0"/>
+
+                    <TextBox
+                        Name="tboxFilepath"
+                        Text="filepath"
+                        FontSize="15"
+                        Width="200"
+                        Margin="5 5 5 2"
+                        Grid.Column="1"
+                        Grid.Row="0"/>
+
+
+
+                    <!-- MAX CONS IN ROW -->
+                    <TextBlock
+                        Name="tblockMaxCons"
+                        Text="max consonants in a row:"
+                        FontSize="15"
+                        Margin="40 5 5 2"
+                        Grid.Column="2"
+                        Grid.Row="0"/>
                 
-                <TextBlock
-                    Name="tblockFilepath"
-                    Text="source table:"
-                    FontSize="15"
-                    Margin="5 5 5 5"
-                    Grid.Column="0"/>
+                
 
-                <TextBox
-                    Name="tboxFilepath"
-                    Text="filepath"
-                    FontSize="15"
-                    Width="200"
-                    Margin="5 5 5 5"
-                    Grid.Column="1"/>
-            </Grid>
+                    <!-- MAX VOWS IN ROW -->
+                    <TextBlock
+                        Name="tblockMaxVows"
+                        Text="max vows in a row:"
+                        FontSize="15"
+                        Margin="40 2 5 2"
+                        Grid.Column="2"
+                        Grid.Row="1"/>
 
+                    <!-- PRESET NAME -->
+                    <TextBlock 
+                        Name="tblockPresetName"
+                        Text="preset name:"
+                        FontSize="15"
+                        Margin="5 5 5 2"
+                        Grid.Column="0"
+                        Grid.Row="5" />
+
+                    <TextBox 
+                        Name="tboxPresetName"
+                        Text="newname"
+                        FontSize="15"
+                        Width="200"
+                        Margin="5 5 5 2"
+                        Grid.Column="1"
+                        Grid.Row="5" />
+
+                    <!-- SAVE LOAD BUTTONS -->
+                    <Grid Grid.Column="2"
+                          Grid.Row="5" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button
+                        Name="buttonLoad"
+                        Content="load"
+                        Grid.Column="0"/>
+
+                        <Button
+                        Name="buttonSave"
+                        Content="save"
+                        Grid.Column="1"/>
+
+                        <Button
+                        Name="buttonSaveas"
+                        Content="save as..."
+                        Grid.Column="2"/>
+                    </Grid>
+
+                </Grid>
+
+                
+
+
+            </StackPanel>
+
+            <!-- COVER IMAGES -->
             <Image
                 Name="bgImage"
                 Source="../materials/images/temp.jpg"
