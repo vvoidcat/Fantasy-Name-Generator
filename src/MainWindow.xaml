@@ -70,13 +70,14 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <!-- FILEPATH -->
                     <TextBlock
                         Name="tblockFilepath"
                         Text="source table:"
-                        FontSize="15"
+                        FontSize="12"
                         Margin="5 5 5 2"
                         Grid.Column="0"
                         Grid.Row="0"/>
@@ -84,55 +85,34 @@
                     <TextBox
                         Name="tboxFilepath"
                         Text="filepath"
-                        FontSize="15"
+                        FontSize="12"
                         Width="200"
                         Margin="5 5 5 2"
                         Grid.Column="1"
                         Grid.Row="0"/>
-
-
-
-                    <!-- MAX CONS IN ROW -->
-                    <TextBlock
-                        Name="tblockMaxCons"
-                        Text="max consonants in a row:"
-                        FontSize="15"
-                        Margin="40 5 5 2"
-                        Grid.Column="2"
-                        Grid.Row="0"/>
-                
-                
-
-                    <!-- MAX VOWS IN ROW -->
-                    <TextBlock
-                        Name="tblockMaxVows"
-                        Text="max vows in a row:"
-                        FontSize="15"
-                        Margin="40 2 5 2"
-                        Grid.Column="2"
-                        Grid.Row="1"/>
 
                     <!-- PRESET NAME -->
                     <TextBlock 
                         Name="tblockPresetName"
-                        Text="preset name:"
-                        FontSize="15"
+                        Text="display name:"
+                        FontSize="12"
                         Margin="5 5 5 2"
                         Grid.Column="0"
-                        Grid.Row="5" />
+                        Grid.Row="1" />
 
                     <TextBox 
                         Name="tboxPresetName"
                         Text="newname"
-                        FontSize="15"
+                        FontSize="12"
                         Width="200"
                         Margin="5 5 5 2"
                         Grid.Column="1"
-                        Grid.Row="5" />
+                        Grid.Row="1" />
 
                     <!-- SAVE LOAD BUTTONS -->
-                    <Grid Grid.Column="2"
-                          Grid.Row="5" >
+                    <Grid Grid.Column="1"
+                          Grid.Row="2"
+                          Margin="5 2 5 2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
@@ -155,6 +135,50 @@
                         Grid.Column="2"/>
                     </Grid>
 
+
+                    <!-- MAX CONS IN ROW -->
+                    <TextBlock
+                        Name="tblockMaxCons"
+                        Text="max consonants in a row:"
+                        FontSize="12"
+                        Margin="40 5 5 2"
+                        Grid.Column="2"
+                        Grid.Row="0"/>
+                
+                    <!-- MAX VOWS IN ROW -->
+                    <TextBlock
+                        Name="tblockMaxVows"
+                        Text="max vows in a row:"
+                        FontSize="12"
+                        Margin="40 2 5 2"
+                        Grid.Column="2"
+                        Grid.Row="1"/>
+
+                    <!-- NAME LENGTH -->
+                    <TextBlock
+                        Name="tblockMinLength"
+                        Text="min length:"
+                        FontSize="12"
+                        Margin="40 2 5 2"
+                        Grid.Column="2"
+                        Grid.Row="2"/>
+
+                    <TextBlock
+                        Name="tblockMaxLength"
+                        Text="max length:"
+                        FontSize="12"
+                        Margin="40 2 5 2"
+                        Grid.Column="2"
+                        Grid.Row="3"/>
+
+                    <!-- LETTER REPEATS -->
+                    <TextBlock
+                        Name="tblockRepeats"
+                        Text="letter repeats:"
+                        FontSize="12"
+                        Margin="40 2 5 2"
+                        Grid.Column="2"
+                        Grid.Row="4"/>
                 </Grid>
 
                 
