@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:fantasy_namegen"
         mc:Ignorable="d"
         ResizeMode="CanMinimize"
-        Title="fantasy-namegen" Height="600" Width="810">
+        Title="fantasy-namegen" Height="600" Width="830">
     
     <StackPanel>
 
@@ -61,7 +61,7 @@
             <Rectangle
                 Name="bgOverlay"
                 Height="120"
-                Width="810" 
+                Width="830" 
                 Fill="Lavender"
                 Canvas.ZIndex="1" />
 
@@ -74,7 +74,7 @@
                         Orientation="Horizontal">
 
 
-                <StackPanel Margin="15 0 0 0">
+                <StackPanel Margin="25 0 0 0">
 
                     <!-- SAVE LOAD BUTTONS -->
                     <Grid Margin="0 0 0 3">
@@ -192,7 +192,7 @@
                 
                 
                 <!-- NAMEGEN SETTINGS -->
-                <StackPanel Margin="15 0 0 0">
+                <StackPanel Margin="20 0 0 0">
 
                     <!-- MIN MAX LENGTH -->
                     <StackPanel Orientation="Horizontal"
@@ -213,7 +213,7 @@
 
                         <Button Name="buttonMinLengthLesser"
                                 Content="&lt;"
-                                Margin="15 0 0 0"
+                                Margin="10 0 0 0"
                                 Padding="0 -2 0 0"
                                 BorderThickness="1"
                                 BorderBrush="DarkGray"
@@ -245,11 +245,11 @@
                             Name="tblockMaxLength"
                             Text="max:"
                             FontSize="12"
-                            Margin="15 0 0 0"/>
+                            Margin="20 0 0 0"/>
 
                         <Button Name="buttonMaxLengthLesser"
                                 Content="&lt;"
-                                Margin="15 0 0 0"
+                                Margin="10 0 0 0"
                                 Padding="0 -2 0 0"
                                 BorderThickness="1"
                                 BorderBrush="DarkGray"
@@ -342,14 +342,14 @@
                                     Height="18"
                                     Minimum="1"
                                     Maximum="3"
-                                    Value="1"
+                                    Value="2"
                                     IsSnapToTickEnabled="True"
                                     TickFrequency="1"
                                     AutoToolTipPlacement="TopLeft"/>
 
                                 <TextBlock
                                     Name="tblockConsMaxValue"
-                                    Text="3"
+                                    Text="2"
                                     HorizontalAlignment="Center"
                                     Margin="4 0 0 0"
                                     Width="18"
@@ -386,7 +386,7 @@
 
 
                         <!-- VOWS LABELS -->
-                        <StackPanel Margin="25 0 0 0">
+                        <StackPanel Margin="20 0 0 0">
                             <TextBlock
                                 Name="tblockVonsMaxRow"
                                 Text="max in a row:"
@@ -420,14 +420,14 @@
                                     Height="18"
                                     Minimum="1"
                                     Maximum="3"
-                                    Value="1"
+                                    Value="2"
                                     IsSnapToTickEnabled="True"
                                     TickFrequency="1"
                                     AutoToolTipPlacement="TopLeft"/>
 
                                 <TextBlock
                                     Name="tblockVowsMaxValue"
-                                    Text="3"
+                                    Text="2"
                                     HorizontalAlignment="Center"
                                     Margin="4 0 0 0"
                                     Width="18"
@@ -472,7 +472,7 @@
                 Name="bgImage"
                 Source="../materials/images/temp.jpg"
                 Height="120"
-                Width="800"
+                Width="830"
                 Stretch="Fill" 
                 Canvas.ZIndex="0" />
         </Canvas>
@@ -481,23 +481,62 @@
         
         
         <!-- GENERATION -->
-        <StackPanel>
+        <StackPanel Margin="0 120 0 10">
+
             <StackPanel Orientation="Horizontal"
-                        Margin="0 170 0 10"
+                        Margin="0 20 0 0"
+                        HorizontalAlignment="Center">
+
+                <Button
+                    Name="buttonChosenPresetLesser"
+                    Content="&lt;"
+                    Width="20"
+                    Height="20"
+                    BorderThickness="0"
+                    Background="White"
+                    Foreground="DimGray"/>
+
+                <TextBlock
+                    Name="tblockChosenPreset"
+                    Text="Italian"
+                    FontSize="20"
+                    FontWeight="Light"
+                    Width="90"
+                    Foreground="DimGray"
+                    HorizontalAlignment="Center"
+                    TextAlignment="Center"/>
+
+                <Button
+                    Name="buttonChosenPresetGreater"
+                    Content="&gt;"
+                    Width="20"
+                    Height="20"
+                    BorderThickness="0"
+                    Background="White"
+                    Foreground="DimGray"/>
+            </StackPanel>
+
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="0 10 0 10"
                         HorizontalAlignment="Center">
 
                 <ComboBox Name="cboxGender"
                           FontSize="15"
                           Width="105"
+                          BorderThickness="0"
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center">
                     <ComboBoxItem
                             IsSelected="True"
-                            Content="Male"/>
+                            Content="Male"
+                            BorderThickness="0"/>
                     <ComboBoxItem
-                            Content="Female"/>
+                            Content="Female"
+                            BorderThickness="0"/>
                     <ComboBoxItem
-                            Content="Neutral"/>
+                            Content="Neutral"
+                            BorderThickness="0"/>
                 </ComboBox>
 
                 <Button
@@ -507,7 +546,7 @@
                     FontSize="19"
                     Width="150"
                     Height="35"
-                    BorderThickness="1"
+                    BorderThickness="0"
                     BorderBrush="DarkGray"
                     Background="Lavender"
                     HorizontalAlignment="Center"
@@ -530,7 +569,7 @@
                         Grid.Column="0"
                         Width="35"
                         Height="35"
-                        BorderThickness="1"
+                        BorderThickness="0"
                         BorderBrush="White"
                         Background="White"/>
 
@@ -541,7 +580,7 @@
                         Grid.Column="1"
                         Width="35"
                         Height="35"
-                        BorderThickness="1"
+                        BorderThickness="0"
                         BorderBrush="White"
                         Background="White"/>
 
@@ -552,7 +591,7 @@
                         Grid.Column="2"
                         Width="35"
                         Height="35"
-                        BorderThickness="1"
+                        BorderThickness="0"
                         BorderBrush="White"
                         Background="White"/>
                 </Grid>
