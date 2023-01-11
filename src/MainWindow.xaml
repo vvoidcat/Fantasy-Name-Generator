@@ -24,7 +24,7 @@
                 Grid.Column="0"
                 Content="application settings"
                 BorderThickness="1"
-                BorderBrush="DarkGray"
+                BorderBrush="LightGray"
                 Background="LightGoldenrodYellow"
                 Click="On_buttonSettings_Clicked" />
             <Button
@@ -32,7 +32,7 @@
                 Grid.Column="1"
                 Content="presets"
                 BorderThickness="1"
-                BorderBrush="DarkGray"
+                BorderBrush="LightGray"
                 Background="LightGoldenrodYellow"
                 Click="On_buttonPresets_Clicked" />
             <Button
@@ -40,7 +40,7 @@
                 Grid.Column="2"
                 Content="custom preset"
                 BorderThickness="1"
-                BorderBrush="DarkGray"
+                BorderBrush="LightGray"
                 Background="LightGoldenrodYellow"
                 Click="On_buttonCustom_Clicked" />
             <Button
@@ -48,7 +48,7 @@
                 Grid.Column="3"
                 Content="history"
                 BorderThickness="1"
-                BorderBrush="DarkGray"
+                BorderBrush="LightGray"
                 Background="LightGoldenrodYellow"
                 Click="On_buttonHistory_Clicked" />
         </Grid>
@@ -90,7 +90,7 @@
                             Grid.Column="0"
                             Height="23"
                             BorderThickness="1"
-                            BorderBrush="DarkGray"
+                            BorderBrush="LightGray"
                             Background="Lavender"/>
 
                         <Button
@@ -98,7 +98,7 @@
                             Content="save"
                             Grid.Column="1"
                             BorderThickness="1"
-                            BorderBrush="DarkGray"
+                            BorderBrush="LightGray"
                             Background="Lavender"/>
 
                         <Button
@@ -106,7 +106,7 @@
                             Content="save as..."
                             Grid.Column="2"
                             BorderThickness="1"
-                            BorderBrush="DarkGray"
+                            BorderBrush="LightGray"
                             Background="Lavender"/>
                     </Grid>
 
@@ -146,7 +146,9 @@
                                     Margin="0 2"
                                     FontSize="12"
                                     Height="20"
-                                    Width="150"/>
+                                    Width="150"
+                                    BorderThickness="1"
+                                    BorderBrush="LightGray"/>
 
                                 <Button
                                     Name="buttonFilepath"
@@ -155,7 +157,7 @@
                                     Height="20"
                                     Width="20"
                                     BorderThickness="1"
-                                    BorderBrush="DarkGray"
+                                    BorderBrush="LightGray"
                                     Background="Lavender"/>
                             </StackPanel>
 
@@ -165,7 +167,9 @@
                                     Text="../dir/cover.jpg"
                                     Margin="0 2"
                                     FontSize="12"
-                                    Width="150"/>
+                                    Width="150"
+                                    BorderThickness="1"
+                                    BorderBrush="LightGray"/>
 
                                 <Button
                                     Name="buttonCoverpath"
@@ -174,7 +178,7 @@
                                     Height="20"
                                     Width="20"
                                     BorderThickness="1"
-                                    BorderBrush="DarkGray"
+                                    BorderBrush="LightGray"
                                     Background="Lavender"/>
                             </StackPanel>
 
@@ -184,7 +188,9 @@
                                 Margin="0 2"
                                 FontSize="12"
                                 Grid.Column="1"
-                                Grid.Row="1" />
+                                Grid.Row="1" 
+                                BorderThickness="1"
+                                BorderBrush="LightGray"/>
                         </StackPanel>
                     </StackPanel>
                     
@@ -216,7 +222,7 @@
                                 Margin="10 0 0 0"
                                 Padding="0 -2 0 0"
                                 BorderThickness="1"
-                                BorderBrush="DarkGray"
+                                BorderBrush="LightGray"
                                 Background="Lavender"
                                 Height="18"
                                 Width="18"/>
@@ -228,6 +234,8 @@
                                  HorizontalContentAlignment="Center"
                                  VerticalContentAlignment="Top"
                                  Padding="0 0 0 0"
+                                 BorderThickness="1"
+                                 BorderBrush="LightGray"
                                  Height="18"
                                  Width="30"/>
 
@@ -235,7 +243,7 @@
                                 Content="&gt;"
                                 Padding="0 -2 0 0"
                                 BorderThickness="1"
-                                BorderBrush="DarkGray"
+                                BorderBrush="LightGray"
                                 Background="Lavender"
                                 Height="18"
                                 Width="18"/>
@@ -252,7 +260,7 @@
                                 Margin="10 0 0 0"
                                 Padding="0 -2 0 0"
                                 BorderThickness="1"
-                                BorderBrush="DarkGray"
+                                BorderBrush="LightGray"
                                 Background="Lavender"
                                 Height="18"
                                 Width="18"/>
@@ -264,6 +272,8 @@
                                  HorizontalContentAlignment="Center"
                                  VerticalContentAlignment="Top"
                                  Padding="0 0 0 0"
+                                 BorderThickness="1"
+                                 BorderBrush="LightGray"
                                  Height="18"
                                  Width="30"/>
 
@@ -271,7 +281,7 @@
                                 Content="&gt;"
                                 Padding="0 -2 0 0"
                                 BorderThickness="1"
-                                BorderBrush="DarkGray"
+                                BorderBrush="LightGray"
                                 Background="Lavender"
                                 Height="18"
                                 Width="18"/>
@@ -365,7 +375,7 @@
                                     Height="18"
                                     Minimum="1"
                                     Maximum="100"
-                                    Value="1"
+                                    Value="50"
                                     IsSnapToTickEnabled="True"
                                     TickFrequency="1"
                                     AutoToolTipPlacement="TopLeft"/>
@@ -381,7 +391,9 @@
 
                             <CheckBox
                                 Name="checkConsRepeats"
-                                Margin="-2 1 0 0"/>
+                                Margin="-2 1 0 0"
+                                BorderThickness="1"
+                                BorderBrush="LightGray"/>
                         </StackPanel>
 
 
@@ -443,7 +455,7 @@
                                     Height="18"
                                     Minimum="1"
                                     Maximum="100"
-                                    Value="1"
+                                    Value="50"
                                     IsSnapToTickEnabled="True"
                                     TickFrequency="1"
                                     AutoToolTipPlacement="TopLeft"/>
@@ -459,7 +471,9 @@
                             
                             <CheckBox
                                 Name="checkVowsRepeats"
-                                Margin="-2 1 0 0"/>
+                                Margin="-2 1 0 0"
+                                BorderThickness="1"
+                                BorderBrush="LightGray"/>
                         </StackPanel>
                     </StackPanel>
 
@@ -547,7 +561,7 @@
                     Width="150"
                     Height="35"
                     BorderThickness="0"
-                    BorderBrush="DarkGray"
+                    BorderBrush="LightGray"
                     Background="Lavender"
                     HorizontalAlignment="Center"
                     HorizontalContentAlignment="Center"
