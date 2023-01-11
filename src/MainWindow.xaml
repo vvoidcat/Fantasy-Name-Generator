@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:fantasy_namegen"
         mc:Ignorable="d"
+        ResizeMode="CanMinimize"
         Title="fantasy-namegen" Height="600" Width="800"
                                 MinHeight="600" MinWidth="800"
                                 MaxHeight="600" MaxWidth="800">
@@ -24,21 +25,33 @@
                 Name="buttonSettings"
                 Grid.Column="0"
                 Content="application settings"
+                BorderThickness="1"
+                BorderBrush="DarkGray"
+                Background="LightGoldenrodYellow"
                 Click="On_buttonSettings_Clicked" />
             <Button
                 Name="buttonPresets"
                 Grid.Column="1"
                 Content="presets"
+                BorderThickness="1"
+                BorderBrush="DarkGray"
+                Background="LightGoldenrodYellow"
                 Click="On_buttonPresets_Clicked" />
             <Button
                 Name="buttonCustom"
                 Grid.Column="2"
                 Content="custom preset"
+                BorderThickness="1"
+                BorderBrush="DarkGray"
+                Background="LightGoldenrodYellow"
                 Click="On_buttonCustom_Clicked" />
             <Button
                 Name="buttonHistory"
                 Grid.Column="3"
                 Content="history"
+                BorderThickness="1"
+                BorderBrush="DarkGray"
+                Background="LightGoldenrodYellow"
                 Click="On_buttonHistory_Clicked" />
         </Grid>
 
@@ -49,7 +62,7 @@
                 Name="bgOverlay"
                 Height="120"
                 Width="800" 
-                Fill="LightGray"
+                Fill="Lavender"
                 Canvas.ZIndex="1" />
 
             <!-- CUSTOM PRESET PANEL -->
@@ -101,7 +114,10 @@
                             Content="..."
                             Margin="0 2"
                             Height="20"
-                            Width="20" />
+                            Width="20"
+                            BorderThickness="1"
+                            BorderBrush="DarkGray"
+                            Background="Lavender"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
@@ -117,7 +133,10 @@
                             Content="..."
                             Margin="0 2"
                             Height="20"
-                            Width="20" />
+                            Width="20"
+                            BorderThickness="1"
+                            BorderBrush="DarkGray"
+                            Background="Lavender"/>
                     </StackPanel>
 
                     <TextBox 
@@ -139,67 +158,172 @@
                         <Button
                             Name="buttonLoad"
                             Content="load"
-                            Grid.Column="0"/>
+                            Grid.Column="0"
+                            BorderThickness="1"
+                            BorderBrush="DarkGray"
+                            Background="Lavender"/>
 
                         <Button
                             Name="buttonSave"
                             Content="save"
-                            Grid.Column="1"/>
+                            Grid.Column="1"
+                            BorderThickness="1"
+                            BorderBrush="DarkGray"
+                            Background="Lavender"/>
 
                         <Button
                             Name="buttonSaveas"
                             Content="save as..."
-                            Grid.Column="2"/>
+                            Grid.Column="2"
+                            BorderThickness="1"
+                            BorderBrush="DarkGray"
+                            Background="Lavender"/>
                     </Grid>
                 </StackPanel>
 
 
                 <!-- LABELS NAMEGEN -->
                 <StackPanel Margin="15 3 3 3">
-                    
-                    <!-- MAX CONS IN ROW -->
-                    <TextBlock
-                        Name="tblockMaxCons"
-                        Text="max consonants in a row:"
-                        FontSize="12"
-                        Grid.Column="2"
-                        Grid.Row="0"/>
-
-                    <!-- MAX VOWS IN ROW -->
-                    <TextBlock
-                        Name="tblockMaxVows"
-                        Text="max vows in a row:"
-                        FontSize="12"
-                        Grid.Column="2"
-                        Grid.Row="1"/>
 
                     <!-- NAME LENGTH -->
                     <TextBlock
-                        Name="tblockMinLength"
-                        Text="min length:"
-                        FontSize="12"
-                        Grid.Column="2"
-                        Grid.Row="2"/>
+                        Name="tblockLength"
+                        Text="name length:"
+                        FontSize="12"/>
 
+                    <!-- CONS -->
                     <TextBlock
-                        Name="tblockMaxLength"
-                        Text="max length:"
+                        Name="tblockCons"
+                        Text="consonants:"
                         FontSize="12"
-                        Grid.Column="2"
-                        Grid.Row="3"/>
+                        Margin="0 8 3 3"/>
+
+                    <!-- VOWS -->
+                    <TextBlock
+                        Name="tblockVows"
+                        Text="vowels:"
+                        FontSize="12"
+                        Margin="0 8 3 3"/>
 
                     <!-- LETTER REPEATS -->
                     <TextBlock
                         Name="tblockRepeats"
                         Text="letter repeats:"
                         FontSize="12"
-                        Grid.Column="2"
-                        Grid.Row="4"/>
+                        Margin="0 8 3 3"/>
                 </StackPanel>
 
-
-                <!-- INPUT FIELDS NAMEGEN -->
                 
+                <!-- INPUT FIELDS NAMEGEN -->
+                <StackPanel Margin="15 3 3 3">
+
+
+                    <!-- MIN MAX LENGTH -->
+                    <StackPanel Orientation="Horizontal"
+                                Margin="15 0 0 3">
+
+                        <!-- MIN -->
+                        <TextBlock
+                            Name="tblockMinLength"
+                            Text="min:"
+                            FontSize="12"/>
+
+                        <Button Name="buttonMinLengthLesser"
+                                Content="&lt;"
+                                Margin="15 0 0 0"
+                                Padding="0 -2 0 0"
+                                BorderThickness="1"
+                                BorderBrush="DarkGray"
+                                Background="Lavender"
+                                Height="20"
+                                Width="20"/>
+
+                        <TextBox Name="tboxMinLength"
+                                 Text="3"
+                                 IsReadOnly="True"
+                                 FontSize="12"
+                                 HorizontalContentAlignment="Center"
+                                 VerticalContentAlignment="Top"
+                                 Padding="0 0 0 0"
+                                 Height="20"
+                                 Width="30"/>
+
+                        <Button Name="buttonMinLengthGreater"
+                                Content="&gt;"
+                                Padding="0 -2 0 0"
+                                BorderThickness="1"
+                                BorderBrush="DarkGray"
+                                Background="Lavender"
+                                Height="20"
+                                Width="20"/>
+
+                        <!-- MAX -->
+                        <TextBlock
+                            Name="tblockMaxLength"
+                            Text="max:"
+                            FontSize="12"
+                            Margin="15 0 0 0"/>
+
+                        <Button Name="buttonMaxLengthLesser"
+                                Content="&lt;"
+                                Margin="15 0 0 0"
+                                Padding="0 -2 0 0"
+                                BorderThickness="1"
+                                BorderBrush="DarkGray"
+                                Background="Lavender"
+                                Height="20"
+                                Width="20"/>
+
+                        <TextBox Name="tboxMaxLength"
+                                 Text="10"
+                                 IsReadOnly="True"
+                                 FontSize="12"
+                                 HorizontalContentAlignment="Center"
+                                 VerticalContentAlignment="Top"
+                                 Padding="0 0 0 0"
+                                 Height="20"
+                                 Width="30"/>
+
+                        <Button Name="buttonMaxLengthGreater"
+                                Content="&gt;"
+                                Padding="0 -2 0 0"
+                                BorderThickness="1"
+                                BorderBrush="DarkGray"
+                                Background="Lavender"
+                                Height="20"
+                                Width="20"/>
+                    </StackPanel>
+
+
+                    <!-- CONS IN A ROW -->
+                    <StackPanel Orientation="Horizontal"
+                                Margin="15 0 0 3">
+
+                        <TextBlock
+                            Name="tblockConsMaxRow"
+                            Text="max in a row:"
+                            FontSize="12"/>
+
+                        <Slider Name="sbarConsMax"
+                                Orientation="Horizontal"
+                                Width="50"
+                                Minimum="1"
+                                Maximum="3"
+                                Value="1"
+                                IsSnapToTickEnabled="True"
+                                TickFrequency="1"
+                                AutoToolTipPlacement="TopLeft"/>
+
+                        <TextBlock
+                            Name="tblockConsPerc"
+                            Text="spawn percentage chance:"
+                            FontSize="12"/>
+                    </StackPanel>
+
+                    
+                    <!-- VOWS IN A ROW -->
+
+                </StackPanel>
             </StackPanel>
 
             
@@ -219,16 +343,81 @@
         
         <!-- GENERATION -->
         <StackPanel>
-            <Button
-                Name="buttonGenerate"
-                Content="generate"
-                FontSize="19"
-                Margin="10 170 10 10"
-                Width="150"
-                Height="35"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Top"
-                Click="On_buttonGenerate_Clicked" />
+            <StackPanel Orientation="Horizontal"
+                        Margin="0 170 0 10"
+                        HorizontalAlignment="Center">
+
+                <ComboBox Name="cboxGender"
+                          FontSize="15"
+                          Width="105"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center">
+                    <ComboBoxItem
+                            IsSelected="True"
+                            Content="Male"/>
+                    <ComboBoxItem
+                            Content="Female"/>
+                    <ComboBoxItem
+                            Content="Neutral"/>
+                </ComboBox>
+
+                <Button
+                    Name="buttonGenerate"
+                    Content="generate"
+                    FontWeight="Bold"
+                    FontSize="19"
+                    Width="150"
+                    Height="35"
+                    BorderThickness="1"
+                    BorderBrush="DarkGray"
+                    Background="Lavender"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Top"
+                    Grid.Column="2"
+                    Click="On_buttonGenerate_Clicked" />
+
+                <Grid Grid.Column="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <Button
+                        Name="buttonGenNum_1"
+                        Content="1"
+                        FontSize="15"
+                        Grid.Column="0"
+                        Width="35"
+                        Height="35"
+                        BorderThickness="1"
+                        BorderBrush="White"
+                        Background="White"/>
+
+                    <Button
+                        Name="buttonGenNum_5"
+                        Content="5"
+                        FontSize="15"
+                        Grid.Column="1"
+                        Width="35"
+                        Height="35"
+                        BorderThickness="1"
+                        BorderBrush="White"
+                        Background="White"/>
+
+                    <Button
+                        Name="buttonGenNum_10"
+                        Content="10"
+                        FontSize="15"
+                        Grid.Column="2"
+                        Width="35"
+                        Height="35"
+                        BorderThickness="1"
+                        BorderBrush="White"
+                        Background="White"/>
+                </Grid>
+            </StackPanel>
 
             <TextBlock 
                 Name="textName_0"
