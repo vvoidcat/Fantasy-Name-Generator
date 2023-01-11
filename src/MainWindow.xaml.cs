@@ -49,7 +49,7 @@ namespace fantasy_namegen {
             }
         }
 
-        private void On_buttonGenerate_Clicked(object sender, EventArgs eventArgs) {
+        private void On_buttonGenerate_Clicked(object sender, RoutedEventArgs e) {
             gen.GenerateName();
 
             if (gen.GetAllNames() is not null) {
@@ -57,6 +57,34 @@ namespace fantasy_namegen {
                     nameBlocks[i].Text = gen.GetNameAtIndex(i);
                 }
             }
+        }
+
+        private void On_buttonSettings_Clicked(object sender, RoutedEventArgs e) {
+            //
+        }
+
+        private void On_buttonPresets_Clicked(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void On_buttonCustom_Clicked(object sender, RoutedEventArgs e) {
+            if (panelCustom.Visibility == Visibility.Visible) {
+                panelCustom.Visibility = Visibility.Collapsed;
+                bgOverlay.Visibility = Visibility.Collapsed;
+            } else {
+                panelCustom.Visibility = Visibility.Visible;
+                bgOverlay.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void On_buttonHistory_Clicked(object sender, RoutedEventArgs e) {
+            //if (panelCustom.Visibility == Visibility.Visible) {
+            //    panelCustom.Visibility = Visibility.Collapsed;
+            //    bgOverlay.Visibility = Visibility.Collapsed;
+            //} else {
+            //    panelCustom.Visibility = Visibility.Visible;
+            //    bgOverlay.Visibility = Visibility.Visible;
+            //}
         }
     }
 }

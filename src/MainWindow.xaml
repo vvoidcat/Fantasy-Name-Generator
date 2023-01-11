@@ -11,7 +11,7 @@
     
     <StackPanel>
 
-        <!-- APP SETTINGS CONROL -->
+        <!-- UPPER PANEL CONROL -->
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -23,27 +23,28 @@
             <Button
                 Name="buttonSettings"
                 Grid.Column="0"
-                Content="settings" />
+                Content="application settings"
+                Click="On_buttonSettings_Clicked" />
             <Button
                 Name="buttonPresets"
                 Grid.Column="1"
-                Content="presets" />
+                Content="presets"
+                Click="On_buttonPresets_Clicked" />
             <Button
                 Name="buttonCustom"
                 Grid.Column="2"
-                Content="custom" />
+                Content="custom preset"
+                Click="On_buttonCustom_Clicked" />
             <Button
                 Name="buttonHistory"
                 Grid.Column="3"
-                Content="history" />
+                Content="history"
+                Click="On_buttonHistory_Clicked" />
         </Grid>
 
-        <!--
-        <TextBox Text="aboba aboba aboba aboba" />
-        -->
 
-        <!-- APP SETTINGS -->
-        <Canvas>
+        <!-- UPPER PANEL -->
+        <Canvas Name="canvasUpperPanel">
             <Rectangle
                 Name="bgOverlay"
                 Height="120"
@@ -51,68 +52,84 @@
                 Fill="LightGray"
                 Canvas.ZIndex="1" />
 
-            <StackPanel Canvas.ZIndex="2"
-                        Width="800">
+            <!-- CUSTOM PRESET PANEL -->
+            <StackPanel Name="panelCustom"
+                        Canvas.ZIndex="2"
+                        Margin="5 2 5 5"
+                        Orientation="Horizontal">
 
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="2*" />
-                        <ColumnDefinition Width="2*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-
-                    <!-- FILEPATH -->
+                
+                <!-- LABELS GENERAL -->
+                <StackPanel Margin="3 3 3 3">
                     <TextBlock
                         Name="tblockFilepath"
                         Text="source table:"
+                        Margin="0 2"
                         FontSize="12"
-                        Margin="5 5 5 2"
-                        Grid.Column="0"
-                        Grid.Row="0"/>
+                        Height="20"/>
 
-                    <TextBox
-                        Name="tboxFilepath"
-                        Text="filepath"
+                    <TextBlock
+                        Name="tblockCover"
+                        Text="cover image:"
+                        Margin="0 2"
                         FontSize="12"
-                        Width="200"
-                        Margin="5 5 5 2"
-                        Grid.Column="1"
-                        Grid.Row="0"/>
+                        Height="20"/>
 
-                    <!-- PRESET NAME -->
                     <TextBlock 
                         Name="tblockPresetName"
-                        Text="display name:"
+                        Text="preset name:"
+                        Margin="0 2"
                         FontSize="12"
-                        Margin="5 5 5 2"
-                        Grid.Column="0"
-                        Grid.Row="1" />
+                        Height="20"/>
+                </StackPanel>
+
+                
+                <!-- INPUT FIELDS GENERAL -->
+                <StackPanel Margin="3 3 3 3">
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox
+                            Name="tboxFilepath"
+                            Text="filepath"
+                            Margin="0 2"
+                            FontSize="12"
+                            Height="20"
+                            Width="200"/>
+
+                        <Button
+                            Name="buttonFilepath"
+                            Content="..."
+                            Margin="0 2"
+                            Height="20"
+                            Width="20" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox
+                            Name="tboxCoverpath"
+                            Text="../dir/cover.jpg"
+                            Margin="0 2"
+                            FontSize="12"
+                            Width="200"/>
+
+                        <Button
+                            Name="buttonCoverpath"
+                            Content="..."
+                            Margin="0 2"
+                            Height="20"
+                            Width="20" />
+                    </StackPanel>
 
                     <TextBox 
                         Name="tboxPresetName"
                         Text="newname"
+                        Margin="0 2"
                         FontSize="12"
-                        Width="200"
-                        Margin="5 5 5 2"
                         Grid.Column="1"
                         Grid.Row="1" />
 
                     <!-- SAVE LOAD BUTTONS -->
-                    <Grid Grid.Column="1"
-                          Grid.Row="2"
-                          Margin="5 2 5 2">
+                    <Grid Margin="0 2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
@@ -120,37 +137,39 @@
                         </Grid.ColumnDefinitions>
 
                         <Button
-                        Name="buttonLoad"
-                        Content="load"
-                        Grid.Column="0"/>
+                            Name="buttonLoad"
+                            Content="load"
+                            Grid.Column="0"/>
 
                         <Button
-                        Name="buttonSave"
-                        Content="save"
-                        Grid.Column="1"/>
+                            Name="buttonSave"
+                            Content="save"
+                            Grid.Column="1"/>
 
                         <Button
-                        Name="buttonSaveas"
-                        Content="save as..."
-                        Grid.Column="2"/>
+                            Name="buttonSaveas"
+                            Content="save as..."
+                            Grid.Column="2"/>
                     </Grid>
+                </StackPanel>
 
 
+                <!-- LABELS NAMEGEN -->
+                <StackPanel Margin="15 3 3 3">
+                    
                     <!-- MAX CONS IN ROW -->
                     <TextBlock
                         Name="tblockMaxCons"
                         Text="max consonants in a row:"
                         FontSize="12"
-                        Margin="40 5 5 2"
                         Grid.Column="2"
                         Grid.Row="0"/>
-                
+
                     <!-- MAX VOWS IN ROW -->
                     <TextBlock
                         Name="tblockMaxVows"
                         Text="max vows in a row:"
                         FontSize="12"
-                        Margin="40 2 5 2"
                         Grid.Column="2"
                         Grid.Row="1"/>
 
@@ -159,7 +178,6 @@
                         Name="tblockMinLength"
                         Text="min length:"
                         FontSize="12"
-                        Margin="40 2 5 2"
                         Grid.Column="2"
                         Grid.Row="2"/>
 
@@ -167,7 +185,6 @@
                         Name="tblockMaxLength"
                         Text="max length:"
                         FontSize="12"
-                        Margin="40 2 5 2"
                         Grid.Column="2"
                         Grid.Row="3"/>
 
@@ -176,17 +193,20 @@
                         Name="tblockRepeats"
                         Text="letter repeats:"
                         FontSize="12"
-                        Margin="40 2 5 2"
                         Grid.Column="2"
                         Grid.Row="4"/>
-                </Grid>
+                </StackPanel>
 
+
+                <!-- INPUT FIELDS NAMEGEN -->
                 
-
-
             </StackPanel>
 
-            <!-- COVER IMAGES -->
+            
+            
+
+
+            <!-- COVER IMAGE -->
             <Image
                 Name="bgImage"
                 Source="../materials/images/temp.jpg"
@@ -196,8 +216,8 @@
                 Canvas.ZIndex="0" />
         </Canvas>
 
-        <!-- GENERATE -->
-
+        
+        <!-- GENERATION -->
         <StackPanel>
             <Button
                 Name="buttonGenerate"
@@ -258,7 +278,6 @@
 
 
         <!-- LOGO -->
-
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
