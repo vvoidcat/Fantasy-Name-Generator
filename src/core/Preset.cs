@@ -17,7 +17,7 @@ namespace NAMEGEN.Core {
             [Index(1)] public string femaleName { get; set; }
             // familyName ?
         }
-
+        
         public int minLength { get; private set; }  // + probability
         public int maxLength { get; private set; }  // + probability
 
@@ -29,9 +29,9 @@ namespace NAMEGEN.Core {
 
         public Gender gender { get; private set; }
         public Alphabet alphabet { get; private set; }
-        public double[,] permutationMatrix { get; private set; }
-        public double[,] probabilityMatrixStart { get; private set; }
-        public double[,] probabilityMatrixEnd { get; private set; }
+        public Matrix permutationMatrix { get; private set; }
+        public Matrix probabilityMatrixStart { get; private set; }
+        public Matrix probabilityMatrixEnd { get; private set; }
 
 
         private string filepath { get; set; }
@@ -52,9 +52,9 @@ namespace NAMEGEN.Core {
             vowPercentageCorrection = 0.0f;
             conPercentageCorrection = 0.0f;
 
-            permutationMatrix = InitMatrix(alphabet.lettersCount, alphabet.lettersCount, 0.0f);
-            probabilityMatrixStart = InitMatrix(1, alphabet.lettersCount, 0.0f);
-            probabilityMatrixEnd = InitMatrix(1, alphabet.lettersCount, 0.0f);
+            permutationMatrix = new Matrix(alphabet.lettersCount, alphabet.lettersCount);
+            probabilityMatrixStart = new Matrix(1, alphabet.lettersCount);
+            probabilityMatrixEnd = new Matrix(1, alphabet.lettersCount);
 
             ParseSourceTable();     // arg source table
         }
@@ -70,15 +70,14 @@ namespace NAMEGEN.Core {
 
             if (File.Exists(filepath)) {
                 ReadSourceFile();
+                permutationMatrix.NormalizeMatrix();
+                probabilityMatrixStart.NormalizeMatrix();
+                probabilityMatrixEnd.NormalizeMatrix();
             } else {
-                permutationMatrix = InitMatrix(alphabet.lettersCount, alphabet.lettersCount, 0.5f);
-                probabilityMatrixStart = InitMatrix(1, alphabet.lettersCount, 0.5f);
-                probabilityMatrixEnd = InitMatrix(1, alphabet.lettersCount, 0.5f);
+                permutationMatrix.SetMatrix(0.5f);
+                probabilityMatrixStart.SetMatrix(0.5f);
+                probabilityMatrixEnd.SetMatrix(0.5f);
             }
-
-            NormalizeMatrix(permutationMatrix);
-            NormalizeMatrix(probabilityMatrixStart);
-            NormalizeMatrix(probabilityMatrixEnd);
         }
 
         private void ReadSourceFile() {
@@ -100,34 +99,12 @@ namespace NAMEGEN.Core {
             }
         }
 
-        private double[,] InitMatrix(int y, int x, double value) {
-            double[,] matrix = new double[y, x];
-
-            for (int i = 0; i < y; i++) {
-                for (int j = 0; j < x; j++) {
-                    matrix[i, j] = value;
-                }
-            }
-            return matrix;
-        }
-
         private void UpdateMatrices(NameRecord record) {
             if (!String.IsNullOrEmpty(record.maleName) && (gender == Gender.Male || gender == Gender.Neutral)) {
                 ProcessNameStr(record.maleName);
             }
             if (!String.IsNullOrEmpty(record.femaleName) && (gender == Gender.Female || gender == Gender.Neutral)) {
                 ProcessNameStr(record.femaleName);
-            }
-        }
-
-        private void UpdateLengthParams(string name) {
-            if (name.Length > 0) {
-                if (name.Length < minLength) {
-                    minLength = name.Length;
-                }
-                if (name.Length > maxLength) {
-                    maxLength = name.Length;
-                }
             }
         }
 
@@ -151,37 +128,12 @@ namespace NAMEGEN.Core {
                 }
 
                 if (i == 1) {
-                    IncrementMatrixValue(probabilityMatrixStart, 0, indexCurrent);
+                    probabilityMatrixStart.IncrementValueAtIndex(0, indexCurrent);
                 } else if (i == name.Length - 1) {
-                    IncrementMatrixValue(probabilityMatrixEnd, 0, indexNext);
+                    probabilityMatrixEnd.IncrementValueAtIndex(0, indexNext);
                 }
 
-                IncrementMatrixValue(permutationMatrix, indexCurrent, indexNext);
-            }
-        }
-
-        private void IncrementMatrixValue(double[,] matrix, int indexY, int indexX) {
-            matrix[indexY, indexX] += 1.0f;
-        }
-
-        private void NormalizeMatrix(double[,] matrix) {
-            int y = matrix.Length / alphabet.lettersCount;
-
-            for (int i = 0; i < y; i++) {
-                double max = 1.0f;
-                double sum = 0.0f;
-
-                for (int j = 0; j < alphabet.lettersCount; j++) {
-                    sum += matrix[i, j];
-                }
-
-                if (sum > 0.0f) {
-                    double norm = max / sum;
-
-                    for (int j = 0; j < alphabet.lettersCount; j++) {
-                        matrix[i, j] = matrix[i, j] * norm;
-                    }
-                }
+                permutationMatrix.IncrementValueAtIndex(indexCurrent, indexNext);
             }
         }
     }

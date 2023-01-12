@@ -57,12 +57,12 @@ namespace NAMEGEN.Core {
         }
 
         private bool IsAllowedProbability(int index, List<Letter> letters) {
-            return (letters.Count <= 0) ? CalculateResultFromPercentage(preset.probabilityMatrixStart[0, index]) :
-                        (letters.Count == length - 1) ? CalculateResultFromPercentage(preset.probabilityMatrixEnd[0, index]) : true;
+            return (letters.Count <= 0) ? CalculateResultFromPercentage(preset.probabilityMatrixStart.GetValueAtIndex(0, index)) :
+                        (letters.Count == length - 1) ? CalculateResultFromPercentage(preset.probabilityMatrixEnd.GetValueAtIndex(0, index)) : true;
         }
 
         private bool IsAllowedPermutation(int index, List<Letter> letters) {
-            return (letters.Count > 0) ? CalculateResultFromPercentage(preset.permutationMatrix[letters.Last().index, index]) : true;
+            return (letters.Count > 0) ? CalculateResultFromPercentage(preset.permutationMatrix.GetValueAtIndex(letters.Last().index, index)) : true;
         }
 
         private bool IsAllowedRepeat(int index, List<Letter> letters) {
