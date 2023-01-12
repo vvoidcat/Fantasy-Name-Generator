@@ -13,11 +13,11 @@ namespace NAMEGEN.Core {
         public StringBuilder namestring { get; private set; }
 
         private Random random;
-        private Settings settings;
+        private Preset preset;
 
-        public Name(Settings chosenSettings) {
+        public Name(Preset chosenPreset) {
             random = new Random();
-            settings = chosenSettings;
+            preset = chosenPreset;
             namestring = new StringBuilder();
             numVowels = 0;
             numConsonants = 0;
@@ -46,30 +46,30 @@ namespace NAMEGEN.Core {
                 index = ChooseRandomIndex();
                 isChosen = IsChoosableIndex(index, rowConsonants, rowVowels, letters);
             }
-            return settings.alphabet.letters[index];
+            return preset.alphabet.letters[index];
         }
 
         private bool IsChoosableIndex(int index, int rowConsonants, int rowVowels, List<Letter> letters) {
-            return (settings.alphabet.letters[index].isConsonant == IsConsonantChosen(rowConsonants, rowVowels)
+            return (preset.alphabet.letters[index].isConsonant == IsConsonantChosen(rowConsonants, rowVowels)
                     && IsAllowedPermutation(index, letters)
                     && IsAllowedProbability(index, letters)
                     && IsAllowedRepeat(index, letters)) ? true : false;
         }
 
         private bool IsAllowedProbability(int index, List<Letter> letters) {
-            return (letters.Count <= 0) ? CalculateResultFromPercentage(settings.probabilityMatrixStart[0, index]) :
-                        (letters.Count == length - 1) ? CalculateResultFromPercentage(settings.probabilityMatrixEnd[0, index]) : true;
+            return (letters.Count <= 0) ? CalculateResultFromPercentage(preset.probabilityMatrixStart[0, index]) :
+                        (letters.Count == length - 1) ? CalculateResultFromPercentage(preset.probabilityMatrixEnd[0, index]) : true;
         }
 
         private bool IsAllowedPermutation(int index, List<Letter> letters) {
-            return (letters.Count > 0) ? CalculateResultFromPercentage(settings.permutationMatrix[letters.Last().index, index]) : true;
+            return (letters.Count > 0) ? CalculateResultFromPercentage(preset.permutationMatrix[letters.Last().index, index]) : true;
         }
 
         private bool IsAllowedRepeat(int index, List<Letter> letters) {
             bool result = true;
 
             if (letters.Count >= 2) {
-                Letter chosenLetter = settings.alphabet.letters[index];
+                Letter chosenLetter = preset.alphabet.letters[index];
                 Letter lastLetter = letters[letters.Count - 1];
                 Letter prevLetter = letters[letters.Count - 2];
 
@@ -83,17 +83,17 @@ namespace NAMEGEN.Core {
         private bool IsConsonantChosen(int currentConRow, int currentVowRow) {
             bool isConsonant = false;
 
-            if (currentConRow == settings.maxRowCons || (namestring.Length == length - 1 && numVowels == 0)) {
+            if (currentConRow == preset.maxRowCons || (namestring.Length == length - 1 && numVowels == 0)) {
                 isConsonant = false;
-            } else if (currentVowRow == settings.maxRowVows) {
+            } else if (currentVowRow == preset.maxRowVows) {
                 isConsonant = true;
             } else {
                 double percentage = 0.50f;
 
                 if (currentVowRow > currentConRow) {
-                    percentage = CalculatePercentage(currentVowRow, settings.maxRowVows, settings.vowPercentageCorrection);
+                    percentage = CalculatePercentage(currentVowRow, preset.maxRowVows, preset.vowPercentageCorrection);
                 } else if (currentVowRow < currentConRow) {
-                    percentage = CalculatePercentage(currentConRow, settings.maxRowCons, settings.conPercentageCorrection);
+                    percentage = CalculatePercentage(currentConRow, preset.maxRowCons, preset.conPercentageCorrection);
                 }
                 isConsonant = CalculateResultFromPercentage(percentage);
             }
@@ -105,11 +105,11 @@ namespace NAMEGEN.Core {
         }
 
         private int ChooseRandomLength() {
-            return random.Next(settings.minLength, settings.maxLength);
+            return random.Next(preset.minLength, preset.maxLength);
         }
 
         private int ChooseRandomIndex() {
-            return random.Next(0, settings.alphabet.letters.Count - 1);
+            return random.Next(0, preset.alphabet.letters.Count - 1);
         }
 
         private void UpdateCounters(Letter chosenLetter, ref int currentConsonantRow, ref int currentVowelRow) {

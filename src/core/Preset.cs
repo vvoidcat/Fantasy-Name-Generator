@@ -11,7 +11,7 @@ using CsvHelper.Configuration.Attributes;
 using System.Data;
 
 namespace NAMEGEN.Core {
-    public class Settings {
+    public class Preset {
         public class NameRecord {
             [Index(0)] public string maleName { get; set; }
             [Index(1)] public string femaleName { get; set; }
@@ -37,7 +37,7 @@ namespace NAMEGEN.Core {
         private string filepath { get; set; }
 
 
-        public Settings(string newPath, Language lang) {
+        public Preset(string newPath, Language lang) {
             alphabet = new Alphabet(lang);
             filepath = newPath;
 

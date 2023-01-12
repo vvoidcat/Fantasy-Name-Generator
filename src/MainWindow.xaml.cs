@@ -24,7 +24,7 @@ namespace fantasy_namegen {
         Language lang = NAMEGEN.Core.Language.English;
         Gender gender = Gender.Neutral;
 
-        public Settings currentPreset { get; private set; }
+        public Preset currentPreset { get; private set; }
         private Generator gen;
 
         private List<TextBlock> nameBlocks;
@@ -34,7 +34,7 @@ namespace fantasy_namegen {
 
             // load saved progress if exists
 
-            currentPreset = new Settings(filepath, lang);
+            currentPreset = new Preset(filepath, lang);
             gen = new Generator(currentPreset);
 
             InitFields();

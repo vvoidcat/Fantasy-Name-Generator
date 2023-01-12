@@ -8,15 +8,15 @@ namespace NAMEGEN.Core {
     public class Generator {
         public List<string> generatedNames { get; private set; }
         // list of saved presets <Settings> ?
-        public Settings currentPreset { get; private set; }
+        public Preset currentPreset { get; private set; }
 
 
-        public Generator(Settings newPreset) {
+        public Generator(Preset newPreset) {
             generatedNames = new List<string>();
             currentPreset = newPreset;
         }
 
-        public void UpdateSettings(Settings newPreset) {
+        public void UpdateSettings(Preset newPreset) {
             currentPreset = newPreset;
         }
 
