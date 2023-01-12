@@ -497,6 +497,7 @@
         <!-- GENERATION -->
         <StackPanel Margin="0 120 0 10">
 
+            <!-- PRESET -->
             <StackPanel Orientation="Horizontal"
                         Margin="0 20 0 0"
                         HorizontalAlignment="Center">
@@ -531,10 +532,12 @@
             </StackPanel>
 
 
+            <!-- GENERATION FAST SETTINGS ROW -->
             <StackPanel Orientation="Horizontal"
                         Margin="0 10 0 10"
                         HorizontalAlignment="Center">
 
+                <!-- GENDER -->
                 <ComboBox Name="cboxGender"
                           FontSize="15"
                           Width="105"
@@ -542,17 +545,21 @@
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center">
                     <ComboBoxItem
+                            Name="cboxItemMale"
                             IsSelected="True"
                             Content="Male"
                             BorderThickness="0"/>
                     <ComboBoxItem
+                            Name="cboxItemFemale"
                             Content="Female"
                             BorderThickness="0"/>
                     <ComboBoxItem
+                            Name="cboxItemNeutral"
                             Content="Neutral"
                             BorderThickness="0"/>
                 </ComboBox>
 
+                <!-- GENERATE BUTTON -->
                 <Button
                     Name="buttonGenerate"
                     Content="generate"
@@ -569,6 +576,7 @@
                     Grid.Column="2"
                     Click="On_buttonGenerate_Clicked" />
 
+                <!-- NUMBER OF NAMES TO GENERATE -->
                 <Grid Grid.Column="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -611,6 +619,8 @@
                 </Grid>
             </StackPanel>
 
+
+            <!-- NAME FIELDS -->
             <TextBlock 
                 Name="textName_0"
                 Text="Thename"
