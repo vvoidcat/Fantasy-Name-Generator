@@ -23,8 +23,7 @@ namespace NAMEGEN.Core {
         public void GenerateName() {
             Name newName = new Name(currentPreset);
             newName.Generate();
-            //generatedNames.Push(newName.namestring);
-            generatedNames.Add(newName.namestring);
+            generatedNames.Add(newName.namestring.ToString());
 
             if (generatedNames.Count > 100) {
                 generatedNames.RemoveAt(0);

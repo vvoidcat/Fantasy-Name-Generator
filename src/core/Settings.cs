@@ -137,8 +137,8 @@ namespace NAMEGEN.Core {
             for (int i = 1; i < name.Length; i++) {
                 int indexCurrent = i - 1;
                 int indexNext = i;
-                string currentLetterLower = name[indexCurrent].ToString().ToLower();
-                string nextLetterLower = name[indexNext].ToString().ToLower();
+                char currentLetterLower = char.ToLower(name[indexCurrent]);
+                char nextLetterLower = char.ToLower(name[indexNext]);
 
                 for (int j = 0; j < alphabet.lettersCount; j++) {
                     Letter alphabetLetter = alphabet.letters[j];

@@ -10,7 +10,7 @@ namespace NAMEGEN.Core {
         public int numVowels { get; private set; }
         public int numConsonants { get; private set; }
         public int length { get; private set; }
-        public string namestring { get; private set; }
+        public StringBuilder namestring { get; private set; }
 
         private Random random;
         private Settings settings;
@@ -18,7 +18,7 @@ namespace NAMEGEN.Core {
         public Name(Settings chosenSettings) {
             random = new Random();
             settings = chosenSettings;
-            namestring = "";
+            namestring = new StringBuilder();
             numVowels = 0;
             numConsonants = 0;
         }
@@ -32,7 +32,7 @@ namespace NAMEGEN.Core {
             for (int i = 0; i < length; i++) {
                 Letter newLetter = ChooseLetter(rowConsonants, rowVowels, letters);
                 letters.Add(newLetter);
-                namestring += ChooseLetterCase(i, newLetter);
+                namestring.Append(ChooseLetterCase(i, newLetter));
                 UpdateCounters(newLetter, ref rowConsonants, ref rowVowels);
             }
             letters.Clear();
@@ -100,7 +100,7 @@ namespace NAMEGEN.Core {
             return isConsonant;
         }
 
-        private string ChooseLetterCase(int index, Letter newLetter) {
+        private char ChooseLetterCase(int index, Letter newLetter) {
             return (index == 0) ? newLetter.uppercase : newLetter.lowercase;
         }
 

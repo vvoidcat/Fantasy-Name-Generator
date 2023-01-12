@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace NAMEGEN.Core {
     public class Letter {
         public int index { get; private set; }
-        public string uppercase { get; private set; }
-        public string lowercase { get; private set; }
+        public char uppercase { get; private set; }
+        public char lowercase { get; private set; }
         public bool isVowel { get; private set; }
         public bool isConsonant { get; private set; }
 
-        public Letter(string upper, string lower, bool vowel, bool consonant) {
+        public Letter(char upper, char lower, bool vowel, bool consonant) {
             uppercase = upper;
             lowercase = lower;
             isVowel = vowel;
@@ -25,15 +25,16 @@ namespace NAMEGEN.Core {
         }
 
         public static bool operator ==(Letter a, Letter b) {
-            return (a.isConsonant == b.isConsonant && a.isVowel == b.isVowel
-                        && String.Equals(a.uppercase, b.uppercase)
-                            && String.Equals(a.lowercase, b.lowercase) && a.index == b.index) ? true : false;
+            return Equals(a, b);
         }
 
         public static bool operator !=(Letter a, Letter b) {
-            return (a.isConsonant != b.isConsonant || a.isVowel != b.isVowel
-                        || !String.Equals(a.uppercase, b.uppercase)
-                            || !String.Equals(a.lowercase, b.lowercase) || a.index != b.index) ? true : false;
+            return !Equals(a, b);
+        }
+
+        public static bool Equals(Letter a, Letter b) {
+            return (a.isConsonant == b.isConsonant && a.isVowel == b.isVowel
+                 && a.uppercase == b.uppercase && a.lowercase == b.lowercase && a.index == b.index) ? true : false;
         }
     }
 }
