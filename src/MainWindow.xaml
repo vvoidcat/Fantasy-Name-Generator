@@ -6,10 +6,18 @@
         xmlns:local="clr-namespace:fantasy_namegen"
         mc:Ignorable="d"
         ResizeMode="CanMinimize"
-        Title="fantasy-namegen" Height="600" Width="830">
+        Title="fantasy-namegen" Height="600" Width="830"
+    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
+
+    <Window.Resources>
+        <ResourceDictionary Source="DictionaryStyles.xaml"/>
+    </Window.Resources>
+
+    
     
     <StackPanel>
 
+        
         <!-- UPPER PANEL CONROL -->
         <Grid>
             <Grid.ColumnDefinitions>
@@ -23,33 +31,25 @@
                 Name="buttonSettings"
                 Grid.Column="0"
                 Content="application settings"
-                BorderThickness="1"
-                BorderBrush="LightGray"
-                Background="LightGoldenrodYellow"
+                Style="{StaticResource styleControlButtons}"
                 Click="On_buttonSettings_Clicked" />
             <Button
                 Name="buttonPresets"
                 Grid.Column="1"
                 Content="presets"
-                BorderThickness="1"
-                BorderBrush="LightGray"
-                Background="LightGoldenrodYellow"
+                Style="{StaticResource styleControlButtons}"
                 Click="On_buttonPresets_Clicked" />
             <Button
                 Name="buttonCustom"
                 Grid.Column="2"
                 Content="custom preset"
-                BorderThickness="1"
-                BorderBrush="LightGray"
-                Background="LightGoldenrodYellow"
+                Style="{StaticResource styleControlButtons}"
                 Click="On_buttonCustom_Clicked" />
             <Button
                 Name="buttonHistory"
                 Grid.Column="3"
                 Content="history"
-                BorderThickness="1"
-                BorderBrush="LightGray"
-                Background="LightGoldenrodYellow"
+                Style="{StaticResource styleControlButtons}"
                 Click="On_buttonHistory_Clicked" />
         </Grid>
 
@@ -88,109 +88,101 @@
                             Name="buttonLoad"
                             Content="load"
                             Grid.Column="0"
-                            Height="23"
-                            BorderThickness="1"
-                            BorderBrush="LightGray"
-                            Background="Lavender"/>
+                            Style="{StaticResource stylePanelSaveloadButtons}"/>
 
                         <Button
                             Name="buttonSave"
                             Content="save"
                             Grid.Column="1"
-                            BorderThickness="1"
-                            BorderBrush="LightGray"
-                            Background="Lavender"/>
+                            Style="{StaticResource stylePanelSaveloadButtons}"/>
 
                         <Button
                             Name="buttonSaveas"
                             Content="save as..."
                             Grid.Column="2"
-                            BorderThickness="1"
-                            BorderBrush="LightGray"
-                            Background="Lavender"/>
+                            Style="{StaticResource stylePanelSaveloadButtons}"/>
                     </Grid>
 
-                    <StackPanel Orientation="Horizontal">
-                        
-                        <!-- LABELS GENERAL -->
-                        <StackPanel Margin="0 3 3 3">
-                            <TextBlock
-                                Name="tblockFilepath"
-                                Text="source table:"
-                                Margin="0 2"
-                                FontSize="12"
-                                Height="20"/>
-
-                            <TextBlock
-                                Name="tblockCover"
-                                Text="cover image:"
-                                Margin="0 2"
-                                FontSize="12"
-                                Height="20"/>
-
-                            <TextBlock 
-                                Name="tblockPresetName"
-                                Text="preset name:"
-                                Margin="0 2"
-                                FontSize="12"
-                                Height="20"/>
-                        </StackPanel>
+                    
+                    <StackPanel>
 
                         <!-- INPUT FIELDS GENERAL -->
-                        <StackPanel Margin="3 3 0 3">
+                        <StackPanel Margin="0 3 0 0">
 
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="0 2">
+                                <TextBlock
+                                    Name="tblockFilepath"
+                                    Text="source table:"
+                                    Padding="0 1 0 0"
+                                    Margin="0 0 5 0"
+                                    FontSize="12"
+                                    Width="70"
+                                    Height="20"/>
+                                
                                 <TextBox
                                     Name="tboxFilepath"
                                     Text="filepath"
-                                    Margin="0 2"
                                     FontSize="12"
                                     Height="20"
                                     Width="150"
-                                    BorderThickness="1"
-                                    BorderBrush="LightGray"/>
+                                    Style="{StaticResource stylePanelTextBoxes}"/>
 
                                 <Button
                                     Name="buttonFilepath"
                                     Content="..."
-                                    Margin="0 2"
                                     Height="20"
                                     Width="20"
-                                    BorderThickness="1"
-                                    BorderBrush="LightGray"
-                                    Background="Lavender"/>
+                                    Style="{StaticResource stylePanelSquareButtons}"/>
                             </StackPanel>
 
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="0 2">
+                                <TextBlock
+                                    Name="tblockCover"
+                                    Text="cover image:"
+                                    Padding="0 1 0 0"
+                                    Margin="0 0 5 0"
+                                    FontSize="12"
+                                    Width="70"
+                                    Height="20"/>
+                                
                                 <TextBox
                                     Name="tboxCoverpath"
                                     Text="../dir/cover.jpg"
-                                    Margin="0 2"
                                     FontSize="12"
                                     Width="150"
-                                    BorderThickness="1"
-                                    BorderBrush="LightGray"/>
+                                    Height="20"
+                                    Style="{StaticResource stylePanelTextBoxes}"/>
 
                                 <Button
                                     Name="buttonCoverpath"
                                     Content="..."
-                                    Margin="0 2"
                                     Height="20"
                                     Width="20"
-                                    BorderThickness="1"
-                                    BorderBrush="LightGray"
-                                    Background="Lavender"/>
+                                    Style="{StaticResource stylePanelSquareButtons}"/>
                             </StackPanel>
 
-                            <TextBox 
-                                Name="tboxPresetName"
-                                Text="newname"
-                                Margin="0 2"
-                                FontSize="12"
-                                Grid.Column="1"
-                                Grid.Row="1" 
-                                BorderThickness="1"
-                                BorderBrush="LightGray"/>
+                            
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="0 2">
+                                <TextBlock 
+                                    Name="tblockPresetName"
+                                    Text="preset name:"
+                                    Padding="0 1 0 0"
+                                    Margin="0 0 5 0"
+                                    FontSize="12"
+                                    Width="70"
+                                    Height="20"/>
+
+                                <TextBox 
+                                    Name="tboxPresetName"
+                                    Text="newname"
+                                    FontSize="12"
+                                    Height="20"
+                                    Width="170"
+                                    Style="{StaticResource stylePanelTextBoxes}"/>
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
                     
@@ -217,36 +209,34 @@
                             Margin="35 0 0 0"
                             FontSize="12"/>
 
-                        <Button Name="buttonMinLengthLesser"
-                                Content="&lt;"
-                                Margin="10 0 0 0"
-                                Padding="0 -2 0 0"
-                                BorderThickness="1"
-                                BorderBrush="LightGray"
-                                Background="Lavender"
-                                Height="18"
-                                Width="18"/>
+                        <Button
+                            Name="buttonMinLengthLesser"
+                            Content="&lt;"
+                            Margin="10 0 0 0"
+                            Padding="0 -2 0 0"
+                            Style="{StaticResource stylePanelSquareButtons}"
+                            Height="18"
+                            Width="18"/>
 
-                        <TextBox Name="tboxMinLength"
-                                 Text="3"
-                                 IsReadOnly="True"
-                                 FontSize="12"
-                                 HorizontalContentAlignment="Center"
-                                 VerticalContentAlignment="Top"
-                                 Padding="0 0 0 0"
-                                 BorderThickness="1"
-                                 BorderBrush="LightGray"
-                                 Height="18"
-                                 Width="30"/>
+                        <TextBox
+                            Name="tboxMinLength"
+                            Text="3"
+                            IsReadOnly="True"
+                            FontSize="12"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Top"
+                            Padding="0 0 0 0"
+                            Style="{StaticResource stylePanelTextBoxes}"
+                            Height="18"
+                            Width="30"/>
 
-                        <Button Name="buttonMinLengthGreater"
-                                Content="&gt;"
-                                Padding="0 -2 0 0"
-                                BorderThickness="1"
-                                BorderBrush="LightGray"
-                                Background="Lavender"
-                                Height="18"
-                                Width="18"/>
+                        <Button 
+                            Name="buttonMinLengthGreater"
+                            Content="&gt;"
+                            Padding="0 -2 0 0"
+                            Style="{StaticResource stylePanelSquareButtons}"
+                            Height="18"
+                            Width="18"/>
 
                         <!-- MAX -->
                         <TextBlock
@@ -255,36 +245,34 @@
                             FontSize="12"
                             Margin="20 0 0 0"/>
 
-                        <Button Name="buttonMaxLengthLesser"
-                                Content="&lt;"
-                                Margin="10 0 0 0"
-                                Padding="0 -2 0 0"
-                                BorderThickness="1"
-                                BorderBrush="LightGray"
-                                Background="Lavender"
-                                Height="18"
-                                Width="18"/>
+                        <Button
+                            Name="buttonMaxLengthLesser"
+                            Content="&lt;"
+                            Margin="10 0 0 0"
+                            Padding="0 -2 0 0"
+                            Style="{StaticResource stylePanelSquareButtons}"
+                            Height="18"
+                            Width="18"/>
 
-                        <TextBox Name="tboxMaxLength"
-                                 Text="10"
-                                 IsReadOnly="True"
-                                 FontSize="12"
-                                 HorizontalContentAlignment="Center"
-                                 VerticalContentAlignment="Top"
-                                 Padding="0 0 0 0"
-                                 BorderThickness="1"
-                                 BorderBrush="LightGray"
-                                 Height="18"
-                                 Width="30"/>
+                        <TextBox 
+                            Name="tboxMaxLength"
+                            Text="10"
+                            IsReadOnly="True"
+                            FontSize="12"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Top"
+                            Padding="0 0 0 0"
+                            Style="{StaticResource stylePanelTextBoxes}"
+                            Height="18"
+                            Width="30"/>
 
-                        <Button Name="buttonMaxLengthGreater"
-                                Content="&gt;"
-                                Padding="0 -2 0 0"
-                                BorderThickness="1"
-                                BorderBrush="LightGray"
-                                Background="Lavender"
-                                Height="18"
-                                Width="18"/>
+                        <Button
+                            Name="buttonMaxLengthGreater"
+                            Content="&gt;"
+                            Padding="0 -2 0 0"
+                            Style="{StaticResource stylePanelSquareButtons}"
+                            Height="18"
+                            Width="18"/>
                     </StackPanel>
 
 
@@ -392,8 +380,7 @@
                             <CheckBox
                                 Name="checkConsRepeats"
                                 Margin="-2 1 0 0"
-                                BorderThickness="1"
-                                BorderBrush="LightGray"/>
+                                Style="{StaticResource stylePanelCheckBoxes}"/>
                         </StackPanel>
 
 
@@ -472,8 +459,7 @@
                             <CheckBox
                                 Name="checkVowsRepeats"
                                 Margin="-2 1 0 0"
-                                BorderThickness="1"
-                                BorderBrush="LightGray"/>
+                                Style="{StaticResource stylePanelCheckBoxes}"/>
                         </StackPanel>
                     </StackPanel>
 
@@ -505,11 +491,7 @@
                 <Button
                     Name="buttonChosenPresetLesser"
                     Content="&lt;"
-                    Width="20"
-                    Height="20"
-                    BorderThickness="0"
-                    Background="White"
-                    Foreground="DimGray"/>
+                    Style="{StaticResource stylePresetChoiceButtons}"/>
 
                 <TextBlock
                     Name="tblockChosenPreset"
@@ -524,11 +506,7 @@
                 <Button
                     Name="buttonChosenPresetGreater"
                     Content="&gt;"
-                    Width="20"
-                    Height="20"
-                    BorderThickness="0"
-                    Background="White"
-                    Foreground="DimGray"/>
+                    Style="{StaticResource stylePresetChoiceButtons}"/>
             </StackPanel>
 
 
@@ -539,6 +517,7 @@
 
                 <!-- GENDER -->
                 <ComboBox Name="cboxGender"
+                          Style="{DynamicResource ComboBoxStyle_GenderBox}"
                           FontSize="15"
                           Width="105"
                           BorderThickness="0"
@@ -562,18 +541,9 @@
                 <!-- GENERATE BUTTON -->
                 <Button
                     Name="buttonGenerate"
-                    Content="generate"
-                    FontWeight="Bold"
-                    FontSize="19"
-                    Width="150"
-                    Height="35"
-                    BorderThickness="0"
-                    BorderBrush="LightGray"
-                    Background="Lavender"
-                    HorizontalAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Top"
+                    Content="Generate"
                     Grid.Column="2"
+                    Style="{StaticResource styleGenerateButton}"
                     Click="On_buttonGenerate_Clicked" />
 
                 <!-- NUMBER OF NAMES TO GENERATE -->
@@ -587,35 +557,20 @@
                     <Button
                         Name="buttonGenNum_1"
                         Content="1"
-                        FontSize="15"
                         Grid.Column="0"
-                        Width="35"
-                        Height="35"
-                        BorderThickness="0"
-                        BorderBrush="White"
-                        Background="White"/>
+                        Style="{StaticResource styleNamegenNumButtons}"/>
 
                     <Button
                         Name="buttonGenNum_5"
                         Content="5"
-                        FontSize="15"
                         Grid.Column="1"
-                        Width="35"
-                        Height="35"
-                        BorderThickness="0"
-                        BorderBrush="White"
-                        Background="White"/>
+                        Style="{StaticResource styleNamegenNumButtons}"/>
 
                     <Button
                         Name="buttonGenNum_10"
                         Content="10"
-                        FontSize="15"
                         Grid.Column="2"
-                        Width="35"
-                        Height="35"
-                        BorderThickness="0"
-                        BorderBrush="White"
-                        Background="White"/>
+                        Style="{StaticResource styleNamegenNumButtons}"/>
                 </Grid>
             </StackPanel>
 
@@ -625,46 +580,31 @@
                 Name="textName_0"
                 Text="Thename"
                 Margin="0 30 0 0"
-                FontSize="30"
-                FontWeight="Bold"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center" />
+                Style="{StaticResource styleNewName}"/>
 
             <TextBlock
                 Name="textName_1"
                 Text="Theothername"
                 Margin="0 20 0 0"
-                FontSize="20"
-                FontWeight="Thin"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center" />
+                Style="{StaticResource styleOldName}"/>
 
             <TextBlock
                 Name="textName_2"
                 Text="Anothername"
                 Margin="0 10 0 0"
-                FontSize="20"
-                FontWeight="Thin"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center" />
+                Style="{StaticResource styleOldName}"/>
 
             <TextBlock
                 Name="textName_3"
                 Text="Name"
                 Margin="0 10 0 0"
-                FontSize="20"
-                FontWeight="Thin"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center" />
+                Style="{StaticResource styleOldName}"/>
 
             <TextBlock
                 Name="textName_4"
                 Text="Namename"
                 Margin="0 10 0 0"
-                FontSize="20"
-                FontWeight="Thin"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center" />
+                Style="{StaticResource styleOldName}"/>
         </StackPanel>
 
 
