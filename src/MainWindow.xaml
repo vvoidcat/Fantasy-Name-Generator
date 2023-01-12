@@ -9,6 +9,8 @@
         Title="fantasy-namegen" Height="600" Width="830"
     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
 
+    
+    <!-- delete later -->
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

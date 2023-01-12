@@ -51,10 +51,11 @@ namespace fantasy_namegen {
 
         private void On_buttonGenerate_Clicked(object sender, RoutedEventArgs e) {
             gen.GenerateName();
+            List<string> allNames = gen.GetAllNames();
 
-            if (gen.GetAllNames() is not null) {
-                for (int i = 0; i < 5 && i < gen.GetAllNames().Count; i++) {
-                    nameBlocks[i].Text = gen.GetNameAtIndex(i);
+            if (allNames is not null) {
+                for (int i = 0; i < nameBlocks.Count && i < allNames.Count; i++) {
+                    nameBlocks[i].Text = gen.GetNameAtIndex(allNames.Count - (1 + i));
                 }
             }
         }

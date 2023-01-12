@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace NAMEGEN.Core {
     public class Generator {
-        public Stack<string> generatedNames { get; private set; }
+        public List<string> generatedNames { get; private set; }
         // list of saved presets <Settings> ?
         public Settings currentPreset { get; private set; }
 
 
         public Generator(Settings newPreset) {
-            generatedNames = new Stack<string>();
+            generatedNames = new List<string>();
             currentPreset = newPreset;
         }
 
@@ -23,7 +23,12 @@ namespace NAMEGEN.Core {
         public void GenerateName() {
             Name newName = new Name(currentPreset);
             newName.Generate();
-            generatedNames.Push(newName.namestring);
+            //generatedNames.Push(newName.namestring);
+            generatedNames.Add(newName.namestring);
+
+            if (generatedNames.Count > 100) {
+                generatedNames.RemoveAt(0);
+            }
         }
 
         public string GetLastName() {
@@ -34,7 +39,7 @@ namespace NAMEGEN.Core {
             return generatedNames.ElementAt(index);
         }
 
-        public Stack<string> GetAllNames() {
+        public List<string> GetAllNames() {
             return generatedNames;
         }
     }
