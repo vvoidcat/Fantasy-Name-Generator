@@ -20,7 +20,7 @@ namespace fantasy_namegen {
         //    string filepath = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\elven_generic.csv";
         //    string filepath = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\human_generic.csv";
         string filepath = @"D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\italian.csv";
-        //string filepath = @"nosuchfile";
+        // string filepath = @"nosuchfile";
         Language lang = NAMEGEN.Core.Language.English;
         Gender gender = Gender.Neutral;
 
@@ -47,6 +47,9 @@ namespace fantasy_namegen {
             foreach (TextBlock name in nameBlocks) {
                 name.Text = "";
             }
+
+            panelCustom.Visibility = Visibility.Collapsed;
+            bgOverlay.Visibility = Visibility.Collapsed;
         }
 
         private void On_buttonGenerate_Clicked(object sender, RoutedEventArgs e) {
@@ -72,20 +75,18 @@ namespace fantasy_namegen {
             if (panelCustom.Visibility == Visibility.Visible) {
                 panelCustom.Visibility = Visibility.Collapsed;
                 bgOverlay.Visibility = Visibility.Collapsed;
+                buttonCustom.Background = Brushes.LightGoldenrodYellow;
+                buttonCustom.BorderThickness = new Thickness(1);
             } else {
                 panelCustom.Visibility = Visibility.Visible;
                 bgOverlay.Visibility = Visibility.Visible;
+                buttonCustom.Background = Brushes.Lavender;
+                buttonCustom.BorderThickness = new Thickness(1, 1, 1, 0);
             }
         }
 
         private void On_buttonHistory_Clicked(object sender, RoutedEventArgs e) {
-            //if (panelCustom.Visibility == Visibility.Visible) {
-            //    panelCustom.Visibility = Visibility.Collapsed;
-            //    bgOverlay.Visibility = Visibility.Collapsed;
-            //} else {
-            //    panelCustom.Visibility = Visibility.Visible;
-            //    bgOverlay.Visibility = Visibility.Visible;
-            //}
+            //
         }
     }
 }
