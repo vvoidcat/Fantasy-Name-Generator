@@ -13,18 +13,18 @@ using System.Data;
 namespace NAMEGEN.Core {
     public class Preset {
         public class NameRecord {
-            [Index(0)] public string maleName { get; set; }
-            [Index(1)] public string femaleName { get; set; }
+            [Index(0)] public string maleName { get; set; } = "";
+            [Index(1)] public string femaleName { get; set; } = "";
         }
         
-        public int minLength { get; private set; }
-        public int maxLength { get; private set; }
+        public int minLength { get; private set; } = 3;
+        public int maxLength { get; private set; } = 12;
 
-        public int maxRowVows { get; set; }
-        public int maxRowCons { get; set; }
+        public int maxRowVows { get; set; } = 3;
+        public int maxRowCons { get; set; } = 3;
 
-        public double vowPercentageCorrection { get; set; }
-        public double conPercentageCorrection { get; set; }
+        public double vowPercentageCorrection { get; set; } = 0.0f;
+        public double conPercentageCorrection { get; set; } = 0.0f;
 
         public Gender gender { get; private set; }
         public Alphabet alphabet { get; private set; }
@@ -43,13 +43,11 @@ namespace NAMEGEN.Core {
             gender = Gender.Neutral;
 
             // these should always be above 0
-            minLength = 4;
-            maxLength = 12;
-            maxRowVows = 3;  // min 1, max 3
-            maxRowCons = 3;
+            //maxRowVows = 3;  // min 1, max 3
+            //maxRowCons = 3;
 
-            vowPercentageCorrection = 0.0f;
-            conPercentageCorrection = 0.0f;
+            //vowPercentageCorrection = 0.0f;
+            //conPercentageCorrection = 0.0f;
 
             permutationMatrix = new Matrix(alphabet.lettersCount, alphabet.lettersCount);
             probabilityMatrixStart = new Matrix(1, alphabet.lettersCount);

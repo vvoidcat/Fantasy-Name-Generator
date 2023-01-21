@@ -4,10 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:fantasy_namegen"
+        xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
         mc:Ignorable="d"
         ResizeMode="CanMinimize"
-        Title="fantasy-namegen" Height="600" Width="830"
-    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
+        Title="fantasy-namegen" Height="600" Width="830">
 
     
     <!-- delete later -->
@@ -476,7 +476,7 @@
             <!-- COVER IMAGE -->
             <Image
                 Name="bgImage"
-                Source="../materials/images/temp.jpg"
+                Source="../../materials/images/temp.jpg"
                 Height="120"
                 Width="830"
                 Stretch="Fill" 
