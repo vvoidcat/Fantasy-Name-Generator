@@ -11,8 +11,8 @@ namespace NAMEGEN.Core {
         double[,] matrix;
 
         public Matrix(int lenY, int lenX) {
-            //if (lenX <= 0 || lenY <= 0) throw new Exception("Matrix: init size values should be above 0");
-            
+            if (lenX <= 0 || lenY <= 0) throw new ArgumentException("init size values should be above 0");
+
             y = lenY;
             x = lenX;
             matrix = new double[y, x];
@@ -24,12 +24,12 @@ namespace NAMEGEN.Core {
         }
 
         public double GetValueAtIndex(int indexY, int indexX) {
-            //if (!Contains(indexX, indexY)) throw new Exception("Matrix: index out of range");
+            if (!Contains(indexY, indexX)) throw new IndexOutOfRangeException("index out of range");
             return matrix[indexY, indexX];
         }
 
         public void SetValueAtIndex(int indexY, int indexX, double value) {
-            //if (!Contains(indexX, indexY)) throw new Exception("Matrix: index out of range");
+            if (!Contains(indexY, indexX)) throw new IndexOutOfRangeException("index out of range");
             matrix[indexY, indexX] = value;
         }
 
@@ -44,7 +44,7 @@ namespace NAMEGEN.Core {
         }
 
         public void IncrementValueAtIndex(int indexY, int indexX) {
-            //if (!Contains(indexX, indexY)) throw new Exception("Matrix: index out of range");
+            if (!Contains(indexY, indexX)) throw new IndexOutOfRangeException("index out of range");
             matrix[indexY, indexX] += 1.0f;
         }
 

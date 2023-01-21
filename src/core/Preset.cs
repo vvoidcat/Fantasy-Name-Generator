@@ -15,11 +15,10 @@ namespace NAMEGEN.Core {
         public class NameRecord {
             [Index(0)] public string maleName { get; set; }
             [Index(1)] public string femaleName { get; set; }
-            // familyName ?
         }
         
-        public int minLength { get; private set; }  // + probability
-        public int maxLength { get; private set; }  // + probability
+        public int minLength { get; private set; }
+        public int maxLength { get; private set; }
 
         public int maxRowVows { get; set; }
         public int maxRowCons { get; set; }
