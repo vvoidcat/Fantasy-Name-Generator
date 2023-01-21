@@ -8,7 +8,7 @@ namespace NAMEGEN.Core {
     public class Matrix {
         public int x { get; private set; }
         public int y { get; private set; }
-        double[,] matrix;
+        private double[,] matrix;
 
         public Matrix(int lenY, int lenX) {
             if (lenX <= 0 || lenY <= 0) throw new ArgumentException("init size values should be above 0");

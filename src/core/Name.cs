@@ -7,18 +7,17 @@ using System.Threading.Tasks;
 
 namespace NAMEGEN.Core {
     public class Name {
-        public int numVowels { get; private set; }
-        public int numConsonants { get; private set; }
         public int length { get; private set; }
         public StringBuilder namestring { get; private set; }
-
         private Random random;
         private Preset preset;
+        private int numVowels;
+        private int numConsonants;
 
         public Name(Preset chosenPreset) {
             random = new Random();
-            preset = chosenPreset;
             namestring = new StringBuilder();
+            preset = chosenPreset;
             numVowels = 0;
             numConsonants = 0;
         }

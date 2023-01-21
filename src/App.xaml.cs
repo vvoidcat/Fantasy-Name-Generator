@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace fantasy_namegen {
+namespace NAMEGEN {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>

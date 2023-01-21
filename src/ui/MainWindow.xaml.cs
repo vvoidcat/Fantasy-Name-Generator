@@ -1,5 +1,4 @@
-﻿using NAMEGEN.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,18 +12,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using NAMEGEN.Core;     // del later
+using NAMEGEN.Control;
 
-namespace fantasy_namegen {
+namespace NAMEGEN.Ui {
     public partial class MainWindow : Window {
 
-        //    string filepath = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\elven_generic.csv";
-        //    string filepath = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\human_generic.csv";
-        string filepath = @"D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\italian.csv";
-        // string filepath = @"nosuchfile";
-        Language lang = NAMEGEN.Core.Language.English;
-        Gender gender = Gender.Neutral;
-
-        public Preset currentPreset { get; private set; }
+        Controller controller;
         private Generator gen;
 
         private List<TextBlock> nameBlocks;
@@ -33,9 +27,8 @@ namespace fantasy_namegen {
             InitializeComponent();
 
             // load saved progress if exists
-
-            currentPreset = new Preset(filepath, lang);
-            gen = new Generator(currentPreset);
+            controller = new Controller();
+            gen = new Generator(controller.currentPreset);
 
             InitFields();
         }
@@ -88,5 +81,81 @@ namespace fantasy_namegen {
         private void On_buttonHistory_Clicked(object sender, RoutedEventArgs e) {
             //
         }
+
+
+
+        private void On_buttonMinLengthLesser_Clicked(object sender, RoutedEventArgs e) {
+            int value = Int32.Parse(tboxMinLength.Text);
+            int newValue = value - 1;
+
+            if (newValue >= 3) {
+                tboxMinLength.Text = newValue.ToString();
+                controller.currentPreset.minLength = newValue;
+            }
+            // deactivate button if value == lower bound
+        }
+
+        private void On_buttonMinLengthGreater_Clicked(object sender, RoutedEventArgs e) {
+            int value = Int32.Parse(tboxMinLength.Text);
+            int newValue = value + 1;
+
+            if (newValue <= 12 && newValue < Int32.Parse(tboxMaxLength.Text)) {
+                tboxMinLength.Text = newValue.ToString();
+                controller.currentPreset.minLength = newValue;
+            }
+        }
+
+        private void On_buttonMaxLengthLesser_Clicked(object sender, RoutedEventArgs e) {
+            int value = Int32.Parse(tboxMaxLength.Text);
+            int newValue = value - 1;
+
+            if (newValue >= 3 && newValue > Int32.Parse(tboxMinLength.Text)) {
+                tboxMaxLength.Text = newValue.ToString();
+                controller.currentPreset.maxLength = newValue;
+            }
+            // deactivate button if value == lower bound
+        }
+
+        private void On_buttonMaxLengthGreater_Clicked(object sender, RoutedEventArgs e) {
+            int value = Int32.Parse(tboxMaxLength.Text);
+            int newValue = value + 1;
+
+            if (newValue <= 12) {
+                tboxMaxLength.Text = newValue.ToString();
+                controller.currentPreset.maxLength = newValue;
+            }
+        }
+
+
+        private void On_sbarConsMax_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
+            if (controller is not null) {
+                int value = (int)sbarConsMax.Value;
+                controller.currentPreset.maxRowCons = value;
+                tblockConsMaxValue.Text = value.ToString();
+            }
+        }
+
+        private void On_sbarVowsMax_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
+            if (controller is not null) {
+                int value = (int)sbarVowsMax.Value;
+                controller.currentPreset.maxRowVows = value;
+                tblockVowsMaxValue.Text = value.ToString();
+            }
+        }
+
+        private void On_checkConsRepeats_Checked(object sender, RoutedEventArgs e) {
+            //if (checkConsRepeats.IsChecked is not null) {
+            //    checkConsRepeats.IsChecked = !checkConsRepeats.IsChecked;
+            //    controller.currentPreset.allowConsRepeats = (bool)checkConsRepeats.IsChecked;
+            //}
+        }
+
+        private void On_checkVowsRepeats_Checked(object sender, RoutedEventArgs e) {
+            //if (checkVowsRepeats.IsChecked is not null) {
+            //    checkVowsRepeats.IsChecked = !checkVowsRepeats.IsChecked;
+            //    controller.currentPreset.allowVowsRepeats = (bool)checkVowsRepeats.IsChecked;
+            //}
+        }
+
     }
 }

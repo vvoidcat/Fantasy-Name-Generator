@@ -21,8 +21,4 @@
     <Resource Include="materials\images\temp.jpg" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="src\control\" />
-  </ItemGroup>
-
 </Project>

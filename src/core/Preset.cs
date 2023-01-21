@@ -17,8 +17,8 @@ namespace NAMEGEN.Core {
             [Index(1)] public string femaleName { get; set; } = "";
         }
         
-        public int minLength { get; private set; } = 3;
-        public int maxLength { get; private set; } = 12;
+        public int minLength { get; set; } = 3;
+        public int maxLength { get; set; } = 12;
 
         public int maxRowVows { get; set; } = 3;
         public int maxRowCons { get; set; } = 3;
@@ -26,12 +26,14 @@ namespace NAMEGEN.Core {
         public double vowPercentageCorrection { get; set; } = 0.0f;
         public double conPercentageCorrection { get; set; } = 0.0f;
 
+        public bool allowConsRepeats { get; set; } = true;
+        public bool allowVowsRepeats { get; set; } = true;
+
         public Gender gender { get; private set; }
         public Alphabet alphabet { get; private set; }
         public Matrix permutationMatrix { get; private set; }
         public Matrix probabilityMatrixStart { get; private set; }
         public Matrix probabilityMatrixEnd { get; private set; }
-
 
         private string filepath { get; set; }
 
