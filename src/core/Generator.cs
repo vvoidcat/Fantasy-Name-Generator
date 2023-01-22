@@ -20,9 +20,9 @@ namespace NAMEGEN.Core {
             currentPreset = newPreset;
         }
 
-        public void GenerateName() {
+        public void GenerateName(Gender gender) {
             Name newName = new Name(currentPreset);
-            newName.Generate();
+            newName.Generate(gender);
             generatedNames.Add(newName.namestring.ToString());
 
             if (generatedNames.Count > 100) {

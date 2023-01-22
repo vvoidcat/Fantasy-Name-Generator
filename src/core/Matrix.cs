@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace NAMEGEN.Core {
     public class Matrix {
-        public int x { get; private set; }
-        public int y { get; private set; }
+        public bool isZeroed { get; private set; } = true;
+        public int x { get; private set; } = 0;
+        public int y { get; private set; } = 0;
         private double[,] matrix;
 
         public Matrix(int lenY, int lenX) {
@@ -30,38 +31,41 @@ namespace NAMEGEN.Core {
 
         public void SetValueAtIndex(int indexY, int indexX, double value) {
             if (!Contains(indexY, indexX)) throw new IndexOutOfRangeException("index out of range");
+
+            if (value > 0) isZeroed = false;
             matrix[indexY, indexX] = value;
         }
 
         public void SetMatrix(double value) {
+            if (y > 0 && x > 0 && value <= 0) isZeroed = true;
+
             for (int i = 0; i < y; i++) {
                 for (int j = 0; j < x; j++) {
                     SetValueAtIndex(i, j, value);
-
-                    Console.WriteLine(matrix[i, j]);
                 }
             }
         }
 
         public void IncrementValueAtIndex(int indexY, int indexX) {
-            if (!Contains(indexY, indexX)) throw new IndexOutOfRangeException("index out of range");
-            matrix[indexY, indexX] += 1.0f;
+            SetValueAtIndex(indexY, indexX, GetValueAtIndex(indexY, indexX) + 1.0f);
         }
 
         public void NormalizeMatrix() {
-            for (int i = 0; i < y; i++) {
-                double max = 1.0f;
-                double sum = 0.0f;
-
-                for (int j = 0; j < x; j++) {
-                    sum += matrix[i, j];
-                }
-
-                if (sum > 0.0f) {
-                    double norm = max / sum;
+            if (!isZeroed) {
+                for (int i = 0; i < y; i++) {
+                    double max = 1.0f;
+                    double sum = 0.0f;
 
                     for (int j = 0; j < x; j++) {
-                        matrix[i, j] = matrix[i, j] * norm;
+                        sum += matrix[i, j];
+                    }
+
+                    if (sum > 0.0f) {
+                        double norm = max / sum;
+
+                        for (int j = 0; j < x; j++) {
+                            matrix[i, j] = matrix[i, j] * norm;
+                        }
                     }
                 }
             }

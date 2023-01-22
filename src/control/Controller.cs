@@ -13,8 +13,8 @@ namespace NAMEGEN.Control {
         string filepath = @"D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\italian.csv";
         // string filepath = @"nosuchfile";
 
-        Language lang = Core.Language.English;
-        Gender gender = Gender.Neutral;
+        Language lang = Language.English;
+        public Gender gender = Gender.Neutral;
 
         public Preset currentPreset { get; private set; }
         private Generator gen;

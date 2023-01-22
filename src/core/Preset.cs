@@ -17,7 +17,7 @@ namespace NAMEGEN.Core {
             [Index(1)] public string femaleName { get; set; } = "";
         }
 
-        public string presetName { get; set; } = "Unnamed Preset";
+        public string presetName { get; set; } = "Unsaved Preset";
         
         public int minLength { get; set; } = 3;     // write private setters
         public int maxLength { get; set; } = 12;
@@ -31,23 +31,23 @@ namespace NAMEGEN.Core {
         public bool allowConsRepeats { get; set; } = true;
         public bool allowVowsRepeats { get; set; } = true;
 
-        public Gender gender { get; set; } = Gender.Neutral;
         public Alphabet alphabet { get; set; } = new Alphabet(Language.English);
         private string filepath { get; set; }
 
         public Matrix permutationMatrix { get; private set; }
         public Matrix probabilityMatrixStart { get; private set; }
-        public Matrix probabilityMatrixEnd { get; private set; }
+        public Matrix probabilityMatrixEnd_Male { get; private set; }
+        public Matrix probabilityMatrixEnd_Female { get; private set; }
+
 
         public Preset(string newPath, Language lang) {
             alphabet = new Alphabet(lang);
             filepath = newPath;
 
-            gender = Gender.Neutral;
-
             permutationMatrix = new Matrix(alphabet.lettersCount, alphabet.lettersCount);
             probabilityMatrixStart = new Matrix(1, alphabet.lettersCount);
-            probabilityMatrixEnd = new Matrix(1, alphabet.lettersCount);
+            probabilityMatrixEnd_Male = new Matrix(1, alphabet.lettersCount);
+            probabilityMatrixEnd_Female = new Matrix(1, alphabet.lettersCount);
 
             ParseSourceTable();     // arg source table
         }
@@ -56,16 +56,18 @@ namespace NAMEGEN.Core {
             // take path as an arg
             // check sha-sum of the csv, if it's changed - re-parse 
             // handle file not found situation -> delegate to ui?
+            Matrix[] matrices = new Matrix[] { permutationMatrix, probabilityMatrixStart, probabilityMatrixEnd_Male, probabilityMatrixEnd_Female };
 
             if (File.Exists(filepath)) {
                 ReadSourceFile();
-                permutationMatrix.NormalizeMatrix();
-                probabilityMatrixStart.NormalizeMatrix();
-                probabilityMatrixEnd.NormalizeMatrix();
-            } else {
-                permutationMatrix.SetMatrix(0.5f);
-                probabilityMatrixStart.SetMatrix(0.5f);
-                probabilityMatrixEnd.SetMatrix(0.5f);
+            }
+
+            foreach (Matrix m in matrices) {
+                if (m.isZeroed) {
+                    m.SetMatrix(0.5f);
+                } else {
+                    m.NormalizeMatrix();
+                }
             }
         }
 
@@ -89,15 +91,15 @@ namespace NAMEGEN.Core {
         }
 
         private void UpdateMatrices(NameRecord record) {
-            if (!String.IsNullOrEmpty(record.maleName) && (gender == Gender.Male || gender == Gender.Neutral)) {
-                ProcessNameStr(record.maleName);
+            if (!String.IsNullOrEmpty(record.maleName)) {
+                ProcessNameStr(record.maleName, Gender.Male);
             }
-            if (!String.IsNullOrEmpty(record.femaleName) && (gender == Gender.Female || gender == Gender.Neutral)) {
-                ProcessNameStr(record.femaleName);
+            if (!String.IsNullOrEmpty(record.femaleName)) {
+                ProcessNameStr(record.femaleName, Gender.Female);
             }
         }
 
-        private void ProcessNameStr(string name) {
+        private void ProcessNameStr(string name, Gender gender) {
             for (int i = 1; i < name.Length; i++) {
                 int indexCurrent = i - 1;
                 int indexNext = i;
@@ -117,7 +119,11 @@ namespace NAMEGEN.Core {
                 if (i == 1) {
                     probabilityMatrixStart.IncrementValueAtIndex(0, indexCurrent);
                 } else if (i == name.Length - 1) {
-                    probabilityMatrixEnd.IncrementValueAtIndex(0, indexNext);
+                    if (gender == Gender.Male) {
+                        probabilityMatrixEnd_Male.IncrementValueAtIndex(0, indexNext);
+                    } else if (gender == Gender.Female) {
+                        probabilityMatrixEnd_Female.IncrementValueAtIndex(0, indexNext);
+                    }
                 }
 
                 permutationMatrix.IncrementValueAtIndex(indexCurrent, indexNext);

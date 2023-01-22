@@ -22,14 +22,14 @@ namespace NAMEGEN.Core {
             numConsonants = 0;
         }
 
-        public void Generate() {
+        public void Generate(Gender gender) {
             List<Letter> letters = new List<Letter>();
             length = ChooseRandomLength();
             int rowConsonants = 0;
             int rowVowels = 0;
 
             for (int i = 0; i < length; i++) {
-                Letter newLetter = ChooseLetter(rowConsonants, rowVowels, letters);
+                Letter newLetter = ChooseLetter(rowConsonants, rowVowels, letters, gender);
                 letters.Add(newLetter);
                 namestring.Append(ChooseLetterCase(i, newLetter));
                 UpdateCounters(newLetter, ref rowConsonants, ref rowVowels);
@@ -37,31 +37,42 @@ namespace NAMEGEN.Core {
             letters.Clear();
         }
 
-        private Letter ChooseLetter(int rowConsonants, int rowVowels, List<Letter> letters) {
+        private Letter ChooseLetter(int rowConsonants, int rowVowels, List<Letter> letters, Gender gender) {
             int index = 0;
             bool isChosen = false;
 
             while (!isChosen) {
                 index = ChooseRandomIndex();
-                isChosen = IsChoosableIndex(index, rowConsonants, rowVowels, letters);
+                isChosen = IsChoosableIndex(index, rowConsonants, rowVowels, letters, gender);
             }
             return preset.alphabet.letters[index];
         }
 
-        private bool IsChoosableIndex(int index, int rowConsonants, int rowVowels, List<Letter> letters) {
+        private bool IsChoosableIndex(int index, int rowConsonants, int rowVowels, List<Letter> letters, Gender gender) {
             return (preset.alphabet.letters[index].isConsonant == IsConsonantChosen(rowConsonants, rowVowels)
-                    && IsAllowedPermutation(index, letters)
-                    && IsAllowedProbability(index, letters)
+                    && IsAllowedProbability(index, letters, gender)
                     && IsAllowedRepeat(index, letters)) ? true : false;
         }
 
-        private bool IsAllowedProbability(int index, List<Letter> letters) {
-            return (letters.Count <= 0) ? CalculateResultFromPercentage(preset.probabilityMatrixStart.GetValueAtIndex(0, index)) :
-                        (letters.Count == length - 1) ? CalculateResultFromPercentage(preset.probabilityMatrixEnd.GetValueAtIndex(0, index)) : true;
-        }
+        private bool IsAllowedProbability(int index, List<Letter> letters, Gender gender) {
+            double percentage;
 
-        private bool IsAllowedPermutation(int index, List<Letter> letters) {
-            return (letters.Count > 0) ? CalculateResultFromPercentage(preset.permutationMatrix.GetValueAtIndex(letters.Last().index, index)) : true;
+            if (letters.Count <= 0) {
+                percentage = preset.probabilityMatrixStart.GetValueAtIndex(0, index);
+            } else if (letters.Count == length - 1) {
+                if (gender == Gender.Male) {
+                    percentage = preset.probabilityMatrixEnd_Male.GetValueAtIndex(0, index);
+                } else if (gender == Gender.Female) {
+                    percentage = preset.probabilityMatrixEnd_Female.GetValueAtIndex(0, index);
+                } else {
+                    percentage = preset.permutationMatrix.GetValueAtIndex(letters.Last().index, index);
+                }
+            } else {
+                percentage = preset.permutationMatrix.GetValueAtIndex(letters.Last().index, index);
+            }
+
+            bool result = CalculateResultFromPercentage(percentage);
+            return result;
         }
 
         private bool IsAllowedRepeat(int index, List<Letter> letters) {

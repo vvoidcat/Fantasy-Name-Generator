@@ -45,18 +45,20 @@ namespace NAMEGEN.Ui {
 
             panelCustom.Visibility = Visibility.Collapsed;
             bgOverlay.Visibility = Visibility.Collapsed;
+
+            cboxGender.SelectedIndex = (int)controller.gender;
         }
 
         
         // GENERATION
 
         private void On_buttonGenerate_Clicked(object sender, RoutedEventArgs e) {
-            gen.GenerateName();
+            gen.GenerateName(controller.gender);
             List<string> allNames = gen.GetAllNames();
 
             if (allNames is not null) {
                 for (int i = 0; i < nameBlocks.Count && i < allNames.Count; i++) {
-                    nameBlocks[i].Text = gen.GetNameAtIndex(allNames.Count - (1 + i)) + prevChosenGenderIndex;
+                    nameBlocks[i].Text = gen.GetNameAtIndex(allNames.Count - (1 + i));
                 }
             }
         }
@@ -68,7 +70,8 @@ namespace NAMEGEN.Ui {
         private void On_cboxGender_DropDownClosed(object sender, EventArgs e) {
             int currentIndex = cboxGender.SelectedIndex;
             if (prevChosenGenderIndex != currentIndex && controller is not null) {
-                controller.currentPreset.gender = (Gender)currentIndex;
+                controller.gender = (Gender)currentIndex;
+                // disable gender choice selection item if a certain preset matrix is zeroed TODO
             }
         }
 
