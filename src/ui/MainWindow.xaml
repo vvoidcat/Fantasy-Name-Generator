@@ -134,6 +134,7 @@
                                 
                                 <TextBox
                                     Name="tboxSourcepath"
+                                    LostFocus="On_tboxSourcepath_TextChangeFinished"
                                     Text="filepath"
                                     FontSize="12"
                                     Height="20"
@@ -162,6 +163,7 @@
                                 
                                 <TextBox
                                     Name="tboxCoverpath"
+                                    LostFocus="On_tboxCoverpath_TextChangeFinished"
                                     Text="../dir/cover.jpg"
                                     FontSize="12"
                                     Width="150"
@@ -191,6 +193,7 @@
 
                                 <TextBox 
                                     Name="tboxPresetName"
+                                    LostFocus="On_tboxPresetName_TextChangeFinished"
                                     Text="newname"
                                     FontSize="12"
                                     Height="20"

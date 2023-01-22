@@ -58,7 +58,7 @@ namespace NAMEGEN.Ui {
 
             if (allNames is not null) {
                 for (int i = 0; i < nameBlocks.Count && i < allNames.Count; i++) {
-                    nameBlocks[i].Text = gen.GetNameAtIndex(allNames.Count - (1 + i));
+                    nameBlocks[i].Text = gen.GetNameAtIndex(allNames.Count - (1 + i)); // + controller.currentPreset.filepathChecksum;
                 }
             }
         }
@@ -133,6 +133,23 @@ namespace NAMEGEN.Ui {
 
 
         // PRESET GENERAL SETTINGS
+
+        private void On_tboxSourcepath_TextChangeFinished(object sender, RoutedEventArgs e) {
+            if (tboxSourcepath is not null && controller is not null) {
+                controller.currentPreset.SetFilepath(tboxSourcepath.Text);
+            }
+        }
+
+        private void On_tboxCoverpath_TextChangeFinished(object sender, RoutedEventArgs e) {
+            if (tboxCoverpath is not null && controller is not null) {
+                //
+            }
+        }
+        private void On_tboxPresetName_TextChangeFinished(object sender, RoutedEventArgs e) {
+            if (tboxPresetName is not null && controller is not null) {
+                controller.currentPreset.presetName = tboxPresetName.Text;
+            }
+        }
 
         private void On_buttonSourcepath_Clicked(object sender, RoutedEventArgs e) {
             //
@@ -239,7 +256,5 @@ namespace NAMEGEN.Ui {
                 controller.currentPreset.allowVowsRepeats = (bool)checkVowsRepeats.IsChecked;
             }
         }
-
-
     }
 }

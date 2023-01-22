@@ -9,6 +9,7 @@ using System.Globalization;
 using CsvHelper.Configuration;
 using CsvHelper.Configuration.Attributes;
 using System.Data;
+using System.Security.Cryptography;
 
 namespace NAMEGEN.Core {
     public class Preset {
@@ -31,44 +32,70 @@ namespace NAMEGEN.Core {
         public bool allowConsRepeats { get; set; } = true;
         public bool allowVowsRepeats { get; set; } = true;
 
-        public Alphabet alphabet { get; set; } = new Alphabet(Language.English);
-        private string filepath { get; set; }
+        public Alphabet alphabet { get; set; }
 
         public Matrix permutationMatrix { get; private set; }
         public Matrix probabilityMatrixStart { get; private set; }
         public Matrix probabilityMatrixEnd_Male { get; private set; }
         public Matrix probabilityMatrixEnd_Female { get; private set; }
 
+        private string filepath = "";
+        private string filepathChecksum = "";
+
 
         public Preset(string newPath, Language lang) {
             alphabet = new Alphabet(lang);
-            filepath = newPath;
 
             permutationMatrix = new Matrix(alphabet.lettersCount, alphabet.lettersCount);
             probabilityMatrixStart = new Matrix(1, alphabet.lettersCount);
             probabilityMatrixEnd_Male = new Matrix(1, alphabet.lettersCount);
             probabilityMatrixEnd_Female = new Matrix(1, alphabet.lettersCount);
 
-            ParseSourceTable();     // arg source table
+            SetFilepath(newPath);
+        }
+
+        public void SetFilepath(string newPath) {
+            if (!File.Exists(newPath) || Path.GetExtension(newPath) != ".csv") {
+                if (filepath == "") {
+                    filepath = "generic";
+                    FinalizeMatrices();
+                    //throw new ArgumentException("aboba1");
+                }
+                //else {
+                //    throw new ArgumentException("aboba2");
+                //}
+            } else {
+                string newChecksum = filepathChecksum;
+
+                if (filepath == newPath) {
+                    newChecksum = GetChecksum(newPath);
+                }
+
+                if (filepathChecksum != newChecksum) {
+                    ParseSourceTable();
+                    filepath = newPath;
+                    filepathChecksum = newChecksum;
+                }
+
+                filepath = newPath;
+                filepathChecksum = newChecksum;
+                ParseSourceTable();
+            }
+        }
+
+        private string GetChecksum(string path) {
+            SHA256 SHA256 = SHA256Managed.Create();
+
+            FileStream fileStream = File.OpenRead(path);
+            string newChecksum = BitConverter.ToString(SHA256.ComputeHash(fileStream)).Replace("-", "").ToLowerInvariant();
+            return newChecksum;
         }
 
         private void ParseSourceTable() {
-            // take path as an arg
-            // check sha-sum of the csv, if it's changed - re-parse 
-            // handle file not found situation -> delegate to ui?
-            Matrix[] matrices = new Matrix[] { permutationMatrix, probabilityMatrixStart, probabilityMatrixEnd_Male, probabilityMatrixEnd_Female };
-
             if (File.Exists(filepath)) {
                 ReadSourceFile();
             }
-
-            foreach (Matrix m in matrices) {
-                if (m.isZeroed) {
-                    m.SetMatrix(0.5f);
-                } else {
-                    m.NormalizeMatrix();
-                }
-            }
+            FinalizeMatrices();
         }
 
         private void ReadSourceFile() {
@@ -127,6 +154,18 @@ namespace NAMEGEN.Core {
                 }
 
                 permutationMatrix.IncrementValueAtIndex(indexCurrent, indexNext);
+            }
+        }
+
+        private void FinalizeMatrices() {
+            Matrix[] matrices = new Matrix[] { permutationMatrix, probabilityMatrixStart, probabilityMatrixEnd_Male, probabilityMatrixEnd_Female };
+
+            foreach (Matrix m in matrices) {
+                if (m.isZeroed) {
+                    m.SetMatrix(0.5f);
+                } else {
+                    m.NormalizeMatrix();
+                }
             }
         }
     }

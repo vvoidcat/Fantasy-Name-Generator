@@ -19,12 +19,6 @@ namespace NAMEGEN.Control {
         public Preset currentPreset { get; private set; }
         private Generator gen;
 
-        //private int minLen;
-        //private int maxLen;
-        //private int consMaxRow;
-        //private int consMinRow;
-
-
         public Controller() {
             currentPreset = new Preset(filepath, lang);
             gen = new Generator(currentPreset);
