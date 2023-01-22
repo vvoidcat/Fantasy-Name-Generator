@@ -18,6 +18,8 @@ using NAMEGEN.Control;
 namespace NAMEGEN.Ui {
     public partial class MainWindow : Window {
 
+        int prevChosenGenderIndex = 0;
+
         Controller controller;
         private Generator gen;
 
@@ -45,23 +47,52 @@ namespace NAMEGEN.Ui {
             bgOverlay.Visibility = Visibility.Collapsed;
         }
 
+        
+        // GENERATION
+
         private void On_buttonGenerate_Clicked(object sender, RoutedEventArgs e) {
             gen.GenerateName();
             List<string> allNames = gen.GetAllNames();
 
             if (allNames is not null) {
                 for (int i = 0; i < nameBlocks.Count && i < allNames.Count; i++) {
-                    nameBlocks[i].Text = gen.GetNameAtIndex(allNames.Count - (1 + i));
+                    nameBlocks[i].Text = gen.GetNameAtIndex(allNames.Count - (1 + i)) + prevChosenGenderIndex;
                 }
             }
         }
+
+        private void On_cboxGender_DropDownOpened(object sender, EventArgs e) {
+            prevChosenGenderIndex = cboxGender.SelectedIndex;
+        }
+
+        private void On_cboxGender_DropDownClosed(object sender, EventArgs e) {
+            int currentIndex = cboxGender.SelectedIndex;
+            if (prevChosenGenderIndex != currentIndex && controller is not null) {
+                controller.currentPreset.gender = (Gender)currentIndex;
+            }
+        }
+
+        private void On_buttonGenNum_1_Clicked(object sender, RoutedEventArgs e) {
+            //
+        }
+
+        private void On_buttonGenNum_2_Clicked(object sender, RoutedEventArgs e) {
+            //
+        }
+
+        private void On_buttonGenNum_3_Clicked(object sender, RoutedEventArgs e) {
+            //
+        }
+
+
+        // CONTROL BUTTONS
 
         private void On_buttonSettings_Clicked(object sender, RoutedEventArgs e) {
             //
         }
 
         private void On_buttonPresets_Clicked(object sender, RoutedEventArgs e) {
-
+            //
         }
 
         private void On_buttonCustom_Clicked(object sender, RoutedEventArgs e) {
@@ -83,6 +114,33 @@ namespace NAMEGEN.Ui {
         }
 
 
+        // SAVE LOAD
+
+        private void On_buttonLoad_Clicked(object sender, RoutedEventArgs e) {
+            //
+        }
+
+        private void On_buttonSave_Clicked(object sender, RoutedEventArgs e) {
+            //
+        }
+
+        private void On_buttonSaveas_Clicked(object sender, RoutedEventArgs e) {
+            //
+        }
+
+
+        // PRESET GENERAL SETTINGS
+
+        private void On_buttonSourcepath_Clicked(object sender, RoutedEventArgs e) {
+            //
+        }
+
+        private void On_buttonCoverpath_Clicked(object sender, RoutedEventArgs e) {
+            //
+        }
+
+
+        // NAME LENGTH
 
         private void On_buttonMinLengthLesser_Clicked(object sender, RoutedEventArgs e) {
             int value = Int32.Parse(tboxMinLength.Text);
@@ -127,35 +185,58 @@ namespace NAMEGEN.Ui {
         }
 
 
+        // MAX MIN IN A ROW
+
         private void On_sbarConsMax_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
             if (controller is not null) {
                 int value = (int)sbarConsMax.Value;
-                controller.currentPreset.maxRowCons = value;
                 tblockConsMaxValue.Text = value.ToString();
+                controller.currentPreset.maxRowCons = value;
             }
         }
 
         private void On_sbarVowsMax_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
             if (controller is not null) {
                 int value = (int)sbarVowsMax.Value;
-                controller.currentPreset.maxRowVows = value;
                 tblockVowsMaxValue.Text = value.ToString();
+                controller.currentPreset.maxRowVows = value;
             }
         }
 
+
+        // PERCENTAGE CORRECTION
+
+        private void On_sbarConsPerc_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
+            if (controller is not null) {
+                double value = sbarConsPerc.Value;
+                tblockConsPercValue.Text = value.ToString();
+                controller.currentPreset.conPercentageCorrection = value / 100;
+            }
+        }
+
+        private void On_sbarVowsPerc_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
+            if (controller is not null) {
+                double value = sbarVowsPerc.Value;
+                tblockVowsPercValue.Text = value.ToString();
+                controller.currentPreset.vowPercentageCorrection = value / 100;
+            }
+        }
+
+
+        // REPEATS CHECKBOXES
+
         private void On_checkConsRepeats_Checked(object sender, RoutedEventArgs e) {
-            //if (checkConsRepeats.IsChecked is not null) {
-            //    checkConsRepeats.IsChecked = !checkConsRepeats.IsChecked;
-            //    controller.currentPreset.allowConsRepeats = (bool)checkConsRepeats.IsChecked;
-            //}
+            if (checkConsRepeats.IsChecked is not null && controller is not null) {
+                controller.currentPreset.allowConsRepeats = (bool)checkConsRepeats.IsChecked;
+            }
         }
 
         private void On_checkVowsRepeats_Checked(object sender, RoutedEventArgs e) {
-            //if (checkVowsRepeats.IsChecked is not null) {
-            //    checkVowsRepeats.IsChecked = !checkVowsRepeats.IsChecked;
-            //    controller.currentPreset.allowVowsRepeats = (bool)checkVowsRepeats.IsChecked;
-            //}
+            if (checkVowsRepeats.IsChecked is not null) {
+                controller.currentPreset.allowVowsRepeats = (bool)checkVowsRepeats.IsChecked;
+            }
         }
+
 
     }
 }

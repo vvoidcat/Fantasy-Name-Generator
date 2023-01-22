@@ -95,18 +95,21 @@
 
                         <Button
                             Name="buttonLoad"
+                            Click="On_buttonLoad_Clicked"
                             Content="load"
                             Grid.Column="0"
                             Style="{StaticResource stylePanelSaveloadButtons}"/>
 
                         <Button
                             Name="buttonSave"
+                            Click="On_buttonSave_Clicked"
                             Content="save"
                             Grid.Column="1"
                             Style="{StaticResource stylePanelSaveloadButtons}"/>
 
                         <Button
                             Name="buttonSaveas"
+                            Click="On_buttonSaveas_Clicked"
                             Content="save as..."
                             Grid.Column="2"
                             Style="{StaticResource stylePanelSaveloadButtons}"/>
@@ -121,7 +124,7 @@
                             <StackPanel Orientation="Horizontal"
                                         Margin="0 2">
                                 <TextBlock
-                                    Name="tblockFilepath"
+                                    Name="tblockSourcepath"
                                     Text="source table:"
                                     Padding="0 1 0 0"
                                     Margin="0 0 5 0"
@@ -130,7 +133,7 @@
                                     Height="20"/>
                                 
                                 <TextBox
-                                    Name="tboxFilepath"
+                                    Name="tboxSourcepath"
                                     Text="filepath"
                                     FontSize="12"
                                     Height="20"
@@ -138,7 +141,8 @@
                                     Style="{StaticResource stylePanelTextBoxes}"/>
 
                                 <Button
-                                    Name="buttonFilepath"
+                                    Name="buttonSourcepath"
+                                    Click="On_buttonSourcepath_Clicked"
                                     Content="..."
                                     Height="20"
                                     Width="20"
@@ -166,6 +170,7 @@
 
                                 <Button
                                     Name="buttonCoverpath"
+                                    Click="On_buttonCoverpath_Clicked"
                                     Content="..."
                                     Height="20"
                                     Width="20"
@@ -329,7 +334,7 @@
 
                             <TextBlock
                                 Name="tblockConsPerc"
-                                Text="spawn percentage chance:"
+                                Text="spawn chance correction:"
                                 Margin="0 1"
                                 Height="18"
                                 FontSize="12"/>
@@ -371,20 +376,21 @@
                             <StackPanel Orientation="Horizontal">
                                 <Slider 
                                     Name="sbarConsPerc"
+                                    ValueChanged="On_sbarConsPerc_ValueChanged"
                                     Orientation="Horizontal"
                                     Margin="0 1"
                                     Width="50"
                                     Height="18"
-                                    Minimum="1"
-                                    Maximum="100"
-                                    Value="50"
+                                    Minimum="-50"
+                                    Maximum="50"
+                                    Value="0"
                                     IsSnapToTickEnabled="True"
                                     TickFrequency="1"
                                     AutoToolTipPlacement="TopLeft"/>
 
                                 <TextBlock
                                     Name="tblockConsPercValue"
-                                    Text="50%"
+                                    Text="0%"
                                     HorizontalAlignment="Center"
                                     Margin="4 2 0 0"
                                     Width="30"
@@ -411,7 +417,7 @@
 
                             <TextBlock
                                 Name="tblockVonsPerc"
-                                Text="spawn percentage chance:"
+                                Text="spawn chance correction:"
                                 Margin="0 1"
                                 Height="18"
                                 FontSize="12"/>
@@ -453,20 +459,21 @@
                             <StackPanel Orientation="Horizontal">
                                 <Slider 
                                     Name="sbarVowsPerc"
+                                    ValueChanged="On_sbarVowsPerc_ValueChanged"
                                     Orientation="Horizontal"
                                     Width="50"
                                     Margin="0 1"
                                     Height="18"
-                                    Minimum="1"
-                                    Maximum="100"
-                                    Value="50"
+                                    Minimum="-50"
+                                    Maximum="50"
+                                    Value="0"
                                     IsSnapToTickEnabled="True"
                                     TickFrequency="1"
                                     AutoToolTipPlacement="TopLeft"/>
 
                                 <TextBlock
                                     Name="tblockVowsPercValue"
-                                    Text="50%"
+                                    Text="0%"
                                     HorizontalAlignment="Center"
                                     Margin="4 2 0 0"
                                     Width="30"
@@ -536,6 +543,8 @@
 
                 <!-- GENDER -->
                 <ComboBox Name="cboxGender"
+                          DropDownOpened="On_cboxGender_DropDownOpened"
+                          DropDownClosed="On_cboxGender_DropDownClosed"
                           Style="{DynamicResource ComboBoxStyle_GenderBox}"
                           FontSize="15"
                           Width="105"
@@ -575,18 +584,21 @@
                     
                     <Button
                         Name="buttonGenNum_1"
+                        Click="On_buttonGenNum_1_Clicked"
                         Content="1"
                         Grid.Column="0"
                         Style="{StaticResource styleNamegenNumButtons}"/>
 
                     <Button
                         Name="buttonGenNum_5"
+                        Click="On_buttonGenNum_2_Clicked"
                         Content="5"
                         Grid.Column="1"
                         Style="{StaticResource styleNamegenNumButtons}"/>
 
                     <Button
                         Name="buttonGenNum_10"
+                        Click="On_buttonGenNum_3_Clicked"
                         Content="10"
                         Grid.Column="2"
                         Style="{StaticResource styleNamegenNumButtons}"/>

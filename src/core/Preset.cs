@@ -12,16 +12,18 @@ using System.Data;
 
 namespace NAMEGEN.Core {
     public class Preset {
-        public class NameRecord {
+        class NameRecord {
             [Index(0)] public string maleName { get; set; } = "";
             [Index(1)] public string femaleName { get; set; } = "";
         }
+
+        public string presetName { get; set; } = "Unnamed Preset";
         
-        public int minLength { get; set; } = 3;
+        public int minLength { get; set; } = 3;     // write private setters
         public int maxLength { get; set; } = 12;
 
-        public int maxRowVows { get; set; } = 3;
-        public int maxRowCons { get; set; } = 3;
+        public int maxRowVows { get; set; } = 2;
+        public int maxRowCons { get; set; } = 2;
 
         public double vowPercentageCorrection { get; set; } = 0.0f;
         public double conPercentageCorrection { get; set; } = 0.0f;
@@ -29,14 +31,13 @@ namespace NAMEGEN.Core {
         public bool allowConsRepeats { get; set; } = true;
         public bool allowVowsRepeats { get; set; } = true;
 
-        public Gender gender { get; private set; }
-        public Alphabet alphabet { get; private set; }
+        public Gender gender { get; set; } = Gender.Neutral;
+        public Alphabet alphabet { get; set; } = new Alphabet(Language.English);
+        private string filepath { get; set; }
+
         public Matrix permutationMatrix { get; private set; }
         public Matrix probabilityMatrixStart { get; private set; }
         public Matrix probabilityMatrixEnd { get; private set; }
-
-        private string filepath { get; set; }
-
 
         public Preset(string newPath, Language lang) {
             alphabet = new Alphabet(lang);
@@ -44,22 +45,11 @@ namespace NAMEGEN.Core {
 
             gender = Gender.Neutral;
 
-            // these should always be above 0
-            //maxRowVows = 3;  // min 1, max 3
-            //maxRowCons = 3;
-
-            //vowPercentageCorrection = 0.0f;
-            //conPercentageCorrection = 0.0f;
-
             permutationMatrix = new Matrix(alphabet.lettersCount, alphabet.lettersCount);
             probabilityMatrixStart = new Matrix(1, alphabet.lettersCount);
             probabilityMatrixEnd = new Matrix(1, alphabet.lettersCount);
 
             ParseSourceTable();     // arg source table
-        }
-
-        public void UpdateSettings() {
-
         }
 
         private void ParseSourceTable() {
@@ -108,8 +98,6 @@ namespace NAMEGEN.Core {
         }
 
         private void ProcessNameStr(string name) {
-            //UpdateLengthParams(name);
-
             for (int i = 1; i < name.Length; i++) {
                 int indexCurrent = i - 1;
                 int indexNext = i;
