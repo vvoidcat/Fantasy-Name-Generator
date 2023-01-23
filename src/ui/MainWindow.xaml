@@ -193,8 +193,7 @@
 
                                 <TextBox 
                                     Name="tboxPresetName"
-                                    LostFocus="On_tboxPresetName_TextChangeFinished"
-                                    Text="newname"
+                                    Text="{Binding presetName, UpdateSourceTrigger=LostFocus}"
                                     FontSize="12"
                                     Height="20"
                                     Width="170"
@@ -379,21 +378,20 @@
                             <StackPanel Orientation="Horizontal">
                                 <Slider 
                                     Name="sbarConsPerc"
-                                    ValueChanged="On_sbarConsPerc_ValueChanged"
+                                    Value="{Binding consCorrection, UpdateSourceTrigger=PropertyChanged}"
                                     Orientation="Horizontal"
                                     Margin="0 1"
                                     Width="50"
                                     Height="18"
                                     Minimum="-50"
                                     Maximum="50"
-                                    Value="0"
                                     IsSnapToTickEnabled="True"
                                     TickFrequency="1"
                                     AutoToolTipPlacement="TopLeft"/>
 
                                 <TextBlock
                                     Name="tblockConsPercValue"
-                                    Text="0%"
+                                    Text="{Binding consCorrectionTblock}"
                                     HorizontalAlignment="Center"
                                     Margin="4 2 0 0"
                                     Width="30"
@@ -402,8 +400,7 @@
 
                             <CheckBox
                                 Name="checkConsRepeats"
-                                Checked="On_checkConsRepeats_Checked"
-                                Unchecked="On_checkConsRepeats_Checked"
+                                IsChecked="{Binding consAllowRepeats, UpdateSourceTrigger=PropertyChanged}"
                                 Margin="-2 1 0 0"
                                 Style="{StaticResource stylePanelCheckBoxes}"/>
                         </StackPanel>
@@ -462,21 +459,20 @@
                             <StackPanel Orientation="Horizontal">
                                 <Slider 
                                     Name="sbarVowsPerc"
-                                    ValueChanged="On_sbarVowsPerc_ValueChanged"
+                                    Value="{Binding vowsCorrection, UpdateSourceTrigger=PropertyChanged}"
                                     Orientation="Horizontal"
                                     Width="50"
                                     Margin="0 1"
                                     Height="18"
                                     Minimum="-50"
                                     Maximum="50"
-                                    Value="0"
                                     IsSnapToTickEnabled="True"
                                     TickFrequency="1"
                                     AutoToolTipPlacement="TopLeft"/>
 
                                 <TextBlock
                                     Name="tblockVowsPercValue"
-                                    Text="0%"
+                                    Text="{Binding vowsCorrectionTblock, UpdateSourceTrigger=PropertyChanged}"
                                     HorizontalAlignment="Center"
                                     Margin="4 2 0 0"
                                     Width="30"
@@ -485,8 +481,7 @@
                             
                             <CheckBox
                                 Name="checkVowsRepeats"
-                                Checked="On_checkVowsRepeats_Checked"
-                                Unchecked="On_checkVowsRepeats_Checked"
+                                IsChecked="{Binding vowsAllowRepeats, UpdateSourceTrigger=PropertyChanged}"
                                 Margin="-2 1 0 0"
                                 Style="{StaticResource stylePanelCheckBoxes}"/>
                         </StackPanel>

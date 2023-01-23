@@ -20,7 +20,7 @@ namespace NAMEGEN.Ui {
 
         int prevChosenGenderIndex = 0;
 
-        Controller controller;
+        //Controller controller;
         private Generator gen;
 
         private List<TextBlock> nameBlocks;
@@ -28,9 +28,8 @@ namespace NAMEGEN.Ui {
         public MainWindow() {
             InitializeComponent();
 
-            // load saved progress if exists
-            controller = new Controller();
-            gen = new Generator(controller.currentPreset);
+            Preset preset = new Preset("aaa", Core.Language.English);
+            gen = new Generator(preset);
 
             InitFields();
         }
@@ -46,14 +45,14 @@ namespace NAMEGEN.Ui {
             panelCustom.Visibility = Visibility.Collapsed;
             bgOverlay.Visibility = Visibility.Collapsed;
 
-            cboxGender.SelectedIndex = (int)controller.gender;
+            //cboxGender.SelectedIndex = (int)controller.gender;
         }
 
         
         // GENERATION
 
         private void On_buttonGenerate_Clicked(object sender, RoutedEventArgs e) {
-            gen.GenerateName(controller.gender);
+            gen.GenerateName(Gender.Neutral);
             List<string> allNames = gen.GetAllNames();
 
             if (allNames is not null) {
@@ -68,11 +67,11 @@ namespace NAMEGEN.Ui {
         }
 
         private void On_cboxGender_DropDownClosed(object sender, EventArgs e) {
-            int currentIndex = cboxGender.SelectedIndex;
-            if (prevChosenGenderIndex != currentIndex && controller is not null) {
-                controller.gender = (Gender)currentIndex;
-                // disable gender choice selection item if a certain preset matrix is zeroed TODO
-            }
+            //int currentIndex = cboxGender.SelectedIndex;
+            //if (prevChosenGenderIndex != currentIndex && controller is not null) {
+            //    controller.gender = (Gender)currentIndex;
+            //    // disable gender choice selection item if a certain preset matrix is zeroed TODO
+            //}
         }
 
         private void On_buttonGenNum_1_Clicked(object sender, RoutedEventArgs e) {
@@ -135,21 +134,21 @@ namespace NAMEGEN.Ui {
         // PRESET GENERAL SETTINGS
 
         private void On_tboxSourcepath_TextChangeFinished(object sender, RoutedEventArgs e) {
-            if (tboxSourcepath is not null && controller is not null) {
-                controller.currentPreset.SetFilepath(tboxSourcepath.Text);
-            }
+            //if (tboxSourcepath is not null && controller is not null) {
+            //    controller.currentPreset.SetFilepath(tboxSourcepath.Text);
+            //}
         }
 
         private void On_tboxCoverpath_TextChangeFinished(object sender, RoutedEventArgs e) {
-            if (tboxCoverpath is not null && controller is not null) {
-                //
-            }
+            //if (tboxCoverpath is not null && controller is not null) {
+            //    //
+            //}
         }
-        private void On_tboxPresetName_TextChangeFinished(object sender, RoutedEventArgs e) {
-            if (tboxPresetName is not null && controller is not null) {
-                controller.currentPreset.presetName = tboxPresetName.Text;
-            }
-        }
+        //private void On_tboxPresetName_TextChangeFinished(object sender, RoutedEventArgs e) {
+        //    if (tboxPresetName is not null && controller is not null) {
+        //        controller.currentPreset.presetName = tboxPresetName.Text;
+        //    }
+        //}
 
         private void On_buttonSourcepath_Clicked(object sender, RoutedEventArgs e) {
             //
@@ -163,98 +162,83 @@ namespace NAMEGEN.Ui {
         // NAME LENGTH
 
         private void On_buttonMinLengthLesser_Clicked(object sender, RoutedEventArgs e) {
-            int value = Int32.Parse(tboxMinLength.Text);
-            int newValue = value - 1;
+            //int value = Int32.Parse(tboxMinLength.Text);
+            //int newValue = value - 1;
 
-            if (newValue >= 3) {
-                tboxMinLength.Text = newValue.ToString();
-                controller.currentPreset.minLength = newValue;
-            }
+            //if (newValue >= 3) {
+            //    tboxMinLength.Text = newValue.ToString();
+            //    controller.currentPreset.minLength = newValue;
+            //}
             // deactivate button if value == lower bound
         }
 
         private void On_buttonMinLengthGreater_Clicked(object sender, RoutedEventArgs e) {
-            int value = Int32.Parse(tboxMinLength.Text);
-            int newValue = value + 1;
+            //int value = Int32.Parse(tboxMinLength.Text);
+            //int newValue = value + 1;
 
-            if (newValue <= 12 && newValue < Int32.Parse(tboxMaxLength.Text)) {
-                tboxMinLength.Text = newValue.ToString();
-                controller.currentPreset.minLength = newValue;
-            }
+            //if (newValue <= 12 && newValue < Int32.Parse(tboxMaxLength.Text)) {
+            //    tboxMinLength.Text = newValue.ToString();
+            //    controller.currentPreset.minLength = newValue;
+            //}
         }
 
         private void On_buttonMaxLengthLesser_Clicked(object sender, RoutedEventArgs e) {
-            int value = Int32.Parse(tboxMaxLength.Text);
-            int newValue = value - 1;
+            //int value = Int32.Parse(tboxMaxLength.Text);
+            //int newValue = value - 1;
 
-            if (newValue >= 3 && newValue > Int32.Parse(tboxMinLength.Text)) {
-                tboxMaxLength.Text = newValue.ToString();
-                controller.currentPreset.maxLength = newValue;
-            }
+            //if (newValue >= 3 && newValue > Int32.Parse(tboxMinLength.Text)) {
+            //    tboxMaxLength.Text = newValue.ToString();
+            //    controller.currentPreset.maxLength = newValue;
+            //}
             // deactivate button if value == lower bound
         }
 
         private void On_buttonMaxLengthGreater_Clicked(object sender, RoutedEventArgs e) {
-            int value = Int32.Parse(tboxMaxLength.Text);
-            int newValue = value + 1;
+            //int value = Int32.Parse(tboxMaxLength.Text);
+            //int newValue = value + 1;
 
-            if (newValue <= 12) {
-                tboxMaxLength.Text = newValue.ToString();
-                controller.currentPreset.maxLength = newValue;
-            }
+            //if (newValue <= 12) {
+            //    tboxMaxLength.Text = newValue.ToString();
+            //    controller.currentPreset.maxLength = newValue;
+            //}
         }
 
 
         // MAX MIN IN A ROW
 
         private void On_sbarConsMax_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
-            if (controller is not null) {
-                int value = (int)sbarConsMax.Value;
-                tblockConsMaxValue.Text = value.ToString();
-                controller.currentPreset.maxRowCons = value;
-            }
+            //if (controller is not null) {
+            //    int value = (int)sbarConsMax.Value;
+            //    tblockConsMaxValue.Text = value.ToString();
+            //    controller.currentPreset.maxRowCons = value;
+            //}
         }
 
         private void On_sbarVowsMax_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
-            if (controller is not null) {
-                int value = (int)sbarVowsMax.Value;
-                tblockVowsMaxValue.Text = value.ToString();
-                controller.currentPreset.maxRowVows = value;
-            }
+            //if (controller is not null) {
+            //    int value = (int)sbarVowsMax.Value;
+            //    tblockVowsMaxValue.Text = value.ToString();
+            //    controller.currentPreset.maxRowVows = value;
+            //}
         }
 
 
         // PERCENTAGE CORRECTION
 
         private void On_sbarConsPerc_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
-            if (controller is not null) {
-                double value = sbarConsPerc.Value;
-                tblockConsPercValue.Text = value.ToString();
-                controller.currentPreset.conPercentageCorrection = value / 100;
-            }
+            //if (controller is not null) {
+            //    double value = sbarConsPerc.Value;
+            //    tblockConsPercValue.Text = value.ToString();
+            //    controller.currentPreset.conPercentageCorrection = value / 100;
+            //}
         }
 
         private void On_sbarVowsPerc_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
-            if (controller is not null) {
-                double value = sbarVowsPerc.Value;
-                tblockVowsPercValue.Text = value.ToString();
-                controller.currentPreset.vowPercentageCorrection = value / 100;
-            }
-        }
-
-
-        // REPEATS CHECKBOXES
-
-        private void On_checkConsRepeats_Checked(object sender, RoutedEventArgs e) {
-            if (checkConsRepeats.IsChecked is not null && controller is not null) {
-                controller.currentPreset.allowConsRepeats = (bool)checkConsRepeats.IsChecked;
-            }
-        }
-
-        private void On_checkVowsRepeats_Checked(object sender, RoutedEventArgs e) {
-            if (checkVowsRepeats.IsChecked is not null) {
-                controller.currentPreset.allowVowsRepeats = (bool)checkVowsRepeats.IsChecked;
-            }
+            //if (controller is not null) {
+            //    double value = sbarVowsPerc.Value;
+            //    tblockVowsPercValue.Text = value.ToString();
+            //    controller.currentPreset.vowPercentageCorrection = value / 100;
+            //}
         }
     }
 }

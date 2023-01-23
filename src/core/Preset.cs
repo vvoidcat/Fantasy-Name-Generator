@@ -39,6 +39,7 @@ namespace NAMEGEN.Core {
         public Matrix probabilityMatrixEnd_Male { get; private set; }
         public Matrix probabilityMatrixEnd_Female { get; private set; }
 
+        private string coverpath = "default";
         private string filepath = "";
         private string filepathChecksum = "";
 
@@ -80,6 +81,7 @@ namespace NAMEGEN.Core {
                 filepath = newPath;
                 filepathChecksum = newChecksum;
                 ParseSourceTable();
+                FinalizeMatrices();
             }
         }
 
@@ -95,7 +97,6 @@ namespace NAMEGEN.Core {
             if (File.Exists(filepath)) {
                 ReadSourceFile();
             }
-            FinalizeMatrices();
         }
 
         private void ReadSourceFile() {
