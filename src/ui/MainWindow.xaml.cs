@@ -17,14 +17,14 @@ using NAMEGEN.Core;     // del later
 namespace NAMEGEN.Ui {
     public partial class MainWindow : Window {
 
-        private Generator gen;
+        //private Generator gen;
         private List<TextBlock> nameBlocks;
 
         public MainWindow() {
             InitializeComponent();
 
-            Preset preset = new Preset("aaa", Core.Language.English);
-            gen = new Generator(preset);
+            //Preset preset = new Preset("aaa", Core.Language.English);
+            //gen = new Generator(preset);
 
             InitFields();
         }
@@ -46,16 +46,16 @@ namespace NAMEGEN.Ui {
         
         // GENERATION
 
-        private void On_buttonGenerate_Clicked(object sender, RoutedEventArgs e) {
-            gen.GenerateName(Gender.Neutral);
-            List<string> allNames = gen.GetAllNames();
+        //private void On_buttonGenerate_Clicked(object sender, RoutedEventArgs e) {
+        //    gen.GenerateName(Gender.Neutral);
+        //    List<string> allNames = gen.GetAllNames();
 
-            if (allNames is not null) {
-                for (int i = 0; i < nameBlocks.Count && i < allNames.Count; i++) {
-                    nameBlocks[i].Text = gen.GetNameAtIndex(allNames.Count - (1 + i));
-                }
-            }
-        }
+        //    if (allNames is not null) {
+        //        for (int i = 0; i < nameBlocks.Count && i < allNames.Count; i++) {
+        //            nameBlocks[i].Text = gen.GetNameAtIndex(allNames.Count - (1 + i));
+        //        }
+        //    }
+        //}
 
         private void On_buttonGenNum_1_Clicked(object sender, RoutedEventArgs e) {
             //

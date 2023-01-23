@@ -131,7 +131,7 @@
                                 
                                 <TextBox
                                     Name="tboxSourcepath"
-                                    Text="{Binding sourcePath, UpdateSourceTrigger=PropertyChanged}"
+                                    Text="{Binding sourcePath}"
                                     FontSize="12"
                                     Height="20"
                                     Width="150"
@@ -158,7 +158,7 @@
                                 
                                 <TextBox
                                     Name="tboxCoverpath"
-                                    Text="{Binding coverPath, UpdateSourceTrigger=PropertyChanged}"
+                                    Text="{Binding coverPath}"
                                     FontSize="12"
                                     Width="150"
                                     Height="20"
@@ -347,7 +347,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <Slider 
                                     Name="sbarConsMax"
-                                    Value="{Binding consMaxRow, UpdateSourceTrigger=PropertyChanged}"
+                                    Value="{Binding consMaxRow}"
                                     Orientation="Horizontal"
                                     Margin="0 0"
                                     Width="50"
@@ -370,7 +370,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <Slider 
                                     Name="sbarConsPerc"
-                                    Value="{Binding consCorrection, UpdateSourceTrigger=PropertyChanged}"
+                                    Value="{Binding consCorrection}"
                                     Orientation="Horizontal"
                                     Margin="0 1"
                                     Width="50"
@@ -392,7 +392,7 @@
 
                             <CheckBox
                                 Name="checkConsRepeats"
-                                IsChecked="{Binding consAllowRepeats, UpdateSourceTrigger=PropertyChanged}"
+                                IsChecked="{Binding consAllowRepeats}"
                                 Margin="-2 1 0 0"
                                 Style="{StaticResource stylePanelCheckBoxes}"/>
                         </StackPanel>
@@ -427,7 +427,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <Slider 
                                     Name="sbarVowsMax"
-                                    Value="{Binding vowsMaxRow, UpdateSourceTrigger=PropertyChanged}"
+                                    Value="{Binding vowsMaxRow}"
                                     Orientation="Horizontal"
                                     Width="50"
                                     Margin="0 0"
@@ -450,7 +450,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <Slider 
                                     Name="sbarVowsPerc"
-                                    Value="{Binding vowsCorrection, UpdateSourceTrigger=PropertyChanged}"
+                                    Value="{Binding vowsCorrection}"
                                     Orientation="Horizontal"
                                     Width="50"
                                     Margin="0 1"
@@ -474,7 +474,7 @@
                             
                             <CheckBox
                                 Name="checkVowsRepeats"
-                                IsChecked="{Binding vowsAllowRepeats, UpdateSourceTrigger=PropertyChanged}"
+                                IsChecked="{Binding vowsAllowRepeats}"
                                 Margin="-2 1 0 0"
                                 Style="{StaticResource stylePanelCheckBoxes}"/>
                         </StackPanel>
@@ -534,7 +534,7 @@
 
                 <!-- GENDER -->
                 <ComboBox Name="cboxGender"
-                          SelectedIndex="{Binding gender, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedIndex="{Binding gender}"
                           Style="{DynamicResource ComboBoxStyle_GenderBox}"
                           FontSize="15"
                           Width="105"
@@ -559,9 +559,9 @@
                 <Button
                     Name="buttonGenerate"
                     Content="Generate"
+                    Command="{Binding generateCommand}"
                     Grid.Column="2"
-                    Style="{StaticResource styleGenerateButton}"
-                    Click="On_buttonGenerate_Clicked" />
+                    Style="{StaticResource styleGenerateButton}"/>
 
                 <!-- NUMBER OF NAMES TO GENERATE -->
                 <Grid Grid.Column="3">

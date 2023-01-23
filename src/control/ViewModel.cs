@@ -10,20 +10,21 @@ using System.Windows.Input;
 using NAMEGEN.Core;
 
 namespace NAMEGEN.Control {
-    class ViewModel {
+    class ViewModel : ViewModelBase {
         private Preset currentPreset { get; set; }
 
         public ViewModel() {
             // load saved preset/values if they exist
 
             currentPreset = new Preset(_sourcePath, _lang);
+            generateCommand = new GenerateCommand(currentPreset, _gender);
 
-            //Task.Run(() => {
-            //    while (true) {
-            //        Debug.WriteLine(": " + vowsCorrection + " | ");
-            //        Thread.Sleep(500);
-            //    }
-            //});
+            Task.Run(() => {
+                while (true) {
+                    Debug.WriteLine(": " + consCorrection + " | " + vowsMaxRow);
+                    Thread.Sleep(500);
+                }
+            });
         }
 
 
@@ -47,18 +48,18 @@ namespace NAMEGEN.Control {
 
         // BUTTON COMMANDS
 
-        public ICommand GenerateCommand { get; }
-        public ICommand SaveCommand { get; }
-        public ICommand SaveasCommand { get; }
-        public ICommand LoadCommand { get; }
-        public ICommand OpenSourcepathCommand { get; }
-        public ICommand OpenCoverpathCommand { get; }
-        public ICommand MinlenLesserCommand { get; }
-        public ICommand MinlenGreaterCommand { get; }
-        public ICommand MaxlenLesserCommand { get; }
-        public ICommand MaxlenGreaterCommand { get; }
-        public ICommand PresetLesserCommand { get; }
-        public ICommand PresetGreaterCommand { get; }
+        public ICommand generateCommand { get; }
+        public ICommand saveCommand { get; }
+        public ICommand saveasCommand { get; }
+        public ICommand loadCommand { get; }
+        public ICommand openSourcepathCommand { get; }
+        public ICommand openCoverpathCommand { get; }
+        public ICommand minlenLesserCommand { get; }
+        public ICommand minlenGreaterCommand { get; }
+        public ICommand maxlenLesserCommand { get; }
+        public ICommand maxlenGreaterCommand { get; }
+        public ICommand presetLesserCommand { get; }
+        public ICommand presetGreaterCommand { get; }
 
 
         // PRESET GENERAL SETTINGS
@@ -71,19 +72,28 @@ namespace NAMEGEN.Control {
 
         public string sourcePath {
             get { return _sourcePath; }
-            set { _sourcePath = value; }      // update
+            set {
+                _sourcePath = value;            // update
+            }
         }
 
         private string _coverPath = "default";
         public string coverPath {
             get { return _coverPath; }
-            set { _coverPath = value; }
+            set {
+                _coverPath = value;
+                OnPropertyChanged(nameof(coverPath));
+            }
         }
 
         private string _presetName = "aboba";
         public string presetName {
             get { return _presetName; }
-            set { _presetName = value; currentPreset.presetName = value; }
+            set {
+                _presetName = value; 
+                currentPreset.presetName = value;
+                OnPropertyChanged(nameof(presetName));
+            }
         }
 
 
@@ -92,13 +102,20 @@ namespace NAMEGEN.Control {
         private int _minLen = 3;
         public int minLen {
             get { return _minLen; }
-            set { _minLen = value; currentPreset.minLength = value; }       // needs a setter
+            set { 
+                _minLen = value;
+                currentPreset.minLength = value;        // needs a setter
+            }
         }
 
         private int _maxLen = 12;
         public int maxLen {
             get { return _maxLen; }
-            set { _maxLen = value; currentPreset.maxLength = value; }
+            set { 
+                _maxLen = value;
+                currentPreset.maxLength = value;
+                // OnPropertyChanged()
+            }
         }
 
 
@@ -107,13 +124,21 @@ namespace NAMEGEN.Control {
         private double _consMaxRow = 2;
         public double consMaxRow {
             get { return _consMaxRow; }
-            set { _consMaxRow = value; currentPreset.maxRowCons = (int)value; }    // needs a setter
+            set { 
+                _consMaxRow = value; 
+                currentPreset.maxRowCons = (int)value;      // needs a setter
+                OnPropertyChanged(nameof(consMaxRow));
+            }
         }
 
         private double _vowsMaxRow = 2;
         public double vowsMaxRow {
             get { return _vowsMaxRow; }
-            set { _vowsMaxRow = value; currentPreset.maxRowVows = (int)value; }
+            set { 
+                _vowsMaxRow = value;
+                currentPreset.maxRowVows = (int)value;
+                OnPropertyChanged(nameof(vowsMaxRow));
+            }
         }
 
         private double _consCorrection = 0.0f;
@@ -122,6 +147,7 @@ namespace NAMEGEN.Control {
             set {
                 _consCorrection = value;
                 currentPreset.conPercentageCorrection = value / 100;
+                OnPropertyChanged(nameof(consCorrection));
             }
         }
 
@@ -131,6 +157,7 @@ namespace NAMEGEN.Control {
             set {
                 _vowsCorrection = value;
                 currentPreset.vowPercentageCorrection = value / 100;
+                OnPropertyChanged(nameof(vowsCorrection));
             }
         }
 
@@ -140,13 +167,21 @@ namespace NAMEGEN.Control {
         private bool _consAllowRepeats = true;
         public bool consAllowRepeats {
             get { return _consAllowRepeats; }
-            set { _consAllowRepeats = value; currentPreset.allowConsRepeats = value; }
+            set { 
+                _consAllowRepeats = value; 
+                currentPreset.allowConsRepeats = value;
+                OnPropertyChanged(nameof(consAllowRepeats));
+            }
         }
 
         private bool _vowsAllowRepeats = true;
         public bool vowsAllowRepeats {
             get { return _vowsAllowRepeats; }
-            set { _vowsAllowRepeats = value; currentPreset.allowVowsRepeats = value; }
+            set {
+                _vowsAllowRepeats = value; 
+                currentPreset.allowVowsRepeats = value; 
+                OnPropertyChanged(nameof(vowsAllowRepeats)); 
+            }
         }
     }
 }
