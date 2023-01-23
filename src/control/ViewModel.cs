@@ -6,42 +6,72 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using NAMEGEN.Core;
 
 namespace NAMEGEN.Control {
-    class Controller : ObservableObject {
-        //    string filepath = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\elven_generic.csv";
-        //    string filepath = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\human_generic.csv";
-        //string filepath = @"D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\italian.csv";
-        // string filepath = @"nosuchfile";
-
-        Language lang = Language.English;
-        public Gender gender = Gender.Neutral;
-
+    class ViewModel {
         private Preset currentPreset { get; set; }
-        private Generator gen;
 
-        public Controller() {
+        public ViewModel() {
             // load saved preset/values if they exist
 
-            currentPreset = new Preset(filePath, lang);
-            gen = new Generator(currentPreset);
+            currentPreset = new Preset(_sourcePath, _lang);
 
-            Task.Run(() => {
-                while (true) {
-                    Debug.WriteLine(": " + vowsCorrection + " | " + currentPreset.presetName);
-                    Thread.Sleep(500);
-                }
-            });
+            //Task.Run(() => {
+            //    while (true) {
+            //        Debug.WriteLine(": " + vowsCorrection + " | ");
+            //        Thread.Sleep(500);
+            //    }
+            //});
         }
+
+
+        // APPLICATION SETTINGS
+
+        private Language _lang = Language.English;
+        public int lang {
+            get { return (int)_lang; }
+            set { _lang = (Language)value; }
+        }
+
+
+        // GENERATION SETTINGS
+
+        private Gender _gender = Gender.Neutral;
+        public int gender {
+            get { return (int)_gender; }
+            set { _gender = (Gender)value; }
+        }
+
+
+        // BUTTON COMMANDS
+
+        public ICommand GenerateCommand { get; }
+        public ICommand SaveCommand { get; }
+        public ICommand SaveasCommand { get; }
+        public ICommand LoadCommand { get; }
+        public ICommand OpenSourcepathCommand { get; }
+        public ICommand OpenCoverpathCommand { get; }
+        public ICommand MinlenLesserCommand { get; }
+        public ICommand MinlenGreaterCommand { get; }
+        public ICommand MaxlenLesserCommand { get; }
+        public ICommand MaxlenGreaterCommand { get; }
+        public ICommand PresetLesserCommand { get; }
+        public ICommand PresetGreaterCommand { get; }
 
 
         // PRESET GENERAL SETTINGS
 
-        private string _filePath = @"D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\italian.csv";
-        public string filePath {
-            get { return _filePath; }
-            set { _filePath = value; }      // update
+
+        //    string filePath = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\elven_generic.csv";
+        //    string filePath = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\human_generic.csv";
+        private string _sourcePath = @"D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\italian.csv";
+        // string filePath = @"nosuchfile";
+
+        public string sourcePath {
+            get { return _sourcePath; }
+            set { _sourcePath = value; }      // update
         }
 
         private string _coverPath = "default";
@@ -92,8 +122,6 @@ namespace NAMEGEN.Control {
             set {
                 _consCorrection = value;
                 currentPreset.conPercentageCorrection = value / 100;
-                OnPropertyChanged(consCorrectionTblock);
-                //_consCorrectionTblock = ((int)_consCorrection).ToString() + "%"; 
             }
         }
 
@@ -103,19 +131,7 @@ namespace NAMEGEN.Control {
             set {
                 _vowsCorrection = value;
                 currentPreset.vowPercentageCorrection = value / 100;
-                _vowsCorrectionTblock = ((int)_consCorrection).ToString() + "%";
             }
-        }
-
-        private string _consCorrectionTblock = "0%";
-        public string consCorrectionTblock {
-            get { return _consCorrectionTblock; }
-            set { _consCorrectionTblock = ((int)_consCorrection).ToString() + "%"; }
-        }
-
-        private string _vowsCorrectionTblock = "0%";
-        public string vowsCorrectionTblock {
-            get { return _vowsCorrectionTblock; }
         }
 
 
@@ -132,6 +148,5 @@ namespace NAMEGEN.Control {
             get { return _vowsAllowRepeats; }
             set { _vowsAllowRepeats = value; currentPreset.allowVowsRepeats = value; }
         }
-
     }
 }

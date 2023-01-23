@@ -10,7 +10,7 @@
         Title="fantasy-namegen" Height="600" Width="830">
 
     <Window.DataContext>
-        <local:Controller/>
+        <local:ViewModel/>
     </Window.DataContext>
 
     <!-- delete later -->
@@ -95,21 +95,18 @@
 
                         <Button
                             Name="buttonLoad"
-                            Click="On_buttonLoad_Clicked"
                             Content="load"
                             Grid.Column="0"
                             Style="{StaticResource stylePanelSaveloadButtons}"/>
 
                         <Button
                             Name="buttonSave"
-                            Click="On_buttonSave_Clicked"
                             Content="save"
                             Grid.Column="1"
                             Style="{StaticResource stylePanelSaveloadButtons}"/>
 
                         <Button
                             Name="buttonSaveas"
-                            Click="On_buttonSaveas_Clicked"
                             Content="save as..."
                             Grid.Column="2"
                             Style="{StaticResource stylePanelSaveloadButtons}"/>
@@ -134,8 +131,7 @@
                                 
                                 <TextBox
                                     Name="tboxSourcepath"
-                                    LostFocus="On_tboxSourcepath_TextChangeFinished"
-                                    Text="filepath"
+                                    Text="{Binding sourcePath, UpdateSourceTrigger=PropertyChanged}"
                                     FontSize="12"
                                     Height="20"
                                     Width="150"
@@ -143,7 +139,6 @@
 
                                 <Button
                                     Name="buttonSourcepath"
-                                    Click="On_buttonSourcepath_Clicked"
                                     Content="..."
                                     Height="20"
                                     Width="20"
@@ -163,8 +158,7 @@
                                 
                                 <TextBox
                                     Name="tboxCoverpath"
-                                    LostFocus="On_tboxCoverpath_TextChangeFinished"
-                                    Text="../dir/cover.jpg"
+                                    Text="{Binding coverPath, UpdateSourceTrigger=PropertyChanged}"
                                     FontSize="12"
                                     Width="150"
                                     Height="20"
@@ -172,7 +166,6 @@
 
                                 <Button
                                     Name="buttonCoverpath"
-                                    Click="On_buttonCoverpath_Clicked"
                                     Content="..."
                                     Height="20"
                                     Width="20"
@@ -354,21 +347,20 @@
                             <StackPanel Orientation="Horizontal">
                                 <Slider 
                                     Name="sbarConsMax"
-                                    ValueChanged="On_sbarConsMax_ValueChanged"
+                                    Value="{Binding consMaxRow, UpdateSourceTrigger=PropertyChanged}"
                                     Orientation="Horizontal"
                                     Margin="0 0"
                                     Width="50"
                                     Height="18"
                                     Minimum="1"
                                     Maximum="3"
-                                    Value="2"
                                     IsSnapToTickEnabled="True"
                                     TickFrequency="1"
                                     AutoToolTipPlacement="TopLeft"/>
 
                                 <TextBlock
                                     Name="tblockConsMaxValue"
-                                    Text="2"
+                                    Text="{Binding ElementName=sbarConsMax, Path=Value, Mode=OneWay}"
                                     HorizontalAlignment="Center"
                                     Margin="4 0 0 0"
                                     Width="18"
@@ -391,7 +383,7 @@
 
                                 <TextBlock
                                     Name="tblockConsPercValue"
-                                    Text="{Binding consCorrectionTblock}"
+                                    Text="{Binding ElementName=sbarConsPerc, Path=Value, Mode=OneWay, StringFormat={}{0}%}"
                                     HorizontalAlignment="Center"
                                     Margin="4 2 0 0"
                                     Width="30"
@@ -435,21 +427,20 @@
                             <StackPanel Orientation="Horizontal">
                                 <Slider 
                                     Name="sbarVowsMax"
-                                    ValueChanged="On_sbarVowsMax_ValueChanged"
+                                    Value="{Binding vowsMaxRow, UpdateSourceTrigger=PropertyChanged}"
                                     Orientation="Horizontal"
                                     Width="50"
                                     Margin="0 0"
                                     Height="18"
                                     Minimum="1"
                                     Maximum="3"
-                                    Value="2"
                                     IsSnapToTickEnabled="True"
                                     TickFrequency="1"
                                     AutoToolTipPlacement="TopLeft"/>
 
                                 <TextBlock
                                     Name="tblockVowsMaxValue"
-                                    Text="2"
+                                    Text="{Binding ElementName=sbarVowsMax, Path=Value, Mode=OneWay}"
                                     HorizontalAlignment="Center"
                                     Margin="4 0 0 0"
                                     Width="18"
@@ -472,11 +463,13 @@
 
                                 <TextBlock
                                     Name="tblockVowsPercValue"
-                                    Text="{Binding vowsCorrectionTblock, UpdateSourceTrigger=PropertyChanged}"
+                                    Text="{Binding ElementName=sbarVowsPerc, Path=Value, Mode=OneWay, StringFormat={}{0}%}"
                                     HorizontalAlignment="Center"
                                     Margin="4 2 0 0"
                                     Width="30"
                                     Height="18"/>
+                               
+
                             </StackPanel>
                             
                             <CheckBox
@@ -541,8 +534,7 @@
 
                 <!-- GENDER -->
                 <ComboBox Name="cboxGender"
-                          DropDownOpened="On_cboxGender_DropDownOpened"
-                          DropDownClosed="On_cboxGender_DropDownClosed"
+                          SelectedIndex="{Binding gender, UpdateSourceTrigger=PropertyChanged}"
                           Style="{DynamicResource ComboBoxStyle_GenderBox}"
                           FontSize="15"
                           Width="105"
@@ -551,7 +543,6 @@
                           VerticalContentAlignment="Center">
                     <ComboBoxItem
                             Name="cboxItemMale"
-                            IsSelected="True"
                             Content="Male"
                             BorderThickness="0"/>
                     <ComboBoxItem

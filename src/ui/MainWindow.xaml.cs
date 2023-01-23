@@ -13,16 +13,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using NAMEGEN.Core;     // del later
-using NAMEGEN.Control;
 
 namespace NAMEGEN.Ui {
     public partial class MainWindow : Window {
 
-        int prevChosenGenderIndex = 0;
-
-        //Controller controller;
         private Generator gen;
-
         private List<TextBlock> nameBlocks;
 
         public MainWindow() {
@@ -57,21 +52,9 @@ namespace NAMEGEN.Ui {
 
             if (allNames is not null) {
                 for (int i = 0; i < nameBlocks.Count && i < allNames.Count; i++) {
-                    nameBlocks[i].Text = gen.GetNameAtIndex(allNames.Count - (1 + i)); // + controller.currentPreset.filepathChecksum;
+                    nameBlocks[i].Text = gen.GetNameAtIndex(allNames.Count - (1 + i));
                 }
             }
-        }
-
-        private void On_cboxGender_DropDownOpened(object sender, EventArgs e) {
-            prevChosenGenderIndex = cboxGender.SelectedIndex;
-        }
-
-        private void On_cboxGender_DropDownClosed(object sender, EventArgs e) {
-            //int currentIndex = cboxGender.SelectedIndex;
-            //if (prevChosenGenderIndex != currentIndex && controller is not null) {
-            //    controller.gender = (Gender)currentIndex;
-            //    // disable gender choice selection item if a certain preset matrix is zeroed TODO
-            //}
         }
 
         private void On_buttonGenNum_1_Clicked(object sender, RoutedEventArgs e) {
@@ -115,50 +98,6 @@ namespace NAMEGEN.Ui {
             //
         }
 
-
-        // SAVE LOAD
-
-        private void On_buttonLoad_Clicked(object sender, RoutedEventArgs e) {
-            //
-        }
-
-        private void On_buttonSave_Clicked(object sender, RoutedEventArgs e) {
-            //
-        }
-
-        private void On_buttonSaveas_Clicked(object sender, RoutedEventArgs e) {
-            //
-        }
-
-
-        // PRESET GENERAL SETTINGS
-
-        private void On_tboxSourcepath_TextChangeFinished(object sender, RoutedEventArgs e) {
-            //if (tboxSourcepath is not null && controller is not null) {
-            //    controller.currentPreset.SetFilepath(tboxSourcepath.Text);
-            //}
-        }
-
-        private void On_tboxCoverpath_TextChangeFinished(object sender, RoutedEventArgs e) {
-            //if (tboxCoverpath is not null && controller is not null) {
-            //    //
-            //}
-        }
-        //private void On_tboxPresetName_TextChangeFinished(object sender, RoutedEventArgs e) {
-        //    if (tboxPresetName is not null && controller is not null) {
-        //        controller.currentPreset.presetName = tboxPresetName.Text;
-        //    }
-        //}
-
-        private void On_buttonSourcepath_Clicked(object sender, RoutedEventArgs e) {
-            //
-        }
-
-        private void On_buttonCoverpath_Clicked(object sender, RoutedEventArgs e) {
-            //
-        }
-
-
         // NAME LENGTH
 
         private void On_buttonMinLengthLesser_Clicked(object sender, RoutedEventArgs e) {
@@ -200,44 +139,6 @@ namespace NAMEGEN.Ui {
             //if (newValue <= 12) {
             //    tboxMaxLength.Text = newValue.ToString();
             //    controller.currentPreset.maxLength = newValue;
-            //}
-        }
-
-
-        // MAX MIN IN A ROW
-
-        private void On_sbarConsMax_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
-            //if (controller is not null) {
-            //    int value = (int)sbarConsMax.Value;
-            //    tblockConsMaxValue.Text = value.ToString();
-            //    controller.currentPreset.maxRowCons = value;
-            //}
-        }
-
-        private void On_sbarVowsMax_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
-            //if (controller is not null) {
-            //    int value = (int)sbarVowsMax.Value;
-            //    tblockVowsMaxValue.Text = value.ToString();
-            //    controller.currentPreset.maxRowVows = value;
-            //}
-        }
-
-
-        // PERCENTAGE CORRECTION
-
-        private void On_sbarConsPerc_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
-            //if (controller is not null) {
-            //    double value = sbarConsPerc.Value;
-            //    tblockConsPercValue.Text = value.ToString();
-            //    controller.currentPreset.conPercentageCorrection = value / 100;
-            //}
-        }
-
-        private void On_sbarVowsPerc_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
-            //if (controller is not null) {
-            //    double value = sbarVowsPerc.Value;
-            //    tblockVowsPercValue.Text = value.ToString();
-            //    controller.currentPreset.vowPercentageCorrection = value / 100;
             //}
         }
     }
