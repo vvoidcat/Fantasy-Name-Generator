@@ -16,46 +16,20 @@ using NAMEGEN.Core;     // del later
 
 namespace NAMEGEN.Ui {
     public partial class MainWindow : Window {
-
-        //private Generator gen;
-        private List<TextBlock> nameBlocks;
-
         public MainWindow() {
             InitializeComponent();
-
-            //Preset preset = new Preset("aaa", Core.Language.English);
-            //gen = new Generator(preset);
 
             InitFields();
         }
 
 
         private void InitFields() {
-            nameBlocks = new List<TextBlock>() { textName_0, textName_1, textName_2, textName_3, textName_4 };
-
-            foreach (TextBlock name in nameBlocks) {
-                name.Text = "";
-            }
-
             panelCustom.Visibility = Visibility.Collapsed;
             bgOverlay.Visibility = Visibility.Collapsed;
-
-            //cboxGender.SelectedIndex = (int)controller.gender;
         }
 
         
         // GENERATION
-
-        //private void On_buttonGenerate_Clicked(object sender, RoutedEventArgs e) {
-        //    gen.GenerateName(Gender.Neutral);
-        //    List<string> allNames = gen.GetAllNames();
-
-        //    if (allNames is not null) {
-        //        for (int i = 0; i < nameBlocks.Count && i < allNames.Count; i++) {
-        //            nameBlocks[i].Text = gen.GetNameAtIndex(allNames.Count - (1 + i));
-        //        }
-        //    }
-        //}
 
         private void On_buttonGenNum_1_Clicked(object sender, RoutedEventArgs e) {
             //

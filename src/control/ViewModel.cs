@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -7,25 +8,12 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media;
 using NAMEGEN.Core;
 
 namespace NAMEGEN.Control {
-    class ViewModel : ViewModelBase {
-        private Preset currentPreset { get; set; }
-
-        public ViewModel() {
-            // load saved preset/values if they exist
-
-            currentPreset = new Preset(_sourcePath, _lang);
-            generateCommand = new GenerateCommand(currentPreset, _gender);
-
-            Task.Run(() => {
-                while (true) {
-                    Debug.WriteLine(": " + consCorrection + " | " + vowsMaxRow);
-                    Thread.Sleep(500);
-                }
-            });
-        }
+    class ViewModel : ObservableObject {
+        private Generator gen;
 
 
         // APPLICATION SETTINGS
@@ -34,6 +22,15 @@ namespace NAMEGEN.Control {
         public int lang {
             get { return (int)_lang; }
             set { _lang = (Language)value; }
+        }
+
+        private Preset _currentPreset;
+        public Preset currentPreset {
+            get { return _currentPreset; }
+            set {
+                _currentPreset = value;
+                // update
+            }
         }
 
 
@@ -46,24 +43,18 @@ namespace NAMEGEN.Control {
         }
 
 
-        // BUTTON COMMANDS
+        // GENERATION OUTPUT
 
-        public ICommand generateCommand { get; }
-        public ICommand saveCommand { get; }
-        public ICommand saveasCommand { get; }
-        public ICommand loadCommand { get; }
-        public ICommand openSourcepathCommand { get; }
-        public ICommand openCoverpathCommand { get; }
-        public ICommand minlenLesserCommand { get; }
-        public ICommand minlenGreaterCommand { get; }
-        public ICommand maxlenLesserCommand { get; }
-        public ICommand maxlenGreaterCommand { get; }
-        public ICommand presetLesserCommand { get; }
-        public ICommand presetGreaterCommand { get; }
+        public List<StringWrapper> nameFields { get; } = new List<StringWrapper> {
+            new StringWrapper(""),
+            new StringWrapper(""),
+            new StringWrapper(""),
+            new StringWrapper(""),
+            new StringWrapper("")
+        };
 
 
         // PRESET GENERAL SETTINGS
-
 
         //    string filePath = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\elven_generic.csv";
         //    string filePath = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\human_generic.csv";
@@ -73,7 +64,8 @@ namespace NAMEGEN.Control {
         public string sourcePath {
             get { return _sourcePath; }
             set {
-                _sourcePath = value;            // update
+                _sourcePath = _sourcePath;
+                //_sourcePath = value;            // update
             }
         }
 
@@ -181,6 +173,54 @@ namespace NAMEGEN.Control {
                 _vowsAllowRepeats = value; 
                 currentPreset.allowVowsRepeats = value; 
                 OnPropertyChanged(nameof(vowsAllowRepeats)); 
+            }
+        }
+
+
+        // BUTTON COMMANDS
+
+        public ICommand generateCommand { get; set; }
+        public ICommand saveCommand { get; }
+        public ICommand saveasCommand { get; }
+        public ICommand loadCommand { get; }
+        public ICommand openSourcepathCommand { get; }
+        public ICommand openCoverpathCommand { get; }
+        public ICommand minlenLesserCommand { get; }
+        public ICommand minlenGreaterCommand { get; }
+        public ICommand maxlenLesserCommand { get; }
+        public ICommand maxlenGreaterCommand { get; }
+        public ICommand presetLesserCommand { get; }
+        public ICommand presetGreaterCommand { get; }
+
+
+        // CONSTRUCTOR
+
+        public ViewModel() {
+            // load saved preset/values if they exist
+
+            currentPreset = new Preset(_sourcePath, _lang);
+            gen = new Generator(currentPreset);
+
+            this.generateCommand = new RelayCommand(UpdateNameFields);
+
+            Task.Run(() => {
+                while (true) {
+                    Debug.WriteLine(": " + nameFields[0].str + " | " + _sourcePath);
+                    Thread.Sleep(500);
+                }
+            });
+        }
+
+        // COMMAND ACTIONS
+
+        private void UpdateNameFields() {
+            gen.GenerateName(_gender);
+            List<string> allNames = gen.GetAllNames();
+
+            if (allNames is not null) {
+                for (int i = 0; i < nameFields.Count && i < allNames.Count; i++) {
+                    nameFields[i].str = gen.GetNameAtIndex(allNames.Count - (1 + i));
+                }
             }
         }
     }
