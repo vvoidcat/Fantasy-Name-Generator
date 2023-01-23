@@ -45,12 +45,12 @@ namespace NAMEGEN.Control {
 
         // GENERATION OUTPUT
 
-        public List<StringWrapper> nameFields { get; } = new List<StringWrapper> {
-            new StringWrapper(""),
-            new StringWrapper(""),
-            new StringWrapper(""),
-            new StringWrapper(""),
-            new StringWrapper("")
+        public List<Wrapper<string>> nameFields { get; } = new List<Wrapper<string>> {
+            new Wrapper<string>(""),
+            new Wrapper<string>(""),
+            new Wrapper<string>(""),
+            new Wrapper<string>(""),
+            new Wrapper<string>("")
         };
 
 
@@ -205,7 +205,7 @@ namespace NAMEGEN.Control {
 
             Task.Run(() => {
                 while (true) {
-                    Debug.WriteLine(": " + nameFields[0].str + " | " + _sourcePath);
+                    Debug.WriteLine(": " + nameFields[0].val + " | " + _sourcePath);
                     Thread.Sleep(500);
                 }
             });
@@ -219,7 +219,7 @@ namespace NAMEGEN.Control {
 
             if (allNames is not null) {
                 for (int i = 0; i < nameFields.Count && i < allNames.Count; i++) {
-                    nameFields[i].str = gen.GetNameAtIndex(allNames.Count - (1 + i));
+                    nameFields[i].val = gen.GetNameAtIndex(allNames.Count - (1 + i));
                 }
             }
         }
