@@ -11,13 +11,15 @@ namespace NAMEGEN.Core {
         public StringBuilder namestring { get; private set; }
         private Random random;
         private Preset preset;
+        private GenerationSettings settings;
         private int numVowels;
         private int numConsonants;
 
-        public Name(Preset chosenPreset) {
+        public Name(GenerationSettings currentSettings) {
             random = new Random();
             namestring = new StringBuilder();
-            preset = chosenPreset;
+            settings = currentSettings;
+            preset = currentSettings.preset;
             numVowels = 0;
             numConsonants = 0;
         }
@@ -77,14 +79,24 @@ namespace NAMEGEN.Core {
 
         private bool IsAllowedRepeat(int index, List<Letter> letters) {
             bool result = true;
+            int count = letters.Count;
 
-            if (letters.Count >= 2) {
+            if (count >= 1) {
                 Letter chosenLetter = preset.alphabet.letters[index];
                 Letter lastLetter = letters[letters.Count - 1];
-                Letter prevLetter = letters[letters.Count - 2];
 
-                if (lastLetter == prevLetter && lastLetter == chosenLetter) {
+                if (chosenLetter == lastLetter
+                    && ((chosenLetter.isConsonant && !settings.allowConsRepeats)
+                    || (chosenLetter.isVowel && !settings.allowVowsRepeats))) {
                     result = false;
+                }
+
+                if (count >= 2 && result) {
+                    Letter prevLetter = letters[letters.Count - 2];
+
+                    if (chosenLetter == lastLetter && chosenLetter == prevLetter) {
+                        result = false;
+                    }
                 }
             }
             return result;
@@ -93,17 +105,17 @@ namespace NAMEGEN.Core {
         private bool IsConsonantChosen(int currentConRow, int currentVowRow) {
             bool isConsonant = false;
 
-            if (currentConRow == preset.maxRowCons || (namestring.Length == length - 1 && numVowels == 0)) {
+            if (currentConRow == settings.maxRowCons || (namestring.Length == length - 1 && numVowels == 0)) {
                 isConsonant = false;
-            } else if (currentVowRow == preset.maxRowVows) {
+            } else if (currentVowRow == settings.maxRowVows) {
                 isConsonant = true;
             } else {
                 double percentage = 0.50f;
 
                 if (currentVowRow > currentConRow) {
-                    percentage = CalculatePercentage(currentVowRow, preset.maxRowVows, preset.vowPercentageCorrection);
+                    percentage = CalculatePercentage(currentVowRow, settings.maxRowVows, settings.vowPercentageCorrection);
                 } else if (currentVowRow < currentConRow) {
-                    percentage = CalculatePercentage(currentConRow, preset.maxRowCons, preset.conPercentageCorrection);
+                    percentage = CalculatePercentage(currentConRow, settings.maxRowCons, settings.conPercentageCorrection);
                 }
                 isConsonant = CalculateResultFromPercentage(percentage);
             }
@@ -115,7 +127,7 @@ namespace NAMEGEN.Core {
         }
 
         private int ChooseRandomLength() {
-            return random.Next(preset.minLength, preset.maxLength);
+            return random.Next(settings.minLength, settings.maxLength);
         }
 
         private int ChooseRandomIndex() {

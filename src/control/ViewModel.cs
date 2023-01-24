@@ -14,6 +14,7 @@ using NAMEGEN.Core;
 namespace NAMEGEN.Control {
     class ViewModel : ObservableObject {
         private Generator gen;
+        private GenerationSettings genSettings;
 
 
         // APPLICATION SETTINGS
@@ -24,22 +25,27 @@ namespace NAMEGEN.Control {
             set { _lang = (Language)value; }
         }
 
-        private Preset _currentPreset;
-        public Preset currentPreset {
-            get { return _currentPreset; }
-            set {
-                _currentPreset = value;
-                // update
-            }
-        }
+
 
 
         // GENERATION SETTINGS
 
+        //private Preset _currentPreset = genSettings.preset;
+        //public Preset currentPreset {
+        //    get { return _currentPreset; }
+        //    set {
+        //        _currentPreset = value;
+        //        genSettings.preset = value;
+        //    }
+        //}
+
         private Gender _gender = Gender.Neutral;
         public int gender {
             get { return (int)_gender; }
-            set { _gender = (Gender)value; }
+            set {
+                _gender = (Gender)value;
+                genSettings.gender = _gender;
+            }
         }
 
 
@@ -64,8 +70,8 @@ namespace NAMEGEN.Control {
         public string sourcePath {
             get { return _sourcePath; }
             set {
-                _sourcePath = _sourcePath;
-                //_sourcePath = value;            // update
+                _sourcePath = value;
+                genSettings.preset.SetSourcepath(value);
             }
         }
 
@@ -83,7 +89,7 @@ namespace NAMEGEN.Control {
             get { return _presetName; }
             set {
                 _presetName = value; 
-                currentPreset.presetName = value;
+                genSettings.preset.presetName = value;
                 OnPropertyChanged(nameof(presetName));
             }
         }
@@ -96,7 +102,7 @@ namespace NAMEGEN.Control {
             get { return _minLen; }
             set { 
                 _minLen = value;
-                currentPreset.minLength = value;        // needs a setter
+                genSettings.minLength = value;        // needs a setter
             }
         }
 
@@ -105,7 +111,7 @@ namespace NAMEGEN.Control {
             get { return _maxLen; }
             set { 
                 _maxLen = value;
-                currentPreset.maxLength = value;
+                genSettings.maxLength = value;
                 // OnPropertyChanged()
             }
         }
@@ -118,7 +124,7 @@ namespace NAMEGEN.Control {
             get { return _consMaxRow; }
             set { 
                 _consMaxRow = value; 
-                currentPreset.maxRowCons = (int)value;      // needs a setter
+                genSettings.maxRowCons = (int)value;      // needs a setter
                 OnPropertyChanged(nameof(consMaxRow));
             }
         }
@@ -128,7 +134,7 @@ namespace NAMEGEN.Control {
             get { return _vowsMaxRow; }
             set { 
                 _vowsMaxRow = value;
-                currentPreset.maxRowVows = (int)value;
+                genSettings.maxRowVows = (int)value;
                 OnPropertyChanged(nameof(vowsMaxRow));
             }
         }
@@ -138,7 +144,7 @@ namespace NAMEGEN.Control {
             get { return _consCorrection; }
             set {
                 _consCorrection = value;
-                currentPreset.conPercentageCorrection = value / 100;
+                genSettings.conPercentageCorrection = value / 100;
                 OnPropertyChanged(nameof(consCorrection));
             }
         }
@@ -148,7 +154,7 @@ namespace NAMEGEN.Control {
             get { return _vowsCorrection; }
             set {
                 _vowsCorrection = value;
-                currentPreset.vowPercentageCorrection = value / 100;
+                genSettings.vowPercentageCorrection = value / 100;
                 OnPropertyChanged(nameof(vowsCorrection));
             }
         }
@@ -161,7 +167,7 @@ namespace NAMEGEN.Control {
             get { return _consAllowRepeats; }
             set { 
                 _consAllowRepeats = value; 
-                currentPreset.allowConsRepeats = value;
+                genSettings.allowConsRepeats = value;
                 OnPropertyChanged(nameof(consAllowRepeats));
             }
         }
@@ -171,7 +177,7 @@ namespace NAMEGEN.Control {
             get { return _vowsAllowRepeats; }
             set {
                 _vowsAllowRepeats = value; 
-                currentPreset.allowVowsRepeats = value; 
+                genSettings.allowVowsRepeats = value; 
                 OnPropertyChanged(nameof(vowsAllowRepeats)); 
             }
         }
@@ -198,14 +204,14 @@ namespace NAMEGEN.Control {
         public ViewModel() {
             // load saved preset/values if they exist
 
-            currentPreset = new Preset(_sourcePath, _lang);
-            gen = new Generator(currentPreset);
+            genSettings = new GenerationSettings(_sourcePath, _coverPath, _presetName, _lang, true);
+            gen = new Generator(genSettings);
 
             this.generateCommand = new RelayCommand(UpdateNameFields);
 
             Task.Run(() => {
                 while (true) {
-                    Debug.WriteLine(": " + nameFields[0].val + " | " + _sourcePath);
+                    Debug.WriteLine(": " + genSettings.preset.sourcepath + " | " + _sourcePath);
                     Thread.Sleep(500);
                 }
             });
@@ -214,7 +220,7 @@ namespace NAMEGEN.Control {
         // COMMAND ACTIONS
 
         private void UpdateNameFields() {
-            gen.GenerateName(_gender);
+            gen.GenerateName();
             List<string> allNames = gen.GetAllNames();
 
             if (allNames is not null) {

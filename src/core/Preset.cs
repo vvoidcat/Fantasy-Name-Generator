@@ -17,21 +17,7 @@ namespace NAMEGEN.Core {
             [Index(0)] public string maleName { get; set; } = "";
             [Index(1)] public string femaleName { get; set; } = "";
         }
-
-        public string presetName { get; set; } = "Unsaved Preset";
         
-        public int minLength { get; set; } = 3;     // write private setters
-        public int maxLength { get; set; } = 12;
-
-        public int maxRowVows { get; set; } = 2;
-        public int maxRowCons { get; set; } = 2;
-
-        public double vowPercentageCorrection { get; set; } = 0.0f;
-        public double conPercentageCorrection { get; set; } = 0.0f;
-
-        public bool allowConsRepeats { get; set; } = true;
-        public bool allowVowsRepeats { get; set; } = true;
-
         public Alphabet alphabet { get; set; }
 
         public Matrix permutationMatrix { get; private set; }
@@ -39,12 +25,13 @@ namespace NAMEGEN.Core {
         public Matrix probabilityMatrixEnd_Male { get; private set; }
         public Matrix probabilityMatrixEnd_Female { get; private set; }
 
-        private string coverpath = "default";
-        private string filepath = "";
-        private string filepathChecksum = "";
+        public string sourcepath { get; private set; } = "";
+        public string sourceChecksum { get; private set; } = "";
+        public string coverpath { get; private set; } = "default";
+        public string presetName { get; set; } = "Unsaved Preset";
+        public bool isEditable { get; private set; } = true;
 
-
-        public Preset(string newPath, Language lang) {
+        public Preset(string newSourcepath, string newCoverpath, string newName, Language lang, bool newIsEditable) {
             alphabet = new Alphabet(lang);
 
             permutationMatrix = new Matrix(alphabet.lettersCount, alphabet.lettersCount);
@@ -52,34 +39,39 @@ namespace NAMEGEN.Core {
             probabilityMatrixEnd_Male = new Matrix(1, alphabet.lettersCount);
             probabilityMatrixEnd_Female = new Matrix(1, alphabet.lettersCount);
 
-            SetFilepath(newPath);
+            SetSourcepath(newSourcepath);
+
+            coverpath = newCoverpath;
+            presetName = newName;
+            isEditable = newIsEditable;
         }
 
-        public void SetFilepath(string newPath) {
-            if (!File.Exists(newPath) || Path.GetExtension(newPath) != ".csv") {
-                if (filepath == "") {
-                    filepath = "generic";
+
+        public void SetSourcepath(string newSourcepath) {
+            if (!File.Exists(newSourcepath) || Path.GetExtension(newSourcepath) != ".csv") {
+                if (sourcepath == "") {
+                    sourcepath = "generic";
                     FinalizeMatrices();
                     //throw new ArgumentException("aboba1");
                 }
                 //else {
-                //    throw new ArgumentException("aboba2");
+                //    throw new ArgumentException("aboba2");    // = last path was ok, the new one is unacceptable, leave the last one be
                 //}
             } else {
-                string newChecksum = filepathChecksum;
+                string newChecksum = sourceChecksum;
 
-                if (filepath == newPath) {
-                    newChecksum = GetChecksum(newPath);
+                if (sourcepath == newSourcepath) {
+                    newChecksum = GetChecksum(newSourcepath);
                 }
 
-                if (filepathChecksum != newChecksum) {
+                if (sourceChecksum != newChecksum) {
                     ParseSourceTable();
-                    filepath = newPath;
-                    filepathChecksum = newChecksum;
+                    sourcepath = newSourcepath;
+                    sourceChecksum = newChecksum;
                 }
 
-                filepath = newPath;
-                filepathChecksum = newChecksum;
+                sourcepath = newSourcepath;
+                sourceChecksum = newChecksum;
                 ParseSourceTable();
                 FinalizeMatrices();
             }
@@ -94,13 +86,13 @@ namespace NAMEGEN.Core {
         }
 
         private void ParseSourceTable() {
-            if (File.Exists(filepath)) {
+            if (File.Exists(sourcepath)) {
                 ReadSourceFile();
             }
         }
 
         private void ReadSourceFile() {
-            TextReader textReader = new StreamReader(filepath);
+            TextReader textReader = new StreamReader(sourcepath);
 
             var config = new CsvConfiguration(CultureInfo.InvariantCulture) {
                 HasHeaderRecord = false,

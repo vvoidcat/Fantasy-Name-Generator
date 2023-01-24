@@ -8,21 +8,22 @@ namespace NAMEGEN.Core {
     public class Generator {
         public List<string> generatedNames { get; private set; }
         // list of saved presets <Settings> ?
-        public Preset currentPreset { get; private set; }
+        //public Preset currentPreset { get; private set; }
+        GenerationSettings settings;
 
 
-        public Generator(Preset newPreset) {
+        public Generator(GenerationSettings currentSettings) {
             generatedNames = new List<string>();
-            currentPreset = newPreset;
+            settings = currentSettings;
         }
 
-        public void UpdateSettings(Preset newPreset) {
-            currentPreset = newPreset;
+        public void UpdateSettings(GenerationSettings newSettings) {
+            settings = newSettings;
         }
 
-        public void GenerateName(Gender gender) {
-            Name newName = new Name(currentPreset);
-            newName.Generate(gender);
+        public void GenerateName() {
+            Name newName = new Name(settings);
+            newName.Generate(settings.gender);
             generatedNames.Add(newName.namestring.ToString());
 
             if (generatedNames.Count > 100) {
