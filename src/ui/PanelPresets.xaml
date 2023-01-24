@@ -32,9 +32,95 @@
 
         <StackPanel Name="panelPresets"
                         Canvas.ZIndex="1"
+                        Width="830"
                         Margin="0 10 0 0"
                         Orientation="Horizontal">
 
+            
+            <!-- SCROLLABLE AREA / PRESETS -->
+
+            <ScrollViewer Height="100"
+                          Margin="25 0 0 0">
+                <Grid Width="480">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <Rectangle 
+                            Width="160"
+                            Height="40"
+                            Fill="Violet"/>
+
+                        <Rectangle 
+                            Width="160"
+                            Height="40"
+                            Fill="LightGoldenrodYellow"/>
+
+                        <Rectangle 
+                            Width="160"
+                            Height="40"
+                            Fill="Aquamarine"/>
+
+                        <Rectangle 
+                            Width="160"
+                            Height="40"
+                            Fill="Gray"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <Rectangle 
+                            Width="160"
+                            Height="40"
+                            Fill="PowderBlue"/>
+
+                        <Rectangle 
+                            Width="160"
+                            Height="40"
+                            Fill="Plum"/>
+                        
+                        <Rectangle 
+                            Width="160"
+                            Height="40"
+                            Fill="MediumVioletRed"/>
+
+                        <Rectangle 
+                            Width="170"
+                            Height="40"
+                            Fill="AliceBlue"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <Rectangle 
+                            Width="170"
+                            Height="40"
+                            Fill="AntiqueWhite"/>
+
+                        <Rectangle 
+                            Width="170"
+                            Height="40"
+                            Fill="RoyalBlue"/>
+
+                        <Rectangle 
+                            Width="170"
+                            Height="40"
+                            Fill="PaleVioletRed"/>
+
+                        <Rectangle 
+                            Width="170"
+                            Height="40"
+                            Fill="LightSalmon"/>
+                    </StackPanel>
+                    
+                </Grid>
+            </ScrollViewer>
+
+
+
+            <!-- SETTINGS -->
+            
             <StackPanel Margin="25 0 0 0">
 
                 <!-- SAVE LOAD BUTTONS -->
@@ -46,14 +132,14 @@
                     </Grid.ColumnDefinitions>
 
                     <Button
-                            Name="buttonLoad"
-                            Content="load"
+                            Name="buttonSave"
+                            Content="save"
                             Grid.Column="0"
                             Style="{StaticResource stylePanelSaveloadButtons}"/>
 
                     <Button
-                            Name="buttonSave"
-                            Content="save"
+                            Name="buttonDiscard"
+                            Content="discard"
                             Grid.Column="1"
                             Style="{StaticResource stylePanelSaveloadButtons}"/>
 
