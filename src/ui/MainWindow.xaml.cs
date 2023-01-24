@@ -18,42 +18,10 @@ namespace NAMEGEN.Ui {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
-
-            InitFields();
-        }
-
-
-        private void InitFields() {
-            //panelPresets.Visibility = Visibility.Collapsed;
-            //panelCustom.Visibility = Visibility.Collapsed;
-            //bgOverlay.Visibility = Visibility.Collapsed;
-        }
-
-        
-        // GENERATION
-
-        private void On_buttonGenNum_1_Clicked(object sender, RoutedEventArgs e) {
-            //
-        }
-
-        private void On_buttonGenNum_2_Clicked(object sender, RoutedEventArgs e) {
-            //
-        }
-
-        private void On_buttonGenNum_3_Clicked(object sender, RoutedEventArgs e) {
-            //
         }
 
 
         // CONTROL BUTTONS
-
-        private void On_buttonSettings_Clicked(object sender, RoutedEventArgs e) {
-            //
-        }
-
-        private void On_buttonPresets_Clicked(object sender, RoutedEventArgs e) {
-            //
-        }
 
         private void On_buttonCustom_Clicked(object sender, RoutedEventArgs e) {
             //if (panelCustom.Visibility == Visibility.Visible) {
@@ -69,9 +37,7 @@ namespace NAMEGEN.Ui {
             //}
         }
 
-        private void On_buttonHistory_Clicked(object sender, RoutedEventArgs e) {
-            //
-        }
+
 
         // NAME LENGTH
 

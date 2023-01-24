@@ -41,26 +41,22 @@
                 Name="buttonSettings"
                 Content="application settings"
                 Grid.Column="0"
-                Style="{StaticResource styleControlButtons}"
-                Click="On_buttonSettings_Clicked" />
+                Style="{StaticResource styleControlButtons}"/>
             <Button
                 Name="buttonPresets"
                 Content="presets"
                 Grid.Column="1"
-                Style="{StaticResource styleControlButtons}"
-                Click="On_buttonPresets_Clicked" />
+                Style="{StaticResource styleControlButtons}"/>
             <Button
                 Name="buttonCustom"
                 Content="advanced settings"
                 Grid.Column="2"
-                Style="{StaticResource styleControlButtons}"
-                Click="On_buttonCustom_Clicked" />
+                Style="{StaticResource styleControlButtons}"/>
             <Button
                 Name="buttonHistory"
                 Content="history"
                 Grid.Column="3"
-                Style="{StaticResource styleControlButtons}"
-                Click="On_buttonHistory_Clicked" />
+                Style="{StaticResource styleControlButtons}"/>
         </Grid>
 
 
@@ -78,7 +74,7 @@
                 Stretch="Fill" 
                 Canvas.ZIndex="0" />
 
-            <controls:PanelPresets Height="120" Width="300"></controls:PanelPresets>
+            <controls:PanelPresets></controls:PanelPresets>
         </Canvas>
 
         
@@ -160,21 +156,18 @@
                     
                     <Button
                         Name="buttonGenNum_1"
-                        Click="On_buttonGenNum_1_Clicked"
                         Content="1"
                         Grid.Column="0"
                         Style="{StaticResource styleNamegenNumButtons}"/>
 
                     <Button
                         Name="buttonGenNum_5"
-                        Click="On_buttonGenNum_2_Clicked"
                         Content="5"
                         Grid.Column="1"
                         Style="{StaticResource styleNamegenNumButtons}"/>
 
                     <Button
                         Name="buttonGenNum_10"
-                        Click="On_buttonGenNum_3_Clicked"
                         Content="10"
                         Grid.Column="2"
                         Style="{StaticResource styleNamegenNumButtons}"/>

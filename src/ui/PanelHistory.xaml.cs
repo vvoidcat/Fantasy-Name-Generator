@@ -15,10 +15,10 @@ using System.Windows.Shapes;
 
 namespace NAMEGEN.Ui {
     /// <summary>
-    /// Interaction logic for PanelPresets.xaml
+    /// Interaction logic for PanelHistory.xaml
     /// </summary>
-    public partial class PanelPresets : UserControl {
-        public PanelPresets() {
+    public partial class PanelHistory : UserControl {
+        public PanelHistory() {
             InitializeComponent();
         }
     }
