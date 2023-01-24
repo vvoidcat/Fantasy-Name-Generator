@@ -24,8 +24,9 @@ namespace NAMEGEN.Ui {
 
 
         private void InitFields() {
-            panelCustom.Visibility = Visibility.Collapsed;
-            bgOverlay.Visibility = Visibility.Collapsed;
+            //panelPresets.Visibility = Visibility.Collapsed;
+            //panelCustom.Visibility = Visibility.Collapsed;
+            //bgOverlay.Visibility = Visibility.Collapsed;
         }
 
         
@@ -55,17 +56,17 @@ namespace NAMEGEN.Ui {
         }
 
         private void On_buttonCustom_Clicked(object sender, RoutedEventArgs e) {
-            if (panelCustom.Visibility == Visibility.Visible) {
-                panelCustom.Visibility = Visibility.Collapsed;
-                bgOverlay.Visibility = Visibility.Collapsed;
-                buttonCustom.Background = Brushes.LightGoldenrodYellow;
-                buttonCustom.BorderThickness = new Thickness(1);
-            } else {
-                panelCustom.Visibility = Visibility.Visible;
-                bgOverlay.Visibility = Visibility.Visible;
-                buttonCustom.Background = Brushes.Lavender;
-                buttonCustom.BorderThickness = new Thickness(1, 1, 1, 0);
-            }
+            //if (panelCustom.Visibility == Visibility.Visible) {
+            //    panelCustom.Visibility = Visibility.Collapsed;
+            //    bgOverlay.Visibility = Visibility.Collapsed;
+            //    buttonCustom.Background = Brushes.LightGoldenrodYellow;
+            //    buttonCustom.BorderThickness = new Thickness(1);
+            //} else {
+            //    panelCustom.Visibility = Visibility.Visible;
+            //    bgOverlay.Visibility = Visibility.Visible;
+            //    buttonCustom.Background = Brushes.Lavender;
+            //    buttonCustom.BorderThickness = new Thickness(1, 1, 1, 0);
+            //}
         }
 
         private void On_buttonHistory_Clicked(object sender, RoutedEventArgs e) {

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NAMEGEN.Control"
         xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
+        xmlns:controls="clr-namespace:NAMEGEN.Ui"
         mc:Ignorable="d"
         ResizeMode="CanMinimize"
         Title="fantasy-namegen" Height="600" Width="830">
@@ -22,11 +23,11 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    
-    
+
+
+
     <StackPanel>
 
-        
         <!-- UPPER PANEL CONROL -->
         <Grid>
             <Grid.ColumnDefinitions>
@@ -38,26 +39,26 @@
 
             <Button
                 Name="buttonSettings"
-                Grid.Column="0"
                 Content="application settings"
+                Grid.Column="0"
                 Style="{StaticResource styleControlButtons}"
                 Click="On_buttonSettings_Clicked" />
             <Button
                 Name="buttonPresets"
-                Grid.Column="1"
                 Content="presets"
+                Grid.Column="1"
                 Style="{StaticResource styleControlButtons}"
                 Click="On_buttonPresets_Clicked" />
             <Button
                 Name="buttonCustom"
+                Content="advanced settings"
                 Grid.Column="2"
-                Content="custom preset"
                 Style="{StaticResource styleControlButtons}"
                 Click="On_buttonCustom_Clicked" />
             <Button
                 Name="buttonHistory"
-                Grid.Column="3"
                 Content="history"
+                Grid.Column="3"
                 Style="{StaticResource styleControlButtons}"
                 Click="On_buttonHistory_Clicked" />
         </Grid>
@@ -67,423 +68,7 @@
         
         <!-- UPPER PANEL -->
         <Canvas Name="canvasUpperPanel">
-            <Rectangle
-                Name="bgOverlay"
-                Height="120"
-                Width="830" 
-                Fill="Lavender"
-                Canvas.ZIndex="1" />
-
             
-            
-            <!-- CUSTOM PRESET PANEL -->
-            <StackPanel Name="panelCustom"
-                        Canvas.ZIndex="2"
-                        Margin="0 10 0 0"
-                        Orientation="Horizontal">
-
-
-                <StackPanel Margin="25 0 0 0">
-
-                    <!-- SAVE LOAD BUTTONS -->
-                    <Grid Margin="0 0 0 3">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <Button
-                            Name="buttonLoad"
-                            Content="load"
-                            Grid.Column="0"
-                            Style="{StaticResource stylePanelSaveloadButtons}"/>
-
-                        <Button
-                            Name="buttonSave"
-                            Content="save"
-                            Grid.Column="1"
-                            Style="{StaticResource stylePanelSaveloadButtons}"/>
-
-                        <Button
-                            Name="buttonSaveas"
-                            Content="save as..."
-                            Grid.Column="2"
-                            Style="{StaticResource stylePanelSaveloadButtons}"/>
-                    </Grid>
-
-                    
-                    <StackPanel>
-
-                        <!-- INPUT FIELDS GENERAL -->
-                        <StackPanel Margin="0 3 0 0">
-
-                            <StackPanel Orientation="Horizontal"
-                                        Margin="0 2">
-                                <TextBlock
-                                    Name="tblockSourcepath"
-                                    Text="source table:"
-                                    Padding="0 1 0 0"
-                                    Margin="0 0 5 0"
-                                    FontSize="12"
-                                    Width="70"
-                                    Height="20"/>
-                                
-                                <TextBox
-                                    Name="tboxSourcepath"
-                                    Text="{Binding sourcePath}"
-                                    FontSize="12"
-                                    Height="20"
-                                    Width="150"
-                                    Style="{StaticResource stylePanelTextBoxes}"/>
-
-                                <Button
-                                    Name="buttonSourcepath"
-                                    Content="..."
-                                    Height="20"
-                                    Width="20"
-                                    Style="{StaticResource stylePanelSquareButtons}"/>
-                            </StackPanel>
-
-                            <StackPanel Orientation="Horizontal"
-                                        Margin="0 2">
-                                <TextBlock
-                                    Name="tblockCover"
-                                    Text="cover image:"
-                                    Padding="0 1 0 0"
-                                    Margin="0 0 5 0"
-                                    FontSize="12"
-                                    Width="70"
-                                    Height="20"/>
-                                
-                                <TextBox
-                                    Name="tboxCoverpath"
-                                    Text="{Binding coverPath}"
-                                    FontSize="12"
-                                    Width="150"
-                                    Height="20"
-                                    Style="{StaticResource stylePanelTextBoxes}"/>
-
-                                <Button
-                                    Name="buttonCoverpath"
-                                    Content="..."
-                                    Height="20"
-                                    Width="20"
-                                    Style="{StaticResource stylePanelSquareButtons}"/>
-                            </StackPanel>
-
-                            
-                            <StackPanel Orientation="Horizontal"
-                                        Margin="0 2">
-                                <TextBlock 
-                                    Name="tblockPresetName"
-                                    Text="preset name:"
-                                    Padding="0 1 0 0"
-                                    Margin="0 0 5 0"
-                                    FontSize="12"
-                                    Width="70"
-                                    Height="20"/>
-
-                                <TextBox 
-                                    Name="tboxPresetName"
-                                    Text="{Binding presetName, UpdateSourceTrigger=LostFocus}"
-                                    FontSize="12"
-                                    Height="20"
-                                    Width="170"
-                                    Style="{StaticResource stylePanelTextBoxes}"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </StackPanel>
-                    
-                </StackPanel>
-                
-                
-                <!-- NAMEGEN SETTINGS -->
-                <StackPanel Margin="20 0 0 0">
-
-                    <!-- MIN MAX LENGTH -->
-                    <StackPanel Orientation="Horizontal"
-                                Margin="10 0 0 0">
-
-                        <!-- NAME LENGTH -->
-                        <TextBlock
-                            Name="tblockLength"
-                            Text="name length:"
-                            FontSize="12"/>
-
-                        <!-- MIN -->
-                        <TextBlock
-                            Name="tblockMinLength"
-                            Text="min:"
-                            Margin="35 0 0 0"
-                            FontSize="12"/>
-
-                        <Button
-                            Name="buttonMinLengthLesser"
-                            Content="&lt;"
-                            Click="On_buttonMinLengthLesser_Clicked"
-                            Margin="10 0 0 0"
-                            Padding="0 -2 0 0"
-                            Style="{StaticResource stylePanelSquareButtons}"
-                            Height="18"
-                            Width="18"/>
-
-                        <TextBox
-                            Name="tboxMinLength"
-                            Text="3"
-                            IsReadOnly="True"
-                            FontSize="12"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Top"
-                            Padding="0 0 0 0"
-                            Style="{StaticResource stylePanelTextBoxes}"
-                            Height="18"
-                            Width="30"/>
-
-                        <Button 
-                            Name="buttonMinLengthGreater"
-                            Content="&gt;"
-                            Click="On_buttonMinLengthGreater_Clicked"
-                            Padding="0 -2 0 0"
-                            Style="{StaticResource stylePanelSquareButtons}"
-                            Height="18"
-                            Width="18"/>
-
-                        <!-- MAX -->
-                        <TextBlock
-                            Name="tblockMaxLength"
-                            Text="max:"
-                            FontSize="12"
-                            Margin="20 0 0 0"/>
-
-                        <Button
-                            Name="buttonMaxLengthLesser"
-                            Content="&lt;"
-                            Click="On_buttonMaxLengthLesser_Clicked"
-                            Margin="10 0 0 0"
-                            Padding="0 -2 0 0"
-                            Style="{StaticResource stylePanelSquareButtons}"
-                            Height="18"
-                            Width="18"/>
-
-                        <TextBox 
-                            Name="tboxMaxLength"
-                            Text="12"
-                            IsReadOnly="True"
-                            FontSize="12"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Top"
-                            Padding="0 0 0 0"
-                            Style="{StaticResource stylePanelTextBoxes}"
-                            Height="18"
-                            Width="30"/>
-
-                        <Button
-                            Name="buttonMaxLengthGreater"
-                            Content="&gt;"
-                            Click="On_buttonMaxLengthGreater_Clicked"
-                            Padding="0 -2 0 0"
-                            Style="{StaticResource stylePanelSquareButtons}"
-                            Height="18"
-                            Width="18"/>
-                    </StackPanel>
-
-
-                    <!-- CONS & VOWS HEADER LABELS -->
-                    <Grid Margin="0 8 0 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock
-                                Name="tblockCons"
-                                Text="consonants:"
-                                FontSize="12"
-                                FontWeight="DemiBold"
-                                HorizontalAlignment="Center"
-                                Grid.Column="0"/>
-
-                        <TextBlock
-                                Name="tblockVows"
-                                Text="vowels:"
-                                FontSize="12"
-                                FontWeight="DemiBold"
-                                HorizontalAlignment="Center"
-                                Grid.Column="1"/>
-                    </Grid>
-
-
-                    <!-- CONS & VOWS -->
-                    <StackPanel Orientation="Horizontal"
-                                Margin="10 5 0 0">
-
-                        <!-- CONS LABELS -->
-                        <StackPanel Margin="0 0 0 0">
-                            <TextBlock
-                                Name="tblockConsMaxRow"
-                                Text="max in a row:"
-                                Margin="0 0"
-                                Height="18"
-                                FontSize="12"/>
-
-                            <TextBlock
-                                Name="tblockConsPerc"
-                                Text="spawn chance correction:"
-                                Margin="0 1"
-                                Height="18"
-                                FontSize="12"/>
-
-                            <TextBlock
-                                Name="tblockConsRepeats"
-                                Text="allow repeats:"
-                                Margin="0 1"
-                                Height="18"
-                                FontSize="12"/>
-                        </StackPanel>
-
-                        <!-- CONS INPUT FIELDS -->
-                        <StackPanel Margin="15 0 0 0">
-                            <StackPanel Orientation="Horizontal">
-                                <Slider 
-                                    Name="sbarConsMax"
-                                    Value="{Binding consMaxRow}"
-                                    Orientation="Horizontal"
-                                    Margin="0 0"
-                                    Width="50"
-                                    Height="18"
-                                    Minimum="1"
-                                    Maximum="3"
-                                    IsSnapToTickEnabled="True"
-                                    TickFrequency="1"
-                                    AutoToolTipPlacement="TopLeft"/>
-
-                                <TextBlock
-                                    Name="tblockConsMaxValue"
-                                    Text="{Binding ElementName=sbarConsMax, Path=Value, Mode=OneWay}"
-                                    HorizontalAlignment="Center"
-                                    Margin="4 0 0 0"
-                                    Width="18"
-                                    Height="18"/>
-                            </StackPanel>
-
-                            <StackPanel Orientation="Horizontal">
-                                <Slider 
-                                    Name="sbarConsPerc"
-                                    Value="{Binding consCorrection}"
-                                    Orientation="Horizontal"
-                                    Margin="0 1"
-                                    Width="50"
-                                    Height="18"
-                                    Minimum="-50"
-                                    Maximum="50"
-                                    IsSnapToTickEnabled="True"
-                                    TickFrequency="1"
-                                    AutoToolTipPlacement="TopLeft"/>
-
-                                <TextBlock
-                                    Name="tblockConsPercValue"
-                                    Text="{Binding ElementName=sbarConsPerc, Path=Value, Mode=OneWay, StringFormat={}{0}%}"
-                                    HorizontalAlignment="Center"
-                                    Margin="4 2 0 0"
-                                    Width="30"
-                                    Height="18"/>
-                            </StackPanel>
-
-                            <CheckBox
-                                Name="checkConsRepeats"
-                                IsChecked="{Binding consAllowRepeats}"
-                                Margin="-2 1 0 0"
-                                Style="{StaticResource stylePanelCheckBoxes}"/>
-                        </StackPanel>
-
-
-                        <!-- VOWS LABELS -->
-                        <StackPanel Margin="20 0 0 0">
-                            <TextBlock
-                                Name="tblockVonsMaxRow"
-                                Text="max in a row:"
-                                Margin="0 0"
-                                Height="18"
-                                FontSize="12"/>
-
-                            <TextBlock
-                                Name="tblockVonsPerc"
-                                Text="spawn chance correction:"
-                                Margin="0 1"
-                                Height="18"
-                                FontSize="12"/>
-
-                            <TextBlock
-                                Name="tblockVonsRepeats"
-                                Text="allow repeats:"
-                                Margin="0 1"
-                                Height="18"
-                                FontSize="12"/>
-                        </StackPanel>
-
-                        <!-- VOWS INPUT FIELDS -->
-                        <StackPanel Margin="15 0 0 0">
-                            <StackPanel Orientation="Horizontal">
-                                <Slider 
-                                    Name="sbarVowsMax"
-                                    Value="{Binding vowsMaxRow}"
-                                    Orientation="Horizontal"
-                                    Width="50"
-                                    Margin="0 0"
-                                    Height="18"
-                                    Minimum="1"
-                                    Maximum="3"
-                                    IsSnapToTickEnabled="True"
-                                    TickFrequency="1"
-                                    AutoToolTipPlacement="TopLeft"/>
-
-                                <TextBlock
-                                    Name="tblockVowsMaxValue"
-                                    Text="{Binding ElementName=sbarVowsMax, Path=Value, Mode=OneWay}"
-                                    HorizontalAlignment="Center"
-                                    Margin="4 0 0 0"
-                                    Width="18"
-                                    Height="18"/>
-                            </StackPanel>
-
-                            <StackPanel Orientation="Horizontal">
-                                <Slider 
-                                    Name="sbarVowsPerc"
-                                    Value="{Binding vowsCorrection}"
-                                    Orientation="Horizontal"
-                                    Width="50"
-                                    Margin="0 1"
-                                    Height="18"
-                                    Minimum="-50"
-                                    Maximum="50"
-                                    IsSnapToTickEnabled="True"
-                                    TickFrequency="1"
-                                    AutoToolTipPlacement="TopLeft"/>
-
-                                <TextBlock
-                                    Name="tblockVowsPercValue"
-                                    Text="{Binding ElementName=sbarVowsPerc, Path=Value, Mode=OneWay, StringFormat={}{0}%}"
-                                    HorizontalAlignment="Center"
-                                    Margin="4 2 0 0"
-                                    Width="30"
-                                    Height="18"/>
-                               
-
-                            </StackPanel>
-                            
-                            <CheckBox
-                                Name="checkVowsRepeats"
-                                IsChecked="{Binding vowsAllowRepeats}"
-                                Margin="-2 1 0 0"
-                                Style="{StaticResource stylePanelCheckBoxes}"/>
-                        </StackPanel>
-                    </StackPanel>
-
-                </StackPanel>
-            </StackPanel>
-
-
             <!-- COVER IMAGE -->
             <Image
                 Name="bgImage"
@@ -492,6 +77,8 @@
                 Width="830"
                 Stretch="Fill" 
                 Canvas.ZIndex="0" />
+
+            <controls:PanelPresets Height="120" Width="300"></controls:PanelPresets>
         </Canvas>
 
         
