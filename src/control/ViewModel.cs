@@ -172,16 +172,18 @@ namespace NAMEGEN.Control {
         public bool consAllowRepeats {
             get { return genSettings.allowConsRepeats; }
             set { 
-                genSettings.allowConsRepeats = value;
-                OnPropertyChanged(nameof(consAllowRepeats));
+                if (genSettings.SetAllowRepeatsCons(value)) {
+                    OnPropertyChanged(nameof(consAllowRepeats));
+                }
             }
         }
 
         public bool vowsAllowRepeats {
             get { return genSettings.allowVowsRepeats; }
             set {
-                genSettings.allowVowsRepeats = value; 
-                OnPropertyChanged(nameof(vowsAllowRepeats)); 
+                if (genSettings.SetAllowRepeatsVows(value)) {
+                    OnPropertyChanged(nameof(vowsAllowRepeats));
+                }
             }
         }
 

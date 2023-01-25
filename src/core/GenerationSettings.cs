@@ -25,18 +25,20 @@ namespace NAMEGEN.Core {
         public double conPercentageCorrection { get; private set; } = 0.0f;
         public double vowPercentageCorrection { get; private set; } = 0.0f;
 
-        public bool allowConsRepeats { get; set; } = true;
-        public bool allowVowsRepeats { get; set; } = true;
+        public bool allowConsRepeats { get; private set; } = true;
+        public bool allowVowsRepeats { get; private set; } = true;
 
         public GenerationSettings(string sourcePath, string coverPath, string name, Language lang, bool isEditable) {
             preset = new Preset(sourcePath, coverPath, name, lang, isEditable);
         }
 
         public bool SetPreset(Preset newPreset) {
-            bool isValueSet = true;
+            bool isValueSet = false;
             
             // if (preset != newPreset)
             preset = newPreset;
+            isValueSet = true;
+
             return isValueSet;
         }
 
@@ -45,6 +47,7 @@ namespace NAMEGEN.Core {
 
             if (gender != newGender) {
                 gender = newGender;
+                isValueSet = true;
             }
             return isValueSet;
         }
@@ -104,6 +107,7 @@ namespace NAMEGEN.Core {
 
             if (newValue != conPercentageCorrection && newValue >= correctionLowerbound && newValue <= correctionUpperbound) {
                 conPercentageCorrection = newValue;
+                isValueSet = true;
             }
             return isValueSet;
         }
@@ -114,6 +118,28 @@ namespace NAMEGEN.Core {
 
             if (newValue != vowPercentageCorrection && newValue >= correctionLowerbound && newValue <= correctionUpperbound) {
                 vowPercentageCorrection = newValue;
+                isValueSet = true;
+            }
+            return isValueSet;
+        }
+
+        public bool SetAllowRepeatsCons(bool newIsAllowed) {
+            bool isValueSet = false;
+
+            if (newIsAllowed == allowConsRepeats) {
+                allowConsRepeats = newIsAllowed;
+                isValueSet = true;
+            }
+
+            return isValueSet;
+        }
+
+        public bool SetAllowRepeatsVows(bool newIsAllowed) {
+            bool isValueSet = false;
+
+            if (newIsAllowed == allowVowsRepeats) {
+                allowVowsRepeats = newIsAllowed;
+                isValueSet = true;
             }
             return isValueSet;
         }
