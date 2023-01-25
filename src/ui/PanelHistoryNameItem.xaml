@@ -6,16 +6,24 @@
              mc:Ignorable="d" 
              d:DesignHeight="20" d:DesignWidth="145">
 
+    <StackPanel
+        Width="150"
+        Height="20"
+        Orientation="Horizontal">
 
-    <StackPanel Height="20"
-                Orientation="Horizontal">
+        <Button
+            Content="x"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Top"
+            Width="15"
+            Height="15"
+            Margin="0 0 4 1"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"/>
 
-        <CheckBox Margin="0 0 4 1"
-                  HorizontalAlignment="Left"
-                  VerticalAlignment="Bottom"/>
-
-        <TextBlock Text="Namfgname"
-                   FontSize="15"
-                   HorizontalAlignment="Center"/>
+        <TextBlock 
+            Text="Namfgname"
+            FontSize="15"
+            HorizontalAlignment="Center"/>
     </StackPanel>
 </UserControl>
