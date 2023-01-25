@@ -16,7 +16,8 @@
     </UserControl.Resources>
 
 
-    <Canvas Name="canvasPanelHistory">
+    <Canvas Name="canvasPanelHistory"
+            Visibility="{Binding panelVisibilities[3].val}">
         <Rectangle
                 Name="bgOverlayHistory"
                 Height="120"

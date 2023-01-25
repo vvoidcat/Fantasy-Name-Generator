@@ -40,25 +40,25 @@
             <Button
                 Name="buttonSettings"
                 Content="application settings"
-                Command="{Binding cyclePanelsCommand}"
+                Command="{Binding panelAppSettingsCommand}"
                 Grid.Column="0"
                 Style="{StaticResource styleControlButtons}"/>
             <Button
                 Name="buttonPresets"
                 Content="presets"
-                Command="{Binding cyclePanelsCommand}"
+                Command="{Binding panelPresetsCommand}"
                 Grid.Column="1"
                 Style="{StaticResource styleControlButtons}"/>
             <Button
                 Name="buttonCustom"
                 Content="advanced settings"
-                Command="{Binding cyclePanelsCommand}"
+                Command="{Binding panelAdvancedCommand}"
                 Grid.Column="2"
                 Style="{StaticResource styleControlButtons}"/>
             <Button
                 Name="buttonHistory"
                 Content="history"
-                Command="{Binding cyclePanelsCommand}"
+                Command="{Binding panelHistoryCommand}"
                 Grid.Column="3"
                 Style="{StaticResource styleControlButtons}"/>
         </Grid>

@@ -26,7 +26,7 @@
     
     
     <Canvas Name="canvasPanelPresets"
-            Visibility="{Binding panelVisibilities[1]}">
+            Visibility="{Binding panelVisibilities[1].val}">
         <Rectangle
                 Name="bgOverlayPresets"
                 Height="120"

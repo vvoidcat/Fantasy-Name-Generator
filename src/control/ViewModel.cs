@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using NAMEGEN.Core;
@@ -25,11 +26,11 @@ namespace NAMEGEN.Control {
             set { _lang = (Language)value; }
         }
 
-        public DataWrapper<bool>[] panelVisibilities { get; set; } = new DataWrapper<bool>[4] {
-            new DataWrapper<bool>(false),
-            new DataWrapper<bool>(false),
-            new DataWrapper<bool>(false),
-            new DataWrapper<bool>(false)
+        public List<DataWrapper<Visibility>> panelVisibilities { get; } = new List<DataWrapper<Visibility>> {
+            new DataWrapper<Visibility>(Visibility.Collapsed),
+            new DataWrapper<Visibility>(Visibility.Collapsed),
+            new DataWrapper<Visibility>(Visibility.Collapsed),
+            new DataWrapper<Visibility>(Visibility.Collapsed)
         };
 
 
@@ -190,7 +191,10 @@ namespace NAMEGEN.Control {
 
         // BUTTON COMMANDS
 
-        public ICommand cyclePanelsCommand { get; set; }
+        public ICommand panelAppSettingsCommand { get; set; }
+        public ICommand panelPresetsCommand { get; set; }
+        public ICommand panelAdvancedCommand { get; set; }
+        public ICommand panelHistoryCommand { get; set; }
         public ICommand generateCommand { get; set; }
         public ICommand saveCommand { get; }
         public ICommand saveasCommand { get; }
@@ -214,11 +218,14 @@ namespace NAMEGEN.Control {
             gen = new Generator(genSettings);
 
             generateCommand = new RelayCommand(UpdateNameFields);
-            cyclePanelsCommand = new RelayCommand(CyclePanels);
+            panelAppSettingsCommand = new RelayCommand(ShowHidePanelAppSettings);
+            panelPresetsCommand = new RelayCommand(ShowHidePanelPresets);
+            panelAdvancedCommand = new RelayCommand(ShowHidePanelAdvanced);
+            panelHistoryCommand = new RelayCommand(ShowHidePanelHistory);
 
             Task.Run(() => {
                 while (true) {
-                    Debug.WriteLine(": " + panelVisibilities[0].val + " | " + panelVisibilities[1].val);
+                    Debug.WriteLine(": " + panelVisibilities[1].val + " | " + panelVisibilities[2].val);
                     Thread.Sleep(500);
                 }
             });
@@ -237,8 +244,34 @@ namespace NAMEGEN.Control {
             }
         }
 
-        private void CyclePanels() {
-            panelVisibilities[1].val = !panelVisibilities[1].val;
+        private void ShowHidePanelAppSettings() {
+            UpdateVisibilities(0);
+        }
+
+        private void ShowHidePanelPresets() {
+            UpdateVisibilities(1);
+        }
+
+        private void ShowHidePanelAdvanced() {
+            UpdateVisibilities(2);
+        }
+
+        private void ShowHidePanelHistory() {
+            UpdateVisibilities(3);
+        }
+
+        private void UpdateVisibilities(int index) {
+            for (int i = 0; i < panelVisibilities.Count; i++) {
+                Visibility vis = panelVisibilities[i].val;
+
+                if (i == index && vis != Visibility.Visible) {
+                    vis = Visibility.Visible;
+                } else {
+                    vis = Visibility.Collapsed;
+                }
+
+                panelVisibilities[i].val = vis;
+            }
         }
     }
 }

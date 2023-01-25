@@ -16,7 +16,8 @@
     </UserControl.Resources>
 
 
-    <Canvas Name="canvasPanelAppSettings">
+    <Canvas Name="canvasPanelAppSettings"
+            Visibility="{Binding panelVisibilities[0].val}">
         <Rectangle
                 Name="bgOverlayAppSettings"
                 Height="120"
