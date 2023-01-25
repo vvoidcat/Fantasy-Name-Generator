@@ -78,8 +78,10 @@
                 Stretch="Fill" 
                 Canvas.ZIndex="0" />
 
+            <controls:PanelAppSettings></controls:PanelAppSettings>
             <controls:PanelPresets></controls:PanelPresets>
             <controls:PanelAdvanced></controls:PanelAdvanced>
+            <controls:PanelHistory></controls:PanelHistory>
         </Canvas>
 
         
