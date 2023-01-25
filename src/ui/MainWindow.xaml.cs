@@ -20,24 +20,6 @@ namespace NAMEGEN.Ui {
         }
 
 
-        // CONTROL BUTTONS
-
-        private void On_buttonCustom_Clicked(object sender, RoutedEventArgs e) {
-            //if (panelCustom.Visibility == Visibility.Visible) {
-            //    panelCustom.Visibility = Visibility.Collapsed;
-            //    bgOverlay.Visibility = Visibility.Collapsed;
-            //    buttonCustom.Background = Brushes.LightGoldenrodYellow;
-            //    buttonCustom.BorderThickness = new Thickness(1);
-            //} else {
-            //    panelCustom.Visibility = Visibility.Visible;
-            //    bgOverlay.Visibility = Visibility.Visible;
-            //    buttonCustom.Background = Brushes.Lavender;
-            //    buttonCustom.BorderThickness = new Thickness(1, 1, 1, 0);
-            //}
-        }
-
-
-
         // NAME LENGTH
 
         private void On_buttonMinLengthLesser_Clicked(object sender, RoutedEventArgs e) {

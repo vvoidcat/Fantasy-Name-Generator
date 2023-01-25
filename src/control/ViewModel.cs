@@ -36,21 +36,19 @@ namespace NAMEGEN.Control {
 
         // GENERATION SETTINGS
 
-        //private Preset _currentPreset = genSettings.preset;
-        //public Preset currentPreset {
-        //    get { return _currentPreset; }
+        //public string currentPreset {
+        //    get { return genSettings.preset.presetName; }
         //    set {
-        //        _currentPreset = value;
-        //        genSettings.preset = value;
+        //        //genSettings.preset.presetName = value;
         //    }
         //}
 
-        private Gender _gender = Gender.Neutral;
         public int gender {
-            get { return (int)_gender; }
+            get { return (int)genSettings.gender; }
             set {
-                _gender = (Gender)value;
-                genSettings.gender = _gender;
+                if (genSettings.SetGender(value)) {
+                    OnPropertyChanged(nameof(gender));
+                }
             }
         }
 
@@ -73,6 +71,7 @@ namespace NAMEGEN.Control {
         private string _sourcePath = @"D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\italian.csv";
         // string filePath = @"nosuchfile";
 
+        // upd
         public string sourcePath {
             get { return _sourcePath; }
             set {
@@ -81,6 +80,7 @@ namespace NAMEGEN.Control {
             }
         }
 
+        // upd
         private string _coverPath = "default";
         public string coverPath {
             get { return _coverPath; }
@@ -90,6 +90,7 @@ namespace NAMEGEN.Control {
             }
         }
 
+        // upd
         private string _presetName = "aboba";
         public string presetName {
             get { return _presetName; }
@@ -103,86 +104,82 @@ namespace NAMEGEN.Control {
 
         // MIN MAX NAME LENGTH
 
-        private int _minLen = 3;
         public int minLen {
-            get { return _minLen; }
-            set { 
-                _minLen = value;
-                genSettings.minLength = value;        // needs a setter
+            get { return genSettings.minLength; }
+            set {
+                if (genSettings.SetMinLength(value)) {
+                    OnPropertyChanged(nameof(minLen));
+                }
             }
         }
 
-        private int _maxLen = 12;
         public int maxLen {
-            get { return _maxLen; }
+            get { return genSettings.maxLength; }
             set { 
-                _maxLen = value;
-                genSettings.maxLength = value;
-                // OnPropertyChanged()
+                if (genSettings.SetMaxLength(value)) {
+                    OnPropertyChanged(nameof(maxLen));
+                }
             }
         }
 
 
-        // MAX VOWS AND CONS IN A ROW
+        // VOWS AND CONS
 
-        private double _consMaxRow = 2;
+        public double rowLowerbound { get { return GenerationSettings.minRow; } }
+        public double rowUpperbound { get { return GenerationSettings.maxRow; } }
+        public double correctionLowerbound { get { return GenerationSettings.correctionLowerbound * 100; } }
+        public double correctionUpperbound { get { return GenerationSettings.correctionUpperbound * 100; } }
+
         public double consMaxRow {
-            get { return _consMaxRow; }
+            get { return genSettings.maxRowCons; }
             set { 
-                _consMaxRow = value; 
-                genSettings.maxRowCons = (int)value;      // needs a setter
-                OnPropertyChanged(nameof(consMaxRow));
+                if (genSettings.SetMaxRowCons((int)value)) {
+                    OnPropertyChanged(nameof(consMaxRow));
+                }
             }
         }
 
-        private double _vowsMaxRow = 2;
         public double vowsMaxRow {
-            get { return _vowsMaxRow; }
+            get { return genSettings.maxRowVows; }
             set { 
-                _vowsMaxRow = value;
-                genSettings.maxRowVows = (int)value;
-                OnPropertyChanged(nameof(vowsMaxRow));
+                if (genSettings.SetMaxRowVows((int)value)) {
+                    OnPropertyChanged(nameof(vowsMaxRow));
+                }
             }
         }
 
-        private double _consCorrection = 0.0f;
         public double consCorrection {
-            get { return _consCorrection; }
+            get { return genSettings.conPercentageCorrection * 100; }
             set {
-                _consCorrection = value;
-                genSettings.conPercentageCorrection = value / 100;
-                OnPropertyChanged(nameof(consCorrection));
+                if (genSettings.SetConCorrection(value)) {
+                    OnPropertyChanged(nameof(consCorrection));
+                }
             }
         }
 
-        private double _vowsCorrection = 0.0f;
         public double vowsCorrection {
-            get { return _vowsCorrection; }
+            get { return genSettings.vowPercentageCorrection * 100; }
             set {
-                _vowsCorrection = value;
-                genSettings.vowPercentageCorrection = value / 100;
-                OnPropertyChanged(nameof(vowsCorrection));
+                if (genSettings.SetVowCorrection(value)) {
+                    OnPropertyChanged(nameof(vowsCorrection));
+                }
             }
         }
 
 
         // REPEATS CONTROL
 
-        private bool _consAllowRepeats = true;
         public bool consAllowRepeats {
-            get { return _consAllowRepeats; }
+            get { return genSettings.allowConsRepeats; }
             set { 
-                _consAllowRepeats = value; 
                 genSettings.allowConsRepeats = value;
                 OnPropertyChanged(nameof(consAllowRepeats));
             }
         }
 
-        private bool _vowsAllowRepeats = true;
         public bool vowsAllowRepeats {
-            get { return _vowsAllowRepeats; }
+            get { return genSettings.allowVowsRepeats; }
             set {
-                _vowsAllowRepeats = value; 
                 genSettings.allowVowsRepeats = value; 
                 OnPropertyChanged(nameof(vowsAllowRepeats)); 
             }
