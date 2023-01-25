@@ -3,13 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:NAMEGEN.Control"
              mc:Ignorable="d" 
              d:DesignHeight="120" d:DesignWidth="830">
 
+    <!--
+    
     <UserControl.DataContext>
         <local:ViewModel/>
     </UserControl.DataContext>
+    -->
+    
 
     <!-- delete later -->
     <UserControl.Resources>
@@ -22,7 +25,8 @@
 
     
     
-    <Canvas Name="canvasPanelPresets">
+    <Canvas Name="canvasPanelPresets"
+            Visibility="{Binding panelVisibilities[1]}">
         <Rectangle
                 Name="bgOverlayPresets"
                 Height="120"
@@ -67,7 +71,7 @@
                         <Rectangle 
                             Width="160"
                             Height="40"
-                            Fill="Gray"/>
+                            Fill="LightGray"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="1">
@@ -101,7 +105,7 @@
                         <Rectangle 
                             Width="170"
                             Height="40"
-                            Fill="RoyalBlue"/>
+                            Fill="LightSteelBlue"/>
 
                         <Rectangle 
                             Width="170"

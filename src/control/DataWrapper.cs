@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace NAMEGEN.Control {
-    public class Wrapper<T> : ObservableObject {
+    public class DataWrapper<T> : ObservableObject {
         private T _val;
         public T val {
             get { return _val; }
@@ -16,7 +16,7 @@ namespace NAMEGEN.Control {
             }
         }
 
-        public Wrapper(T newValue) {
+        public DataWrapper(T newValue) {
             _val = newValue;
         }
     }

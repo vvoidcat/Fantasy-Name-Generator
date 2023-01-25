@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using NAMEGEN.Core;     // del later
 
 namespace NAMEGEN.Ui {
     public partial class MainWindow : Window {

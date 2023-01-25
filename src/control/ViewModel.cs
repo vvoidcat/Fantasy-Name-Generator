@@ -25,7 +25,12 @@ namespace NAMEGEN.Control {
             set { _lang = (Language)value; }
         }
 
-
+        public DataWrapper<bool>[] panelVisibilities { get; set; } = new DataWrapper<bool>[4] {
+            new DataWrapper<bool>(false),
+            new DataWrapper<bool>(false),
+            new DataWrapper<bool>(false),
+            new DataWrapper<bool>(false)
+        };
 
 
         // GENERATION SETTINGS
@@ -51,12 +56,12 @@ namespace NAMEGEN.Control {
 
         // GENERATION OUTPUT
 
-        public List<Wrapper<string>> nameFields { get; } = new List<Wrapper<string>> {
-            new Wrapper<string>(""),
-            new Wrapper<string>(""),
-            new Wrapper<string>(""),
-            new Wrapper<string>(""),
-            new Wrapper<string>("")
+        public List<DataWrapper<string>> nameFields { get; } = new List<DataWrapper<string>> {
+            new DataWrapper<string>(""),
+            new DataWrapper<string>(""),
+            new DataWrapper<string>(""),
+            new DataWrapper<string>(""),
+            new DataWrapper<string>("")
         };
 
 
@@ -185,6 +190,7 @@ namespace NAMEGEN.Control {
 
         // BUTTON COMMANDS
 
+        public ICommand cyclePanelsCommand { get; set; }
         public ICommand generateCommand { get; set; }
         public ICommand saveCommand { get; }
         public ICommand saveasCommand { get; }
@@ -207,11 +213,12 @@ namespace NAMEGEN.Control {
             genSettings = new GenerationSettings(_sourcePath, _coverPath, _presetName, _lang, true);
             gen = new Generator(genSettings);
 
-            this.generateCommand = new RelayCommand(UpdateNameFields);
+            generateCommand = new RelayCommand(UpdateNameFields);
+            cyclePanelsCommand = new RelayCommand(CyclePanels);
 
             Task.Run(() => {
                 while (true) {
-                    Debug.WriteLine(": " + genSettings.preset.sourcepath + " | " + _sourcePath);
+                    Debug.WriteLine(": " + panelVisibilities[0].val + " | " + panelVisibilities[1].val);
                     Thread.Sleep(500);
                 }
             });
@@ -228,6 +235,10 @@ namespace NAMEGEN.Control {
                     nameFields[i].val = gen.GetNameAtIndex(allNames.Count - (1 + i));
                 }
             }
+        }
+
+        private void CyclePanels() {
+            panelVisibilities[1].val = !panelVisibilities[1].val;
         }
     }
 }
