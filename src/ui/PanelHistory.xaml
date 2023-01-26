@@ -41,11 +41,11 @@
                 <WrapPanel
                     Width="750">
 
-                    <controls:PanelHistoryNameItem/>
-                    <controls:PanelHistoryNameItem/>
-                    <controls:PanelHistoryNameItem/>
-                    <controls:PanelHistoryNameItem/>
-                    <controls:PanelHistoryNameItem/>
+                    <controls:PanelHistoryNameItem Title="Aboba"/>
+                    <controls:PanelHistoryNameItem Title="Flex"/>
+                    <controls:PanelHistoryNameItem Title="Namenamenae"/>
+                    <controls:PanelHistoryNameItem Title="Namename"/>
+                    <controls:PanelHistoryNameItem Title="Aaaaaa"/>
                     
                     <controls:PanelHistoryNameItem/>
                     <controls:PanelHistoryNameItem/>

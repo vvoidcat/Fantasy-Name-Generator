@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="NAMEGEN.Ui.PanelPresetsItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             x:Name="rootPreset"
+             mc:Ignorable="d" 
+             d:DesignHeight="40" d:DesignWidth="160">
+
+    <Canvas
+        Width="160"
+        Height="40">
+        
+        <Rectangle 
+            Width="160"
+            Height="40"
+            Fill="{Binding Color, ElementName=rootPreset}"
+            Canvas.ZIndex="0"/>
+
+        <Grid
+            Width="160"
+            Height="40"
+            Canvas.ZIndex="1">
+            <TextBlock
+                Text="{Binding Title, ElementName=rootPreset}"
+                FontSize="18"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"/>
+        </Grid>
+
+        <Grid
+            Width="160"
+            Height="40"
+            Canvas.ZIndex="2">
+            <Button
+                Content="x"
+                Height="10"
+                Width="10"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"/>
+        </Grid>
+
+    </Canvas>
+
+</UserControl>

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             x:Name="rootHistoryName"
              mc:Ignorable="d" 
              d:DesignHeight="20" d:DesignWidth="145">
 
@@ -15,14 +16,14 @@
             Content="x"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Top"
-            Width="15"
-            Height="15"
-            Margin="0 0 4 1"
+            Width="10"
+            Height="10"
+            Margin="0 0 4 4"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom"/>
 
         <TextBlock 
-            Text="Namfgname"
+            Text="{Binding Title, ElementName=rootHistoryName}"
             FontSize="15"
             HorizontalAlignment="Center"/>
     </StackPanel>
