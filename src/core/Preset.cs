@@ -33,10 +33,10 @@ namespace NAMEGEN.Core {
         public Preset(string newSourcepath, string newName, bool newIsEditable) {
             alphabet = new Alphabet();
 
-            permutationMatrix = new Matrix(alphabet.lettersCount, alphabet.lettersCount);
-            probabilityMatrixStart = new Matrix(1, alphabet.lettersCount);
-            probabilityMatrixEnd_Male = new Matrix(1, alphabet.lettersCount);
-            probabilityMatrixEnd_Female = new Matrix(1, alphabet.lettersCount);
+            permutationMatrix = new Matrix(alphabet.letters.Count, alphabet.letters.Count);
+            probabilityMatrixStart = new Matrix(1, alphabet.letters.Count);
+            probabilityMatrixEnd_Male = new Matrix(1, alphabet.letters.Count);
+            probabilityMatrixEnd_Female = new Matrix(1, alphabet.letters.Count);
 
             SetSourcepath(newSourcepath);
 
@@ -124,7 +124,7 @@ namespace NAMEGEN.Core {
                 char currentLetterLower = char.ToLower(name[indexCurrent]);
                 char nextLetterLower = char.ToLower(name[indexNext]);
 
-                for (int j = 0; j < alphabet.lettersCount; j++) {
+                for (int j = 0; j < alphabet.letters.Count; j++) {
                     Letter alphabetLetter = alphabet.letters[j];
                     if (currentLetterLower == alphabetLetter.lowercase) {
                         indexCurrent = alphabetLetter.index;

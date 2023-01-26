@@ -6,24 +6,15 @@ using System.Threading.Tasks;
 
 namespace NAMEGEN.Core {
     public class Alphabet {
-        public int lettersCount { get; private set; }
         public List<Letter> letters { get; private set; }
 
         public Alphabet() {
             letters = new List<Letter>();
-            updateAlphabet();
-        }
-
-        public void updateAlphabet() {
-            letters.Clear();
-            lettersCount = 0;
-            initENG();
+            InitENG();
             AssignIndexToLetters();
         }
 
-        private void initENG() {
-            lettersCount = 26;
-
+        private void InitENG() {
             letters.Add(new Letter('A', 'a', true, false));
             letters.Add(new Letter('B', 'b', false, true));
             letters.Add(new Letter('C', 'c', false, true));
@@ -53,7 +44,7 @@ namespace NAMEGEN.Core {
         }
 
         private void AssignIndexToLetters() {
-            for (int i = 0; i < lettersCount; i++) {
+            for (int i = 0; i < letters.Count; i++) {
                 letters[i].SetLetterIndex(i);
             }
         }

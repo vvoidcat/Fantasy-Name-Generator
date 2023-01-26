@@ -209,12 +209,12 @@ namespace NAMEGEN.Control {
             panelAdvancedCommand = new RelayCommand(ShowHidePanelAdvanced);
             panelHistoryCommand = new RelayCommand(ShowHidePanelHistory);
 
-            Task.Run(() => {
-                while (true) {
-                    Debug.WriteLine(": " + panelVisibilities[1].val + " | " + panelVisibilities[2].val);
-                    Thread.Sleep(500);
-                }
-            });
+            //Task.Run(() => {
+            //    while (true) {
+            //        Debug.WriteLine(": " + panelVisibilities[1].val + " | " + panelVisibilities[2].val);
+            //        Thread.Sleep(500);
+            //    }
+            //});
         }
 
         // COMMAND ACTIONS
