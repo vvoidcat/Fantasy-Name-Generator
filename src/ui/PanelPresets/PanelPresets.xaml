@@ -17,8 +17,10 @@
     </UserControl.Resources>
 
     
-    <Canvas Name="canvasPanelPresets"
-            Visibility="{Binding panelVisibilities[1].val}">
+    <Canvas 
+        Name="canvasPanelPresets"
+        Visibility="{Binding panelVisibilities[1].val}">
+        
         <Rectangle
                 Name="bgOverlayPresets"
                 Height="120"
@@ -26,17 +28,19 @@
                 Fill="Lavender"
                 Canvas.ZIndex="0" />
 
-        <StackPanel Name="panelPresets"
-                        Canvas.ZIndex="1"
-                        Width="830"
-                        Margin="0 10 0 0"
-                        Orientation="Horizontal">
+        <StackPanel 
+            Name="panelPresets"
+            Canvas.ZIndex="1"
+            Width="830"
+            Margin="0 10 0 0"
+            Orientation="Horizontal">
 
             
             <!-- SCROLLABLE AREA / PRESETS -->
 
-            <ScrollViewer Height="100"
-                          Margin="25 0 0 0">
+            <ScrollViewer 
+                Height="100"
+                Margin="25 0 0 0">
                 
                 <WrapPanel Width="480">
                     
