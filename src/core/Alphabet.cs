@@ -6,27 +6,18 @@ using System.Threading.Tasks;
 
 namespace NAMEGEN.Core {
     public class Alphabet {
-        public Language language { get; private set; }
         public int lettersCount { get; private set; }
         public List<Letter> letters { get; private set; }
 
-        public Alphabet(Language lang) {
-            language = lang;
+        public Alphabet() {
             letters = new List<Letter>();
-            updateAlphabet(lang);
+            updateAlphabet();
         }
 
-        public void updateAlphabet(Language lang) {
+        public void updateAlphabet() {
             letters.Clear();
             lettersCount = 0;
-
-            switch (lang) {
-                case Language.English:
-                default:
-                    initENG();
-                    break;
-            }
-
+            initENG();
             AssignIndexToLetters();
         }
 

@@ -20,12 +20,6 @@ namespace NAMEGEN.Control {
 
         // APPLICATION SETTINGS
 
-        private Language _lang = Language.English;
-        public int lang {
-            get { return (int)_lang; }
-            set { _lang = (Language)value; }
-        }
-
         public List<DataWrapper<Visibility>> panelVisibilities { get; } = new List<DataWrapper<Visibility>> {
             new DataWrapper<Visibility>(Visibility.Collapsed),
             new DataWrapper<Visibility>(Visibility.Collapsed),
@@ -206,7 +200,7 @@ namespace NAMEGEN.Control {
         public ViewModel() {
             // load saved preset/values if they exist
 
-            genSettings = new GenerationSettings(_sourcePath, _presetName, _lang, true);
+            genSettings = new GenerationSettings(_sourcePath, _presetName, true);
             gen = new Generator(genSettings);
 
             generateCommand = new RelayCommand(UpdateNameFields);

@@ -50,7 +50,7 @@ namespace NAMEGEN.Core {
             SetValueAtIndex(indexY, indexX, GetValueAtIndex(indexY, indexX) + 1.0f);
         }
 
-        public void NormalizeMatrix() {
+        public void Normalize() {
             if (!isZeroed) {
                 for (int i = 0; i < y; i++) {
                     double max = 1.0f;

@@ -30,8 +30,8 @@ namespace NAMEGEN.Core {
         public string presetName { get; set; } = "Unsaved Preset";
         public bool isEditable { get; private set; } = true;
 
-        public Preset(string newSourcepath, string newName, Language lang, bool newIsEditable) {
-            alphabet = new Alphabet(lang);
+        public Preset(string newSourcepath, string newName, bool newIsEditable) {
+            alphabet = new Alphabet();
 
             permutationMatrix = new Matrix(alphabet.lettersCount, alphabet.lettersCount);
             probabilityMatrixStart = new Matrix(1, alphabet.lettersCount);
@@ -155,7 +155,7 @@ namespace NAMEGEN.Core {
                 if (m.isZeroed) {
                     m.SetMatrix(0.5f);
                 } else {
-                    m.NormalizeMatrix();
+                    m.Normalize();
                 }
             }
         }

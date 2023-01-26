@@ -28,8 +28,8 @@ namespace NAMEGEN.Core {
         public bool allowConsRepeats { get; private set; } = true;
         public bool allowVowsRepeats { get; private set; } = true;
 
-        public GenerationSettings(string sourcePath, string name, Language lang, bool isEditable) {
-            preset = new Preset(sourcePath, name, lang, isEditable);
+        public GenerationSettings(string sourcePath, string name, bool isEditable) {
+            preset = new Preset(sourcePath, name, isEditable);
         }
 
         public bool SetPreset(Preset newPreset) {
