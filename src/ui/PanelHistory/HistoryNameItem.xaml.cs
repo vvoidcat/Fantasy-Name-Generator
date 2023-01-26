@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NAMEGEN.Ui;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,17 +16,17 @@ using System.Windows.Shapes;
 
 namespace NAMEGEN.Ui {
     /// <summary>
-    /// Interaction logic for PanelHistoryNameItem.xaml
+    /// Interaction logic for HistoryNameItem.xaml
     /// </summary>
-    public partial class PanelHistoryNameItem : UserControl {
+    public partial class HistoryNameItem : UserControl {
         public static readonly DependencyProperty titleProperty =
-            DependencyProperty.Register("Title", typeof(string), typeof(PanelHistoryNameItem), new PropertyMetadata(String.Empty));
+            DependencyProperty.Register("Title", typeof(string), typeof(HistoryNameItem), new PropertyMetadata(String.Empty));
         public string Title {
             get { return (string)GetValue(titleProperty); }
             set { SetValue(titleProperty, value); }
         }
 
-        public PanelHistoryNameItem() {
+        public HistoryNameItem() {
             InitializeComponent();
         }
     }

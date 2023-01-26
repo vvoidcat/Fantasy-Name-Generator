@@ -11,7 +11,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="DictionaryStyles.xaml"/>
+                <ResourceDictionary Source="../DictionaryStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -40,11 +40,11 @@
                 
                 <WrapPanel Width="480">
                     
-                    <controls:PanelPresetsItem Title="The Preset" Color="PaleVioletRed"/>
-                    <controls:PanelPresetsItem Title="Preset"/>
-                    <controls:PanelPresetsItem Title="Another" Color="LightSkyBlue"/>
-                    <controls:PanelPresetsItem Title="Italian"/>
-                    <controls:PanelPresetsItem Title="Aboba" Color="LightGoldenrodYellow"/>
+                    <controls:PresetItem Title="The Preset" Color="PaleVioletRed"/>
+                    <controls:PresetItem Title="Preset"/>
+                    <controls:PresetItem Title="Another" Color="LightSkyBlue"/>
+                    <controls:PresetItem Title="Italian"/>
+                    <controls:PresetItem Title="Aboba" Color="LightGoldenrodYellow"/>
                     
                 </WrapPanel>
             </ScrollViewer>
@@ -115,34 +115,7 @@
                                     Style="{StaticResource stylePanelSquareButtons}"/>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal"
-                                        Margin="0 2">
-                            <TextBlock
-                                    Name="tblockCover"
-                                    Text="cover image:"
-                                    Padding="0 1 0 0"
-                                    Margin="0 0 5 0"
-                                    FontSize="12"
-                                    Width="70"
-                                    Height="20"/>
-
-                            <TextBox
-                                    Name="tboxCoverpath"
-                                    Text="{Binding coverPath}"
-                                    FontSize="12"
-                                    Width="150"
-                                    Height="20"
-                                    Style="{StaticResource stylePanelTextBoxes}"/>
-
-                            <Button
-                                    Name="buttonCoverpath"
-                                    Content="..."
-                                    Height="20"
-                                    Width="20"
-                                    Style="{StaticResource stylePanelSquareButtons}"/>
-                        </StackPanel>
-
-
+                        
                         <StackPanel Orientation="Horizontal"
                                         Margin="0 2">
                             <TextBlock 

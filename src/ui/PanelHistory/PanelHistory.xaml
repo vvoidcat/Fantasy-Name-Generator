@@ -11,7 +11,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="DictionaryStyles.xaml"/>
+                <ResourceDictionary Source="../DictionaryStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -41,20 +41,20 @@
                 <WrapPanel
                     Width="750">
 
-                    <controls:PanelHistoryNameItem Title="Aboba"/>
-                    <controls:PanelHistoryNameItem Title="Flex"/>
-                    <controls:PanelHistoryNameItem Title="Namenamenae"/>
-                    <controls:PanelHistoryNameItem Title="Namename"/>
-                    <controls:PanelHistoryNameItem Title="Aaaaaa"/>
+                    <controls:HistoryNameItem Title="Aboba"/>
+                    <controls:HistoryNameItem Title="Flex"/>
+                    <controls:HistoryNameItem Title="Namenamenae"/>
+                    <controls:HistoryNameItem Title="Namename"/>
+                    <controls:HistoryNameItem Title="Aaaaaa"/>
                     
-                    <controls:PanelHistoryNameItem/>
-                    <controls:PanelHistoryNameItem/>
-                    <controls:PanelHistoryNameItem/>
-                    <controls:PanelHistoryNameItem/>
-                    <controls:PanelHistoryNameItem/>
+                    <controls:HistoryNameItem/>
+                    <controls:HistoryNameItem/>
+                    <controls:HistoryNameItem/>
+                    <controls:HistoryNameItem/>
+                    <controls:HistoryNameItem/>
 
-                    <controls:PanelHistoryNameItem/>
-                    <controls:PanelHistoryNameItem/>
+                    <controls:HistoryNameItem/>
+                    <controls:HistoryNameItem/>
 
                 </WrapPanel>
                 

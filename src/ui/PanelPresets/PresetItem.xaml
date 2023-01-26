@@ -1,8 +1,8 @@
-﻿<UserControl x:Class="NAMEGEN.Ui.PanelPresetsItem"
+﻿<UserControl x:Class="NAMEGEN.Ui.PresetItem"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              x:Name="rootPreset"
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="160">
@@ -10,7 +10,7 @@
     <Canvas
         Width="160"
         Height="40">
-        
+
         <Rectangle 
             Width="160"
             Height="40"
@@ -41,5 +41,4 @@
         </Grid>
 
     </Canvas>
-
 </UserControl>

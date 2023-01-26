@@ -15,24 +15,24 @@ using System.Windows.Shapes;
 
 namespace NAMEGEN.Ui {
     /// <summary>
-    /// Interaction logic for PanelPresetsItem.xaml
+    /// Interaction logic for PresetItem.xaml
     /// </summary>
-    public partial class PanelPresetsItem : UserControl {
+    public partial class PresetItem : UserControl {
         public static readonly DependencyProperty titleProperty =
-            DependencyProperty.Register("Title", typeof(string), typeof(PanelPresetsItem), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("Title", typeof(string), typeof(PresetItem), new PropertyMetadata(string.Empty));
         public string Title {
             get { return (string)GetValue(titleProperty); }
             set { SetValue(titleProperty, value); }
         }
 
         public static readonly DependencyProperty colorProperty =
-            DependencyProperty.Register("Color", typeof(Brush), typeof(PanelPresetsItem), new PropertyMetadata(Brushes.AliceBlue));
+            DependencyProperty.Register("Color", typeof(Brush), typeof(PresetItem), new PropertyMetadata(Brushes.AliceBlue));
         public Brush Color {
             get { return (Brush)GetValue(colorProperty); }
             set { SetValue(colorProperty, value); }
         }
 
-        public PanelPresetsItem() {
+        public PresetItem() {
             InitializeComponent();
         }
     }

@@ -27,11 +27,10 @@ namespace NAMEGEN.Core {
 
         public string sourcepath { get; private set; } = "";
         public string sourceChecksum { get; private set; } = "";
-        public string coverpath { get; private set; } = "default";
         public string presetName { get; set; } = "Unsaved Preset";
         public bool isEditable { get; private set; } = true;
 
-        public Preset(string newSourcepath, string newCoverpath, string newName, Language lang, bool newIsEditable) {
+        public Preset(string newSourcepath, string newName, Language lang, bool newIsEditable) {
             alphabet = new Alphabet(lang);
 
             permutationMatrix = new Matrix(alphabet.lettersCount, alphabet.lettersCount);
@@ -41,7 +40,6 @@ namespace NAMEGEN.Core {
 
             SetSourcepath(newSourcepath);
 
-            coverpath = newCoverpath;
             presetName = newName;
             isEditable = newIsEditable;
         }

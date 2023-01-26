@@ -81,16 +81,6 @@ namespace NAMEGEN.Control {
         }
 
         // upd
-        private string _coverPath = "default";
-        public string coverPath {
-            get { return _coverPath; }
-            set {
-                _coverPath = value;
-                OnPropertyChanged(nameof(coverPath));
-            }
-        }
-
-        // upd
         private string _presetName = "aboba";
         public string presetName {
             get { return _presetName; }
@@ -195,11 +185,14 @@ namespace NAMEGEN.Control {
         public ICommand panelAdvancedCommand { get; set; }
         public ICommand panelHistoryCommand { get; set; }
         public ICommand generateCommand { get; set; }
+
+        // unf
+        public ICommand deleteNameCommand { get; }
+        public ICommand deletePresetCommand { get; }
         public ICommand saveCommand { get; }
         public ICommand saveasCommand { get; }
         public ICommand loadCommand { get; }
         public ICommand openSourcepathCommand { get; }
-        public ICommand openCoverpathCommand { get; }
         public ICommand minlenLesserCommand { get; }
         public ICommand minlenGreaterCommand { get; }
         public ICommand maxlenLesserCommand { get; }
@@ -213,7 +206,7 @@ namespace NAMEGEN.Control {
         public ViewModel() {
             // load saved preset/values if they exist
 
-            genSettings = new GenerationSettings(_sourcePath, _coverPath, _presetName, _lang, true);
+            genSettings = new GenerationSettings(_sourcePath, _presetName, _lang, true);
             gen = new Generator(genSettings);
 
             generateCommand = new RelayCommand(UpdateNameFields);
