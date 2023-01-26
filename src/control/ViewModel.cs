@@ -57,6 +57,8 @@ namespace NAMEGEN.Control {
             new DataWrapper<string>("")
         };
 
+        public ObservableCollection<DataWrapper<string>> historyNames { get; set; } = new ObservableCollection<DataWrapper<string>>();
+
 
         // PRESET GENERAL SETTINGS
 
@@ -209,12 +211,14 @@ namespace NAMEGEN.Control {
             panelAdvancedCommand = new RelayCommand(ShowHidePanelAdvanced);
             panelHistoryCommand = new RelayCommand(ShowHidePanelHistory);
 
-            //Task.Run(() => {
-            //    while (true) {
-            //        Debug.WriteLine(": " + panelVisibilities[1].val + " | " + panelVisibilities[2].val);
-            //        Thread.Sleep(500);
-            //    }
-            //});
+            Task.Run(() => {
+                while (true) {
+                    if (historyNames.Count > 2) {
+                        Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
+                    }
+                    Thread.Sleep(500);
+                }
+            });
         }
 
         // COMMAND ACTIONS
@@ -228,6 +232,8 @@ namespace NAMEGEN.Control {
                     nameFields[i].val = gen.GetNameAtIndex(allNames.Count - (1 + i));
                 }
             }
+
+            historyNames.Add(new DataWrapper<string>(gen.GetLastName()));
         }
 
         private void ShowHidePanelAppSettings() {

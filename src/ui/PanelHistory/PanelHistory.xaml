@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:NAMEGEN.Ui"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="120" d:DesignWidth="830">
 
     <!-- delete later -->
@@ -37,26 +37,20 @@
             <ScrollViewer 
                 Height="100"
                 Margin="25 0 0 0">
-                
-                <WrapPanel
-                    Width="750">
 
-                    <controls:HistoryNameItem Title="Aboba"/>
-                    <controls:HistoryNameItem Title="Flex"/>
-                    <controls:HistoryNameItem Title="Namenamenae"/>
-                    <controls:HistoryNameItem Title="Namename"/>
-                    <controls:HistoryNameItem Title="Aaaaaa"/>
-                    
-                    <controls:HistoryNameItem/>
-                    <controls:HistoryNameItem/>
-                    <controls:HistoryNameItem/>
-                    <controls:HistoryNameItem/>
-                    <controls:HistoryNameItem/>
-
-                    <controls:HistoryNameItem/>
-                    <controls:HistoryNameItem/>
-
-                </WrapPanel>
+                    <ItemsControl ItemsSource="{Binding historyNames}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Width="750"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <controls:HistoryNameItem Title="{Binding val}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 
             </ScrollViewer>
             
