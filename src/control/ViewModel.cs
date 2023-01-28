@@ -176,9 +176,10 @@ namespace NAMEGEN.Control {
 
         // BUTTON COMMANDS
 
-        public ICommand panelVisibilityCommand { get; set; }
-        public ICommand generateCommand { get; set; }
-        public ICommand deleteNameCommand { get; }
+        public ICommand panelVisibilityCommand { get; private set; }
+        public ICommand generateCommand { get; private set; }
+        public ICommand saveNameCommand { get; private set; }
+        public ICommand deleteNameCommand { get; private set; }
 
         // unf
         public ICommand deletePresetCommand { get; }
@@ -204,6 +205,7 @@ namespace NAMEGEN.Control {
 
             generateCommand = new RelayCommand<object>(UpdateNameFields);
             panelVisibilityCommand = new RelayCommand<string>(UpdateVisibilities);
+            saveNameCommand = new RelayCommand<string>(SaveNameToHistory);
             deleteNameCommand = new RelayCommand<string>(DeleteNameFromHistory);
 
             //Task.Run(() => {
@@ -228,8 +230,6 @@ namespace NAMEGEN.Control {
                     nameFields[i].val = gen.GetNameAtIndex(allNames.Count - (1 + i));
                 }
             }
-
-            historyNames.Add(new DataWrapper<string>(gen.GetLastName()));
         }
 
         private void UpdateVisibilities(string indexStr) {
@@ -247,21 +247,36 @@ namespace NAMEGEN.Control {
             }
         }
 
-        private void DeleteNameFromHistory(string nameToDelete) {
-            int i = 0, j = historyNames.Count - 1;
+        private void SaveNameToHistory(string nameToSave) {
+            int index = GetHistoryNameAtIndex(nameToSave);
+            if (index < 0) {
+                historyNames.Add(new DataWrapper<string>(nameToSave));
+            }
+        }
 
-            while (i <= j) {
-                if (historyNames[i].val == nameToDelete) {
-                    historyNames.RemoveAt(i);
+        private void DeleteNameFromHistory(string nameToDelete) {
+            int index = GetHistoryNameAtIndex(nameToDelete);
+            if (index >= 0) {
+                historyNames.RemoveAt(index);
+            }
+        }
+
+        private int GetHistoryNameAtIndex(string nameToFind) {
+            int i = 0, j = historyNames.Count - 1, result = -100;
+
+            while (i <= j && !String.IsNullOrEmpty(nameToFind)) {
+                if (historyNames[i].val == nameToFind) {
+                    result = i;
                     break;
-                } else if (historyNames[j].val == nameToDelete) {
-                    historyNames.RemoveAt(j);
+                } else if (historyNames[j].val == nameToFind) {
+                    result = j;
                     break;
                 } else {
                     i++;
                     j--;
                 }
             }
+            return result;
         }
     }
 }
