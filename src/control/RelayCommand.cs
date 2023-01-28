@@ -6,15 +6,24 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace NAMEGEN.Control {
-    public class RelayCommand : CommandBase {
-        private Action act;
+    public class RelayCommand<T> : ICommand {
+        private Action<T> exec;
+        public event EventHandler? CanExecuteChanged;
 
-        public RelayCommand(Action action) {
-            act = action;
+        public RelayCommand(Action<T> action) {
+            exec = action;
         }
 
-        public override void Execute(object? parameter) {
-            act();
+        public bool CanExecute(object? parameter) {
+            return true;
+        }
+
+        public void Execute(object? parameter) {
+            exec.Invoke((T)parameter);
+        }
+
+        private void OnCanExecuteChanged() {
+            CanExecuteChanged?.Invoke(this, new EventArgs());
         }
     }
 }

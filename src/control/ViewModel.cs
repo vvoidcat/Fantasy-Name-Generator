@@ -176,14 +176,11 @@ namespace NAMEGEN.Control {
 
         // BUTTON COMMANDS
 
-        public ICommand panelAppSettingsCommand { get; set; }
-        public ICommand panelPresetsCommand { get; set; }
-        public ICommand panelAdvancedCommand { get; set; }
-        public ICommand panelHistoryCommand { get; set; }
+        public ICommand panelVisibilityCommand { get; set; }
         public ICommand generateCommand { get; set; }
+        public ICommand deleteNameCommand { get; }
 
         // unf
-        public ICommand deleteNameCommand { get; }
         public ICommand deletePresetCommand { get; }
         public ICommand saveCommand { get; }
         public ICommand saveasCommand { get; }
@@ -205,11 +202,9 @@ namespace NAMEGEN.Control {
             genSettings = new GenerationSettings(_sourcePath, _presetName, true);
             gen = new Generator(genSettings);
 
-            generateCommand = new RelayCommand(UpdateNameFields);
-            panelAppSettingsCommand = new RelayCommand(ShowHidePanelAppSettings);
-            panelPresetsCommand = new RelayCommand(ShowHidePanelPresets);
-            panelAdvancedCommand = new RelayCommand(ShowHidePanelAdvanced);
-            panelHistoryCommand = new RelayCommand(ShowHidePanelHistory);
+            generateCommand = new RelayCommand<object>(UpdateNameFields);
+            panelVisibilityCommand = new RelayCommand<string>(UpdateVisibilities);
+            deleteNameCommand = new RelayCommand<string>(DeleteNameFromHistory);
 
             Task.Run(() => {
                 while (true) {
@@ -223,7 +218,7 @@ namespace NAMEGEN.Control {
 
         // COMMAND ACTIONS
 
-        private void UpdateNameFields() {
+        private void UpdateNameFields(object arg) {
             gen.GenerateName();
             List<string> allNames = gen.GetAllNames();
 
@@ -236,23 +231,8 @@ namespace NAMEGEN.Control {
             historyNames.Add(new DataWrapper<string>(gen.GetLastName()));
         }
 
-        private void ShowHidePanelAppSettings() {
-            UpdateVisibilities(0);
-        }
-
-        private void ShowHidePanelPresets() {
-            UpdateVisibilities(1);
-        }
-
-        private void ShowHidePanelAdvanced() {
-            UpdateVisibilities(2);
-        }
-
-        private void ShowHidePanelHistory() {
-            UpdateVisibilities(3);
-        }
-
-        private void UpdateVisibilities(int index) {
+        private void UpdateVisibilities(string indexStr) {
+            int index = Int32.Parse(indexStr);
             for (int i = 0; i < panelVisibilities.Count; i++) {
                 Visibility vis = panelVisibilities[i].val;
 
@@ -264,6 +244,15 @@ namespace NAMEGEN.Control {
 
                 panelVisibilities[i].val = vis;
             }
+        }
+
+        private void DeleteNameFromHistory(object sender) {
+            //for (int i = 0; i < historyNames.Count; i++) {
+            //    if (historyNames[i].val == nameToDelete) {
+            //        historyNames.RemoveAt(i);
+            //        break;
+            //    }
+            //}
         }
     }
 }

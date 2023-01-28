@@ -14,6 +14,7 @@
 
         <Button
             Content="x"
+            Command="{Binding deleteNameCommand}"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Top"
             Width="10"
