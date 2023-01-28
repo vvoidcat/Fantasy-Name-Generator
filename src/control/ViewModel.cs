@@ -248,10 +248,18 @@ namespace NAMEGEN.Control {
         }
 
         private void DeleteNameFromHistory(string nameToDelete) {
-            for (int i = 0; i < historyNames.Count; i++) {
+            int i = 0, j = historyNames.Count - 1;
+
+            while (i <= j) {
                 if (historyNames[i].val == nameToDelete) {
                     historyNames.RemoveAt(i);
                     break;
+                } else if (historyNames[j].val == nameToDelete) {
+                    historyNames.RemoveAt(j);
+                    break;
+                } else {
+                    i++;
+                    j--;
                 }
             }
         }
