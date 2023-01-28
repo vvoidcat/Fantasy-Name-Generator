@@ -26,6 +26,13 @@ namespace NAMEGEN.Ui {
             set { SetValue(titleProperty, value); }
         }
 
+        public static readonly DependencyProperty commandProperty =
+            DependencyProperty.Register("Command", typeof(ICommand), typeof(HistoryNameItem), new UIPropertyMetadata(null));
+        public ICommand Command {
+            get { return (ICommand)GetValue(commandProperty); }
+            set { SetValue(commandProperty, value); }
+        }
+
         public HistoryNameItem() {
             InitializeComponent();
         }

@@ -7,6 +7,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="20" d:DesignWidth="145">
 
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Remove" Command="{Binding PlacementTarget.Command, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                      CommandParameter="{Binding}"/>
+        </ContextMenu>
+    </UserControl.ContextMenu>
+
     <StackPanel
         Width="150"
         Height="20"
@@ -14,7 +21,7 @@
 
         <Button
             Content="x"
-            Command="{Binding deleteNameCommand}"
+            Command="{Binding Command, ElementName=rootHistoryName}"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Top"
             Width="10"

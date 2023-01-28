@@ -204,13 +204,14 @@ namespace NAMEGEN.Control {
 
             generateCommand = new RelayCommand<object>(UpdateNameFields);
             panelVisibilityCommand = new RelayCommand<string>(UpdateVisibilities);
-            deleteNameCommand = new RelayCommand<string>(DeleteNameFromHistory);
+            deleteNameCommand = new RelayCommand<object>(DeleteNameFromHistory);
 
             Task.Run(() => {
                 while (true) {
-                    if (historyNames.Count > 2) {
-                        Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
-                    }
+                    //if (historyNames.Count > 2) {
+                    //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
+                    //}
+                    Debug.WriteLine(": " + historyNames.Count);
                     Thread.Sleep(500);
                 }
             });
@@ -218,7 +219,7 @@ namespace NAMEGEN.Control {
 
         // COMMAND ACTIONS
 
-        private void UpdateNameFields(object arg) {
+        private void UpdateNameFields(object sender) {
             gen.GenerateName();
             List<string> allNames = gen.GetAllNames();
 
@@ -246,13 +247,20 @@ namespace NAMEGEN.Control {
             }
         }
 
-        private void DeleteNameFromHistory(object sender) {
+        private void DeleteNameFromHistory(object nameToDelete) {
+            historyNames.Clear();
+
+
             //for (int i = 0; i < historyNames.Count; i++) {
             //    if (historyNames[i].val == nameToDelete) {
-            //        historyNames.RemoveAt(i);
+            //        //historyNames.RemoveAt(i);
+            //        historyNames.Clear();
             //        break;
             //    }
             //}
         }
     }
 }
+
+
+// CommandParameter = "{Binding Title, RelativeSource={RelativeSource AncestorType=UserControl}}"
