@@ -7,13 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="20" d:DesignWidth="145">
 
-    <UserControl.ContextMenu>
-        <ContextMenu>
-            <MenuItem Header="Remove" Command="{Binding PlacementTarget.Command, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
-                      CommandParameter="{Binding}"/>
-        </ContextMenu>
-    </UserControl.ContextMenu>
-
     <StackPanel
         Width="150"
         Height="20"
@@ -21,7 +14,8 @@
 
         <Button
             Content="x"
-            Command="{Binding Command, ElementName=rootHistoryName}"
+            Command="{Binding DataContext.deleteNameCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+            CommandParameter="{Binding ElementName=tblockHistoryName, Path=Text}"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Top"
             Width="10"
@@ -31,6 +25,7 @@
             VerticalAlignment="Bottom"/>
 
         <TextBlock 
+            Name="tblockHistoryName"
             Text="{Binding Title, ElementName=rootHistoryName}"
             FontSize="15"
             HorizontalAlignment="Center"/>

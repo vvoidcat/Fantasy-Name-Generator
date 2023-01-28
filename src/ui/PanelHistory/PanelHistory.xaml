@@ -49,7 +49,7 @@
                         
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                            <controls:HistoryNameItem Title="{Binding val}" Command="{Binding DataContext.deleteNameCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"/>
+                            <controls:HistoryNameItem Title="{Binding val}"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

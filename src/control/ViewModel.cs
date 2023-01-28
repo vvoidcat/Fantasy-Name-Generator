@@ -204,17 +204,17 @@ namespace NAMEGEN.Control {
 
             generateCommand = new RelayCommand<object>(UpdateNameFields);
             panelVisibilityCommand = new RelayCommand<string>(UpdateVisibilities);
-            deleteNameCommand = new RelayCommand<object>(DeleteNameFromHistory);
+            deleteNameCommand = new RelayCommand<string>(DeleteNameFromHistory);
 
-            Task.Run(() => {
-                while (true) {
-                    //if (historyNames.Count > 2) {
-                    //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
-                    //}
-                    Debug.WriteLine(": " + historyNames.Count);
-                    Thread.Sleep(500);
-                }
-            });
+            //Task.Run(() => {
+            //    while (true) {
+            //        //if (historyNames.Count > 2) {
+            //        //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
+            //        //}
+            //        Debug.WriteLine(": " + historyNames.Count);
+            //        Thread.Sleep(500);
+            //    }
+            //});
         }
 
         // COMMAND ACTIONS
@@ -247,20 +247,13 @@ namespace NAMEGEN.Control {
             }
         }
 
-        private void DeleteNameFromHistory(object nameToDelete) {
-            historyNames.Clear();
-
-
-            //for (int i = 0; i < historyNames.Count; i++) {
-            //    if (historyNames[i].val == nameToDelete) {
-            //        //historyNames.RemoveAt(i);
-            //        historyNames.Clear();
-            //        break;
-            //    }
-            //}
+        private void DeleteNameFromHistory(string nameToDelete) {
+            for (int i = 0; i < historyNames.Count; i++) {
+                if (historyNames[i].val == nameToDelete) {
+                    historyNames.RemoveAt(i);
+                    break;
+                }
+            }
         }
     }
 }
-
-
-// CommandParameter = "{Binding Title, RelativeSource={RelativeSource AncestorType=UserControl}}"
