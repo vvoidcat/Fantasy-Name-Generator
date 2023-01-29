@@ -19,13 +19,13 @@
 
     <Grid Width="255">
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <TextBlock
             Text="{Binding Title, ElementName=rootLetterControl}"
-            FontSize="12"
+            FontSize="14"
             FontWeight="DemiBold"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"

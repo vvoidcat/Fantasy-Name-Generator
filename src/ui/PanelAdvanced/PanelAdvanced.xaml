@@ -26,26 +26,23 @@
                 Fill="Lavender"
                 Canvas.ZIndex="0" />
 
-        <!-- CUSTOM PRESET PANEL -->
         <StackPanel Name="panelCustom"
                         Canvas.ZIndex="1"
-                        Margin="0 10 0 0"
+                        Margin="0 15 0 0"
                         Orientation="Horizontal">
 
-            <!-- NAMEGEN SETTINGS -->
-            <StackPanel Margin="20 0 0 0">
+            <StackPanel Margin="30 0 0 0">
 
                 <!-- MIN MAX LENGTH -->
-                <StackPanel Orientation="Horizontal"
-                                Margin="10 0 0 0">
+                <StackPanel Orientation="Horizontal">
 
-                    <!-- NAME LENGTH -->
                     <TextBlock
                             Name="tblockLength"
                             Text="name length:"
-                            FontSize="12"/>
+                            FontWeight="DemiBold"
+                            FontSize="14"/>
 
-                    <StackPanel>
+                    <StackPanel Margin="0 2 0 0">
                         <!-- MIN -->
                         <controls:LengthSpinboxItem
                             Title="min:"
@@ -60,28 +57,68 @@
                             DecreaseCommand="{Binding maxlenDecreaseCommand}"
                             IncreaseCommand="{Binding maxlenIncreaseCommand}"/>
                     </StackPanel>
+                </StackPanel>
 
+                
+                <!-- SYLLABLES -->
+                <StackPanel
+                    Orientation="Horizontal"
+                    Margin="0 12 0 0">
+                    
+                    <TextBlock
+                        Text="syllables:"
+                        FontWeight="DemiBold"
+                        Margin="0 -3 47 0"
+                        FontSize="14"/>
 
-                    <!-- CONS & VOWS HEADER LABELS -->
+                    <StackPanel>
+                        <StackPanel
+                            Orientation="Horizontal"
+                            Margin="0 0 0 0">
 
-                    <Grid Margin="35 0 0 0">
-                        <controls:LetterControlColumn
-                            Title="consonants"
+                            <TextBlock
+                                Text="allow repeats:"
+                                Width="75"/>
+
+                            <CheckBox
+                                Margin="11 1 0 0"
+                                Style="{StaticResource stylePanelCheckBoxes}"/>
+                        </StackPanel>
+
+                        <StackPanel
+                            Orientation="Horizontal"
+                            Margin="2 5 0 0">
+
+                            <Slider
+                                Width="70"/>
+
+                            <TextBlock
+                                Text="3"
+                                FontSize="12"
+                                Margin="18 0 0 0"/>
+                        </StackPanel>
+                    </StackPanel>
+                    
+                </StackPanel>
+            </StackPanel>
+            
+            
+            <!-- CONS & VOWS -->
+            <Grid Margin="35 0 0 0">
+                <controls:LetterControlColumn
+                            Title="consonants:"
                             RowValue="{Binding consMaxRow, Mode=TwoWay}"
                             CorrectionValue="{Binding consCorrection, Mode=TwoWay}"
                             AllowAllRepeats="{Binding consAllowRepeats, Mode=TwoWay}"/>
-                    </Grid>
+            </Grid>
 
-                    <Grid Margin="20 0 0 0">
-                        <controls:LetterControlColumn
-                            Title="vowels"
+            <Grid Margin="15 0 0 0">
+                <controls:LetterControlColumn
+                            Title="vowels:"
                             RowValue="{Binding vowsMaxRow, Mode=TwoWay}"
                             CorrectionValue="{Binding vowsCorrection, Mode=TwoWay}"
                             AllowAllRepeats="{Binding vowsAllowRepeats, Mode=TwoWay}"/>
-                    </Grid>
-                </StackPanel>
-
-            </StackPanel>
+            </Grid>
         </StackPanel>
 
     </Canvas>
