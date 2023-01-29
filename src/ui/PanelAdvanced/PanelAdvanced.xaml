@@ -28,42 +28,15 @@
 
         <StackPanel Name="panelCustom"
                         Canvas.ZIndex="1"
-                        Margin="0 15 0 0"
+                        Margin="0 14 0 0"
                         Orientation="Horizontal">
 
-            <StackPanel Margin="30 0 0 0">
+            <StackPanel Margin="33 0 0 0">
 
-                <!-- MIN MAX LENGTH -->
-                <StackPanel Orientation="Horizontal">
-
-                    <TextBlock
-                            Name="tblockLength"
-                            Text="name length:"
-                            FontWeight="DemiBold"
-                            FontSize="14"/>
-
-                    <StackPanel Margin="0 2 0 0">
-                        <!-- MIN -->
-                        <controls:LengthSpinboxItem
-                            Title="min:"
-                            BoxValue="{Binding minLen}"
-                            DecreaseCommand="{Binding minlenDecreaseCommand}"
-                            IncreaseCommand="{Binding minlenIncreaseCommand}"/>
-
-                        <!-- MAX -->
-                        <controls:LengthSpinboxItem
-                            Title="max:"
-                            BoxValue="{Binding maxLen}"
-                            DecreaseCommand="{Binding maxlenDecreaseCommand}"
-                            IncreaseCommand="{Binding maxlenIncreaseCommand}"/>
-                    </StackPanel>
-                </StackPanel>
-
-                
                 <!-- SYLLABLES -->
                 <StackPanel
                     Orientation="Horizontal"
-                    Margin="0 12 0 0">
+                    Margin="0 0 0 10">
                     
                     <TextBlock
                         Text="syllables:"
@@ -99,6 +72,32 @@
                         </StackPanel>
                     </StackPanel>
                     
+                </StackPanel>
+
+                <!-- MIN MAX LENGTH -->
+                <StackPanel Orientation="Horizontal">
+
+                    <TextBlock
+                            Name="tblockLength"
+                            Text="name length:"
+                            FontWeight="DemiBold"
+                            FontSize="14"/>
+
+                    <StackPanel Margin="0 2 0 0">
+                        <!-- MIN -->
+                        <controls:LengthSpinboxItem
+                            Title="min:"
+                            BoxValue="{Binding minLen}"
+                            DecreaseCommand="{Binding minlenDecreaseCommand}"
+                            IncreaseCommand="{Binding minlenIncreaseCommand}"/>
+
+                        <!-- MAX -->
+                        <controls:LengthSpinboxItem
+                            Title="max:"
+                            BoxValue="{Binding maxLen}"
+                            DecreaseCommand="{Binding maxlenDecreaseCommand}"
+                            IncreaseCommand="{Binding maxlenIncreaseCommand}"/>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
             

@@ -53,9 +53,9 @@
 
             
             <ScrollViewer
-                Width="382"
+                Width="384"
                 Height="100"
-                Margin="15 0 0 0">
+                Margin="13 0 0 0">
 
                 <StackPanel>
                     <controls:CoverItem Color="LightSkyBlue"/>
