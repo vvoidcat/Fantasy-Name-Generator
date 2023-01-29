@@ -24,52 +24,12 @@
     </Window.Resources>
 
 
-
-
     <StackPanel>
-
+        
         <!-- UPPER PANEL CONROL -->
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <Button
-                Name="buttonSettings"
-                Content="application settings"
-                Command="{Binding panelVisibilityCommand}"
-                CommandParameter="0"
-                Grid.Column="0"
-                Style="{StaticResource styleControlButtons}"/>
-            <Button
-                Name="buttonPresets"
-                Content="presets"
-                Command="{Binding panelVisibilityCommand}"
-                CommandParameter="1"
-                Grid.Column="1"
-                Style="{StaticResource styleControlButtons}"/>
-            <Button
-                Name="buttonCustom"
-                Content="advanced settings"
-                Command="{Binding panelVisibilityCommand}"
-                CommandParameter="2"
-                Grid.Column="2"
-                Style="{StaticResource styleControlButtons}"/>
-            <Button
-                Name="buttonHistory"
-                Content="history"
-                Command="{Binding panelVisibilityCommand}"
-                CommandParameter="3"
-                Grid.Column="3"
-                Style="{StaticResource styleControlButtons}"/>
-        </Grid>
+        <controls:PanelControls></controls:PanelControls>
 
 
-        
-        
         <!-- UPPER PANEL -->
         <Canvas Name="canvasUpperPanel">
             
@@ -89,176 +49,19 @@
         </Canvas>
 
         
-        
-        
         <!-- GENERATION -->
         <StackPanel Margin="0 120 0 10">
 
-            <!-- PRESET -->
-            <StackPanel Orientation="Horizontal"
-                        Margin="0 20 0 0"
-                        HorizontalAlignment="Center">
-
-                <Button
-                    Name="buttonChosenPresetLesser"
-                    Content="&lt;"
-                    Style="{StaticResource stylePresetChoiceButtons}"/>
-
-                <TextBlock
-                    Name="tblockChosenPreset"
-                    Text="Italian"
-                    FontSize="20"
-                    FontWeight="Light"
-                    Width="90"
-                    Foreground="DimGray"
-                    HorizontalAlignment="Center"
-                    TextAlignment="Center"/>
-
-                <Button
-                    Name="buttonChosenPresetGreater"
-                    Content="&gt;"
-                    Style="{StaticResource stylePresetChoiceButtons}"/>
-            </StackPanel>
-
-
             <!-- GENERATION FAST SETTINGS ROW -->
-            <StackPanel Orientation="Horizontal"
-                        Margin="0 10 0 10"
-                        HorizontalAlignment="Center">
-
-                <!-- GENDER -->
-                <ComboBox Name="cboxGender"
-                          SelectedIndex="{Binding gender}"
-                          Style="{DynamicResource ComboBoxStyle_GenderBox}"
-                          FontSize="15"
-                          Width="105"
-                          BorderThickness="0"
-                          HorizontalContentAlignment="Center"
-                          VerticalContentAlignment="Center">
-                    <ComboBoxItem
-                            Name="cboxItemMale"
-                            Content="Male"
-                            BorderThickness="0"/>
-                    <ComboBoxItem
-                            Name="cboxItemFemale"
-                            Content="Female"
-                            BorderThickness="0"/>
-                    <ComboBoxItem
-                            Name="cboxItemNeutral"
-                            Content="Neutral"
-                            BorderThickness="0"/>
-                </ComboBox>
-
-                <!-- GENERATE BUTTON -->
-                <Button
-                    Name="buttonGenerate"
-                    Content="Generate"
-                    Command="{Binding generateCommand}"
-                    Grid.Column="2"
-                    Style="{StaticResource styleGenerateButton}"/>
-
-                <!-- NUMBER OF NAMES TO GENERATE -->
-                <Grid Grid.Column="3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    
-                    <Button
-                        Name="buttonGenNum_1"
-                        Content="1"
-                        Grid.Column="0"
-                        Style="{StaticResource styleNamegenNumButtons}"/>
-
-                    <Button
-                        Name="buttonGenNum_5"
-                        Content="5"
-                        Grid.Column="1"
-                        Style="{StaticResource styleNamegenNumButtons}"/>
-
-                    <Button
-                        Name="buttonGenNum_10"
-                        Content="10"
-                        Grid.Column="2"
-                        Style="{StaticResource styleNamegenNumButtons}"/>
-                </Grid>
-            </StackPanel>
+            <controls:GenerationControls></controls:GenerationControls>
 
             <!-- NAME FIELDS -->
             <StackPanel>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="{Binding ElementName=textName_0, Path=ActualWidth, Mode=OneWay}"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    
-                    <TextBlock
-                        Name="textName_0"
-                        Text="{Binding nameFields[0].val}"
-                        Margin="0 25 0 0"
-                        Grid.Column="1"
-                        HorizontalAlignment="Center"
-                        Style="{StaticResource styleNewName}"/>
-                    
-                    <Button
-                        Content="+"
-                        Command="{Binding saveNameCommand}"
-                        CommandParameter="{Binding ElementName=textName_0, Path=Text}"
-                        Width="25"
-                        Height="25"
-                        Margin="10 0 0 4"
-                        Grid.Column="2"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"/>
-                </Grid>
-
-                
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="{Binding ElementName=textName_1, Path=ActualWidth, Mode=OneWay}"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock
-                        Name="textName_1"
-                        Text="{Binding nameFields[1].val}"
-                        Margin="0 20 0 0"
-                        Grid.Column="1"
-                        HorizontalAlignment="Center"
-                        Style="{StaticResource styleOldName}"/>
-
-                    <Button
-                        Content="+"
-                        Command="{Binding saveNameCommand}"
-                        CommandParameter="{Binding ElementName=textName_1, Path=Text}"
-                        Width="20"
-                        Height="20"
-                        Margin="10 0 0 2"
-                        Grid.Column="2"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"/>
-                </Grid>
-
-                <TextBlock
-                Name="textName_2"
-                Text="{Binding nameFields[2].val}"
-                Margin="0 10 0 0"
-                Style="{StaticResource styleOldName}"/>
-
-                <TextBlock
-                Name="textName_3"
-                Text="{Binding nameFields[3].val}"
-                Margin="0 10 0 0"
-                Style="{StaticResource styleOldName}"/>
-
-                <TextBlock
-                Name="textName_4"
-                Text="{Binding nameFields[4].val}"
-                Margin="0 10 0 0"
-                Style="{StaticResource styleOldName}"/>
+                <controls:GeneratedMainNameItem Title="{Binding nameFields[0].val}"></controls:GeneratedMainNameItem>
+                <controls:GeneratedNameItem Title="{Binding nameFields[1].val}"></controls:GeneratedNameItem>
+                <controls:GeneratedNameItem Title="{Binding nameFields[2].val}"></controls:GeneratedNameItem>
+                <controls:GeneratedNameItem Title="{Binding nameFields[3].val}"></controls:GeneratedNameItem>
+                <controls:GeneratedNameItem Title="{Binding nameFields[4].val}"></controls:GeneratedNameItem>
             </StackPanel>
 
         </StackPanel>

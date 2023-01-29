@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="NAMEGEN.Ui.GeneratedMainNameItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             x:Name="rootGeneratedNameMain"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="830">
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../DictionaryStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="{Binding ElementName=textName_0, Path=ActualWidth, Mode=OneWay}"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock
+            Name="textName_0"
+            Text="{Binding Title, ElementName=rootGeneratedNameMain}"
+            Margin="0 25 0 10"
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            Style="{StaticResource styleNewName}"/>
+
+        <Button
+            Content="+"
+            Command="{Binding saveNameCommand}"
+            CommandParameter="{Binding ElementName=textName_0, Path=Text}"
+            Width="25"
+            Height="25"
+            Margin="10 0 0 14"
+            Grid.Column="2"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"/>
+    </Grid>
+</UserControl>

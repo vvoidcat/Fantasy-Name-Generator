@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="NAMEGEN.Ui.GenerationControls"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="830">
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../DictionaryStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel>
+
+        <!-- PRESET -->
+        <StackPanel 
+            Orientation="Horizontal"
+            Margin="0 20 0 0"
+            HorizontalAlignment="Center">
+
+            <Button
+                Name="buttonChosenPresetLesser"
+                Content="&lt;"
+                Style="{StaticResource stylePresetChoiceButtons}"/>
+
+            <TextBlock
+                Name="tblockChosenPreset"
+                Text="Italian"
+                FontSize="20"
+                FontWeight="Light"
+                Width="90"
+                Foreground="DimGray"
+                HorizontalAlignment="Center"
+                TextAlignment="Center"/>
+
+            <Button
+                Name="buttonChosenPresetGreater"
+                Content="&gt;"
+                Style="{StaticResource stylePresetChoiceButtons}"/>
+        </StackPanel>
+
+        <StackPanel 
+            Orientation="Horizontal"
+            Margin="0 10 0 10"
+            HorizontalAlignment="Center">
+
+            <!-- GENDER -->
+            <ComboBox 
+                Name="cboxGender"
+                SelectedIndex="{Binding gender}"
+                Style="{DynamicResource ComboBoxStyle_GenderBox}"
+                FontSize="15"
+                Width="105"
+                BorderThickness="0"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center">
+                
+                <ComboBoxItem
+                        Name="cboxItemMale"
+                        Content="Male"
+                        BorderThickness="0"/>
+                <ComboBoxItem
+                        Name="cboxItemFemale"
+                        Content="Female"
+                        BorderThickness="0"/>
+                <ComboBoxItem
+                        Name="cboxItemNeutral"
+                        Content="Neutral"
+                        BorderThickness="0"/>
+            </ComboBox>
+
+            <!-- GENERATE BUTTON -->
+            <Button
+                Name="buttonGenerate"
+                Content="Generate"
+                Command="{Binding generateCommand}"
+                Grid.Column="2"
+                Style="{StaticResource styleGenerateButton}"/>
+
+            <!-- NUMBER OF NAMES TO GENERATE -->
+            <Grid Grid.Column="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button
+                    Name="buttonGenNum_1"
+                    Content="1"
+                    Grid.Column="0"
+                    Style="{StaticResource styleNamegenNumButtons}"/>
+
+                <Button
+                    Name="buttonGenNum_5"
+                    Content="5"
+                    Grid.Column="1"
+                    Style="{StaticResource styleNamegenNumButtons}"/>
+
+                <Button
+                    Name="buttonGenNum_10"
+                    Content="10"
+                    Grid.Column="2"
+                    Style="{StaticResource styleNamegenNumButtons}"/>
+            </Grid>
+        </StackPanel>
+    </StackPanel>
+</UserControl>
