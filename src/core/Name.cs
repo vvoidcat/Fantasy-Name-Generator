@@ -11,15 +11,15 @@ namespace NAMEGEN.Core {
         public StringBuilder namestring { get; private set; }
         private Random random;
         private Preset preset;
-        private GenerationSettings settings;
+        private Generator settings;
         private int numVowels;
         private int numConsonants;
 
-        public Name(GenerationSettings currentSettings) {
+        public Name(Generator gen) {
             random = new Random();
             namestring = new StringBuilder();
-            settings = currentSettings;
-            preset = currentSettings.preset;
+            settings = gen;
+            preset = gen.preset;
             numVowels = 0;
             numConsonants = 0;
         }

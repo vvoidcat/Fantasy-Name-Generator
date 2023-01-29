@@ -15,8 +15,6 @@ using NAMEGEN.Core;
 namespace NAMEGEN.Control {
     class ViewModel : ObservableObject {
         private Generator gen;
-        private GenerationSettings genSettings;
-
 
         // APPLICATION SETTINGS
 
@@ -31,16 +29,16 @@ namespace NAMEGEN.Control {
         // GENERATION SETTINGS
 
         //public string currentPreset {
-        //    get { return genSettings.preset.presetName; }
+        //    get { return gen.preset.presetName; }
         //    set {
-        //        //genSettings.preset.presetName = value;
+        //        //gen.preset.presetName = value;
         //    }
         //}
 
         public int gender {
-            get { return (int)genSettings.gender; }
+            get { return (int)gen.gender; }
             set {
-                if (genSettings.SetGender(value)) {
+                if (gen.SetGender(value)) {
                     OnPropertyChanged(nameof(gender));
                 }
             }
@@ -72,7 +70,7 @@ namespace NAMEGEN.Control {
             get { return _sourcePath; }
             set {
                 _sourcePath = value;
-                genSettings.preset.SetSourcepath(value);
+                gen.preset.SetSourcepath(value);
             }
         }
 
@@ -82,7 +80,7 @@ namespace NAMEGEN.Control {
             get { return _presetName; }
             set {
                 _presetName = value; 
-                genSettings.preset.presetName = value;
+                gen.preset.presetName = value;
                 OnPropertyChanged(nameof(presetName));
             }
         }
@@ -91,18 +89,18 @@ namespace NAMEGEN.Control {
         // MIN MAX NAME LENGTH
 
         public int minLen {
-            get { return genSettings.minLength; }
+            get { return gen.minLength; }
             set {
-                if (genSettings.SetMinLength(value)) {
+                if (gen.SetMinLength(value)) {
                     OnPropertyChanged(nameof(minLen));
                 }
             }
         }
 
         public int maxLen {
-            get { return genSettings.maxLength; }
+            get { return gen.maxLength; }
             set { 
-                if (genSettings.SetMaxLength(value)) {
+                if (gen.SetMaxLength(value)) {
                     OnPropertyChanged(nameof(maxLen));
                 }
             }
@@ -111,42 +109,42 @@ namespace NAMEGEN.Control {
 
         // VOWS AND CONS
 
-        public double rowLowerbound { get { return GenerationSettings.minRow; } }
-        public double rowUpperbound { get { return GenerationSettings.maxRow; } }
-        public double correctionLowerbound { get { return GenerationSettings.correctionLowerbound * 100; } }
-        public double correctionUpperbound { get { return GenerationSettings.correctionUpperbound * 100; } }
+        public double rowLowerbound { get { return Generator.minRow; } }
+        public double rowUpperbound { get { return Generator.maxRow; } }
+        public double correctionLowerbound { get { return Generator.correctionLowerbound * 100; } }
+        public double correctionUpperbound { get { return Generator.correctionUpperbound * 100; } }
 
         public double consMaxRow {
-            get { return genSettings.maxRowCons; }
+            get { return gen.maxRowCons; }
             set { 
-                if (genSettings.SetMaxRowCons((int)value)) {
+                if (gen.SetMaxRowCons((int)value)) {
                     OnPropertyChanged(nameof(consMaxRow));
                 }
             }
         }
 
         public double vowsMaxRow {
-            get { return genSettings.maxRowVows; }
+            get { return gen.maxRowVows; }
             set { 
-                if (genSettings.SetMaxRowVows((int)value)) {
+                if (gen.SetMaxRowVows((int)value)) {
                     OnPropertyChanged(nameof(vowsMaxRow));
                 }
             }
         }
 
         public double consCorrection {
-            get { return genSettings.conPercentageCorrection * 100; }
+            get { return gen.conPercentageCorrection * 100; }
             set {
-                if (genSettings.SetConCorrection(value)) {
+                if (gen.SetConCorrection(value)) {
                     OnPropertyChanged(nameof(consCorrection));
                 }
             }
         }
 
         public double vowsCorrection {
-            get { return genSettings.vowPercentageCorrection * 100; }
+            get { return gen.vowPercentageCorrection * 100; }
             set {
-                if (genSettings.SetVowCorrection(value)) {
+                if (gen.SetVowCorrection(value)) {
                     OnPropertyChanged(nameof(vowsCorrection));
                 }
             }
@@ -156,18 +154,18 @@ namespace NAMEGEN.Control {
         // REPEATS CONTROL
 
         public bool consAllowRepeats {
-            get { return genSettings.allowConsRepeats; }
+            get { return gen.allowConsRepeats; }
             set { 
-                if (genSettings.SetAllowRepeatsCons(value)) {
+                if (gen.SetAllowRepeatsCons(value)) {
                     OnPropertyChanged(nameof(consAllowRepeats));
                 }
             }
         }
 
         public bool vowsAllowRepeats {
-            get { return genSettings.allowVowsRepeats; }
+            get { return gen.allowVowsRepeats; }
             set {
-                if (genSettings.SetAllowRepeatsVows(value)) {
+                if (gen.SetAllowRepeatsVows(value)) {
                     OnPropertyChanged(nameof(vowsAllowRepeats));
                 }
             }
@@ -200,8 +198,7 @@ namespace NAMEGEN.Control {
         public ViewModel() {
             // load saved preset/values if they exist
 
-            genSettings = new GenerationSettings(_sourcePath, _presetName, true);
-            gen = new Generator(genSettings);
+            gen = new Generator(_sourcePath, _presetName, true);
 
             generateCommand = new RelayCommand<object>(UpdateNameFields);
             panelVisibilityCommand = new RelayCommand<string>(UpdateVisibilities);
@@ -222,14 +219,10 @@ namespace NAMEGEN.Control {
         // COMMAND ACTIONS
 
         private void UpdateNameFields(object sender) {
-            gen.GenerateName();
-            List<string> allNames = gen.GetAllNames();
-
-            if (allNames is not null) {
-                for (int i = 0; i < nameFields.Count && i < allNames.Count; i++) {
-                    nameFields[i].val = gen.GetNameAtIndex(allNames.Count - (1 + i));
-                }
+            for (int i = nameFields.Count - 1; i >= 1; i--) {
+                nameFields[i].val = nameFields[i - 1].val;
             }
+            nameFields[0].val = gen.GenerateName();
         }
 
         private void UpdateVisibilities(string indexStr) {
