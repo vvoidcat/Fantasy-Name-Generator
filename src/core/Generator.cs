@@ -132,7 +132,7 @@ namespace NAMEGEN.Core {
         public bool SetAllowRepeatsCons(bool newIsAllowed) {
             bool isValueSet = false;
 
-            if (newIsAllowed == allowConsRepeats) {
+            if (newIsAllowed != allowConsRepeats) {
                 allowConsRepeats = newIsAllowed;
                 isValueSet = true;
             }
@@ -143,7 +143,7 @@ namespace NAMEGEN.Core {
         public bool SetAllowRepeatsVows(bool newIsAllowed) {
             bool isValueSet = false;
 
-            if (newIsAllowed == allowVowsRepeats) {
+            if (newIsAllowed != allowVowsRepeats) {
                 allowVowsRepeats = newIsAllowed;
                 isValueSet = true;
             }

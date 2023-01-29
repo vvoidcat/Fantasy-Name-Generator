@@ -178,6 +178,10 @@ namespace NAMEGEN.Control {
         public ICommand generateCommand { get; private set; }
         public ICommand saveNameCommand { get; private set; }
         public ICommand deleteNameCommand { get; private set; }
+        public ICommand minlenDecreaseCommand { get; private set; }
+        public ICommand minlenIncreaseCommand { get; private set; }
+        public ICommand maxlenDecreaseCommand { get; private set; }
+        public ICommand maxlenIncreaseCommand { get; private set; }
 
         // unf
         public ICommand deletePresetCommand { get; }
@@ -185,10 +189,6 @@ namespace NAMEGEN.Control {
         public ICommand saveasCommand { get; }
         public ICommand loadCommand { get; }
         public ICommand openSourcepathCommand { get; }
-        public ICommand minlenLesserCommand { get; }
-        public ICommand minlenGreaterCommand { get; }
-        public ICommand maxlenLesserCommand { get; }
-        public ICommand maxlenGreaterCommand { get; }
         public ICommand presetLesserCommand { get; }
         public ICommand presetGreaterCommand { get; }
 
@@ -205,15 +205,20 @@ namespace NAMEGEN.Control {
             saveNameCommand = new RelayCommand<string>(SaveNameToHistory);
             deleteNameCommand = new RelayCommand<string>(DeleteNameFromHistory);
 
-            //Task.Run(() => {
-            //    while (true) {
-            //        //if (historyNames.Count > 2) {
-            //        //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
-            //        //}
-            //        Debug.WriteLine(": " + historyNames.Count);
-            //        Thread.Sleep(500);
-            //    }
-            //});
+            minlenDecreaseCommand = new RelayCommand<object>(DecreaseMinLen);
+            minlenIncreaseCommand = new RelayCommand<object>(IncreaseMinLen);
+            maxlenDecreaseCommand = new RelayCommand<object>(DecreaseMaxLen);
+            maxlenIncreaseCommand = new RelayCommand<object>(IncreaseMaxLen);
+
+            Task.Run(() => {
+                while (true) {
+                    //if (historyNames.Count > 2) {
+                    //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
+                    //}
+                    Debug.WriteLine(": " + consAllowRepeats + " | " + vowsAllowRepeats);
+                    Thread.Sleep(500);
+                }
+            });
         }
 
         // COMMAND ACTIONS
@@ -270,6 +275,22 @@ namespace NAMEGEN.Control {
                 }
             }
             return result;
+        }
+
+        private void DecreaseMinLen(object sender) {
+            minLen -= 1;
+        }
+
+        private void IncreaseMinLen(object sender) {
+            minLen += 1;
+        }
+
+        private void DecreaseMaxLen(object sender) {
+            maxLen -= 1;
+        }
+
+        private void IncreaseMaxLen(object sender) {
+            maxLen += 1;
         }
     }
 }
