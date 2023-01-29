@@ -1,0 +1,118 @@
+﻿<UserControl x:Class="NAMEGEN.Ui.LetterControlColumn"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             x:Name="rootLetterControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="830">
+
+    <!-- delete later -->
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../DictionaryStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+
+    <Grid Width="255">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock
+            Text="{Binding Title, ElementName=rootLetterControl}"
+            FontSize="12"
+            FontWeight="DemiBold"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Padding="0 0 0 0"
+            Height="25"
+            Grid.Row="0"/>
+        
+        
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- LABELS -->
+            <StackPanel Grid.Column="0">
+                <TextBlock
+                    Text="max in a row:"
+                    Margin="0 0"
+                    Height="18"
+                    FontSize="12"/>
+
+                <TextBlock
+                    Text="spawn chance correction:"
+                    Margin="0 1"
+                    Height="18"
+                    FontSize="12"/>
+
+                <TextBlock
+                    Text="allow repeats:"
+                    Margin="0 1"
+                    Height="18"
+                    FontSize="12"/>
+            </StackPanel>
+
+
+            <!-- INPUT FIELDS -->
+            <StackPanel Grid.Column="1">
+                <StackPanel Orientation="Horizontal">
+                    <Slider 
+                        Name="sbarRow"
+                        Value="{Binding RowValue, ElementName=rootLetterControl}"
+                        Orientation="Horizontal"
+                        Width="70"
+                        Height="18"
+                        Minimum="{Binding rowLowerbound}"
+                        Maximum="{Binding rowUpperbound}"
+                        IsSnapToTickEnabled="True"
+                        TickFrequency="1"
+                        AutoToolTipPlacement="TopLeft"/>
+
+                    <TextBlock
+                        Text="{Binding ElementName=sbarRow, Path=Value, Mode=OneWay}"
+                        HorizontalAlignment="Center"
+                        Margin="4 0 0 0"
+                        Width="18"
+                        Height="18"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Slider 
+                        Name="sbarPerc"
+                        Value="{Binding CorrectionValue, ElementName=rootLetterControl}"
+                        Orientation="Horizontal"
+                        Margin="0 1"
+                        Width="70"
+                        Height="18"
+                        Minimum="{Binding correctionLowerbound}"
+                        Maximum="{Binding correctionUpperbound}"
+                        IsSnapToTickEnabled="True"
+                        TickFrequency="1"
+                        AutoToolTipPlacement="TopLeft"/>
+
+                    <TextBlock
+                        Text="{Binding ElementName=sbarPerc, Path=Value, Mode=OneWay, StringFormat={}{0}%}"
+                        HorizontalAlignment="Center"
+                        Margin="4 2 0 0"
+                        Width="30"
+                        Height="18"/>
+                </StackPanel>
+
+                <CheckBox
+                    IsChecked="{Binding AllowAllRepeats, ElementName=rootLetterControl}"
+                    Margin="-1 1 0 0"
+                    Style="{StaticResource stylePanelCheckBoxes}"/>
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</UserControl>

@@ -60,199 +60,25 @@
                             DecreaseCommand="{Binding maxlenDecreaseCommand}"
                             IncreaseCommand="{Binding maxlenIncreaseCommand}"/>
                     </StackPanel>
-                    
-                </StackPanel>
 
 
-                <!-- CONS & VOWS HEADER LABELS -->
-                <Grid Margin="0 8 0 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                    <!-- CONS & VOWS HEADER LABELS -->
 
-                    <TextBlock
-                                Name="tblockCons"
-                                Text="consonants:"
-                                FontSize="12"
-                                FontWeight="DemiBold"
-                                HorizontalAlignment="Center"
-                                Grid.Column="0"/>
+                    <Grid Margin="35 0 0 0">
+                        <controls:LetterControlColumn
+                            Title="consonants"
+                            RowValue="{Binding consMaxRow, Mode=TwoWay}"
+                            CorrectionValue="{Binding consCorrection, Mode=TwoWay}"
+                            AllowAllRepeats="{Binding consAllowRepeats, Mode=TwoWay}"/>
+                    </Grid>
 
-                    <TextBlock
-                                Name="tblockVows"
-                                Text="vowels:"
-                                FontSize="12"
-                                FontWeight="DemiBold"
-                                HorizontalAlignment="Center"
-                                Grid.Column="1"/>
-                </Grid>
-
-
-                <!-- CONS & VOWS -->
-                <StackPanel Orientation="Horizontal"
-                                Margin="10 5 0 0">
-
-                    <!-- CONS LABELS -->
-                    <StackPanel Margin="0 0 0 0">
-                        <TextBlock
-                                Name="tblockConsMaxRow"
-                                Text="max in a row:"
-                                Margin="0 0"
-                                Height="18"
-                                FontSize="12"/>
-
-                        <TextBlock
-                                Name="tblockConsPerc"
-                                Text="spawn chance correction:"
-                                Margin="0 1"
-                                Height="18"
-                                FontSize="12"/>
-
-                        <TextBlock
-                                Name="tblockConsRepeats"
-                                Text="allow repeats:"
-                                Margin="0 1"
-                                Height="18"
-                                FontSize="12"/>
-                    </StackPanel>
-
-                    <!-- CONS INPUT FIELDS -->
-                    <StackPanel Margin="15 0 0 0">
-                        <StackPanel Orientation="Horizontal">
-                            <Slider 
-                                    Name="sbarConsMax"
-                                    Value="{Binding consMaxRow}"
-                                    Orientation="Horizontal"
-                                    Margin="0 0"
-                                    Width="50"
-                                    Height="18"
-                                    Minimum="{Binding rowLowerbound}"
-                                    Maximum="{Binding rowUpperbound}"
-                                    IsSnapToTickEnabled="True"
-                                    TickFrequency="1"
-                                    AutoToolTipPlacement="TopLeft"/>
-
-                            <TextBlock
-                                    Name="tblockConsMaxValue"
-                                    Text="{Binding ElementName=sbarConsMax, Path=Value, Mode=OneWay}"
-                                    HorizontalAlignment="Center"
-                                    Margin="4 0 0 0"
-                                    Width="18"
-                                    Height="18"/>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal">
-                            <Slider 
-                                    Name="sbarConsPerc"
-                                    Value="{Binding consCorrection}"
-                                    Orientation="Horizontal"
-                                    Margin="0 1"
-                                    Width="50"
-                                    Height="18"
-                                    Minimum="{Binding correctionLowerbound}"
-                                    Maximum="{Binding correctionUpperbound}"
-                                    IsSnapToTickEnabled="True"
-                                    TickFrequency="1"
-                                    AutoToolTipPlacement="TopLeft"/>
-
-                            <TextBlock
-                                    Name="tblockConsPercValue"
-                                    Text="{Binding ElementName=sbarConsPerc, Path=Value, Mode=OneWay, StringFormat={}{0}%}"
-                                    HorizontalAlignment="Center"
-                                    Margin="4 2 0 0"
-                                    Width="30"
-                                    Height="18"/>
-                        </StackPanel>
-
-                        <CheckBox
-                                Name="checkConsRepeats"
-                                IsChecked="{Binding consAllowRepeats}"
-                                Margin="-2 1 0 0"
-                                Style="{StaticResource stylePanelCheckBoxes}"/>
-                    </StackPanel>
-
-
-                    <!-- VOWS LABELS -->
-                    <StackPanel Margin="20 0 0 0">
-                        <TextBlock
-                                Name="tblockVonsMaxRow"
-                                Text="max in a row:"
-                                Margin="0 0"
-                                Height="18"
-                                FontSize="12"/>
-
-                        <TextBlock
-                                Name="tblockVonsPerc"
-                                Text="spawn chance correction:"
-                                Margin="0 1"
-                                Height="18"
-                                FontSize="12"/>
-
-                        <TextBlock
-                                Name="tblockVonsRepeats"
-                                Text="allow repeats:"
-                                Margin="0 1"
-                                Height="18"
-                                FontSize="12"/>
-                    </StackPanel>
-
-                    <!-- VOWS INPUT FIELDS -->
-                    <StackPanel Margin="15 0 0 0">
-                        <StackPanel Orientation="Horizontal">
-                            <Slider 
-                                    Name="sbarVowsMax"
-                                    Value="{Binding vowsMaxRow}"
-                                    Orientation="Horizontal"
-                                    Width="50"
-                                    Margin="0 0"
-                                    Height="18"
-                                    Minimum="{Binding rowLowerbound}"
-                                    Maximum="{Binding rowUpperbound}"
-                                    IsSnapToTickEnabled="True"
-                                    TickFrequency="1"
-                                    AutoToolTipPlacement="TopLeft"/>
-
-                            <TextBlock
-                                    Name="tblockVowsMaxValue"
-                                    Text="{Binding ElementName=sbarVowsMax, Path=Value, Mode=OneWay}"
-                                    HorizontalAlignment="Center"
-                                    Margin="4 0 0 0"
-                                    Width="18"
-                                    Height="18"/>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal">
-                            <Slider 
-                                    Name="sbarVowsPerc"
-                                    Value="{Binding vowsCorrection}"
-                                    Orientation="Horizontal"
-                                    Width="50"
-                                    Margin="0 1"
-                                    Height="18"
-                                    Minimum="{Binding correctionLowerbound}"
-                                    Maximum="{Binding correctionUpperbound}"
-                                    IsSnapToTickEnabled="True"
-                                    TickFrequency="1"
-                                    AutoToolTipPlacement="TopLeft"/>
-
-                            <TextBlock
-                                    Name="tblockVowsPercValue"
-                                    Text="{Binding ElementName=sbarVowsPerc, Path=Value, Mode=OneWay, StringFormat={}{0}%}"
-                                    HorizontalAlignment="Center"
-                                    Margin="4 2 0 0"
-                                    Width="30"
-                                    Height="18"/>
-
-
-                        </StackPanel>
-
-                        <CheckBox
-                                Name="checkVowsRepeats"
-                                IsChecked="{Binding vowsAllowRepeats}"
-                                Margin="-2 1 0 0"
-                                Style="{StaticResource stylePanelCheckBoxes}"/>
-                    </StackPanel>
+                    <Grid Margin="20 0 0 0">
+                        <controls:LetterControlColumn
+                            Title="vowels"
+                            RowValue="{Binding vowsMaxRow, Mode=TwoWay}"
+                            CorrectionValue="{Binding vowsCorrection, Mode=TwoWay}"
+                            AllowAllRepeats="{Binding vowsAllowRepeats, Mode=TwoWay}"/>
+                    </Grid>
                 </StackPanel>
 
             </StackPanel>

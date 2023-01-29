@@ -19,7 +19,7 @@
 
         <TextBlock
             Text="{Binding Title, ElementName=rootLengthSpinbox}"
-            Margin="35 0 0 0"
+            Margin="20 0 0 0"
             Width="35"
             FontSize="12"/>
 
