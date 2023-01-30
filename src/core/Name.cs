@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace NAMEGEN.Core {
@@ -96,6 +97,39 @@ namespace NAMEGEN.Core {
 
                     if (chosenLetter == lastLetter && chosenLetter == prevLetter) {
                         result = false;
+                    }
+                }
+            }
+            return result;
+        }
+
+        private bool IsAllowedSyllable(int index, List<Letter> letters) {
+            bool result = true;
+
+            // syllable = pattern
+
+            // max syllable length = namelen / 2 rounded down = (6)
+            // start with min (2), add 1 in each iteration
+            // search for matching strings in namestring
+            // if found, check settings and return value
+
+            if (letters.Count >= 3) {
+                string tempName = namestring.ToString().ToLower() + preset.alphabet.letters[index].lowercase;
+                int minPatternSize = 2, maxPatternSize = length / 2;
+
+                for (int i = minPatternSize; i <= maxPatternSize; i++) {
+                    int substrStartIndex = letters.Count - i;
+
+                    if (substrStartIndex >= 0) {
+                        string substr = tempName.Substring(substrStartIndex);
+                        int matches = Regex.Matches(tempName, substr).Count;
+
+                        if ((matches > 0 && !settings.allowSylsRepeats) || matches > settings.maxRowSyls) {
+                            result = false;
+                            break;
+                        }
+                    } else {
+                        break;
                     }
                 }
             }

@@ -172,6 +172,27 @@ namespace NAMEGEN.Control {
         }
 
 
+        // PATTERNS
+
+        public double patternsMax {
+            get { return gen.maxRowSyls; }
+            set {
+                if (gen.SetMaxRowSyls((int)value)) {
+                    OnPropertyChanged(nameof(patternsMax));
+                }
+            }
+        }
+
+        public bool patternsAllowRepeats {
+            get { return gen.allowSylsRepeats; }
+            set {
+                if (gen.SetAllowRepeatsSyllables(value)) {
+                    OnPropertyChanged(nameof(patternsAllowRepeats));
+                }
+            }
+        }
+
+
         // BUTTON COMMANDS
 
         public ICommand panelVisibilityCommand { get; private set; }
@@ -198,7 +219,7 @@ namespace NAMEGEN.Control {
         public ViewModel() {
             // load saved preset/values if they exist
 
-            gen = new Generator(_sourcePath, _presetName, true);
+            gen = new Generator(_sourcePath, _presetName);
 
             generateCommand = new RelayCommand<object>(UpdateNameFields);
             panelVisibilityCommand = new RelayCommand<string>(UpdateVisibilities);

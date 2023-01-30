@@ -20,16 +20,17 @@ namespace NAMEGEN.Core {
 
         public int maxRowCons { get; private set; } = 2;
         public int maxRowVows { get; private set; } = 2;
+        public int maxRowSyls { get; private set; } = 2;
 
         public double conPercentageCorrection { get; private set; } = 0.0f;
         public double vowPercentageCorrection { get; private set; } = 0.0f;
 
         public bool allowConsRepeats { get; private set; } = true;
         public bool allowVowsRepeats { get; private set; } = true;
+        public bool allowSylsRepeats { get; private set; } = true;
 
-        public Generator(string sourcePath, string name, bool isEditable) {
-            preset = new Preset(sourcePath, name, isEditable);
-
+        public Generator(string sourcePath, string name) {
+            preset = new Preset(sourcePath, name);
         }
 
         public string GenerateName() {
@@ -107,6 +108,16 @@ namespace NAMEGEN.Core {
             return isValueSet;
         }
 
+        public bool SetMaxRowSyls(int newValue) {
+            bool isValueSet = false;
+
+            if (newValue != maxRowSyls && newValue >= minRow && newValue <= maxRow) {
+                maxRowVows = newValue;
+                isValueSet = true;
+            }
+            return isValueSet;
+        }
+
         public bool SetConCorrection(double newValue) {
             bool isValueSet = false;
             newValue = newValue / 100;
@@ -145,6 +156,16 @@ namespace NAMEGEN.Core {
 
             if (newIsAllowed != allowVowsRepeats) {
                 allowVowsRepeats = newIsAllowed;
+                isValueSet = true;
+            }
+            return isValueSet;
+        }
+
+        public bool SetAllowRepeatsSyllables(bool newIsAllowed) {
+            bool isValueSet = false;
+
+            if (newIsAllowed != allowVowsRepeats) {
+                allowSylsRepeats = newIsAllowed;
                 isValueSet = true;
             }
             return isValueSet;

@@ -39,9 +39,9 @@
                     Margin="0 0 0 10">
                     
                     <TextBlock
-                        Text="syllables:"
+                        Text="patterns:"
                         FontWeight="DemiBold"
-                        Margin="0 -3 47 0"
+                        Margin="0 -3 48 0"
                         FontSize="14"/>
 
                     <StackPanel>
