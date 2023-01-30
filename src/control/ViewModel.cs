@@ -175,18 +175,18 @@ namespace NAMEGEN.Control {
         // PATTERNS
 
         public double patternsMax {
-            get { return gen.maxRowSyls; }
+            get { return gen.maxPatterns; }
             set {
-                if (gen.SetMaxRowSyls((int)value)) {
+                if (gen.SetMaxPatterns((int)value)) {
                     OnPropertyChanged(nameof(patternsMax));
                 }
             }
         }
 
         public bool patternsAllowRepeats {
-            get { return gen.allowSylsRepeats; }
+            get { return gen.allowPatternRepeats; }
             set {
-                if (gen.SetAllowRepeatsSyllables(value)) {
+                if (gen.SetAllowRepeatsPatterns(value)) {
                     OnPropertyChanged(nameof(patternsAllowRepeats));
                 }
             }
@@ -236,7 +236,7 @@ namespace NAMEGEN.Control {
                     //if (historyNames.Count > 2) {
                     //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
                     //}
-                    Debug.WriteLine(": " + consAllowRepeats + " | " + vowsAllowRepeats);
+                    Debug.WriteLine(": " + consAllowRepeats + " | " + vowsAllowRepeats + " | " + patternsAllowRepeats + " | " + patternsMax);
                     Thread.Sleep(500);
                 }
             });

@@ -20,14 +20,15 @@ namespace NAMEGEN.Core {
 
         public int maxRowCons { get; private set; } = 2;
         public int maxRowVows { get; private set; } = 2;
-        public int maxRowSyls { get; private set; } = 2;
 
         public double conPercentageCorrection { get; private set; } = 0.0f;
         public double vowPercentageCorrection { get; private set; } = 0.0f;
 
         public bool allowConsRepeats { get; private set; } = true;
         public bool allowVowsRepeats { get; private set; } = true;
-        public bool allowSylsRepeats { get; private set; } = true;
+
+        public int maxPatterns { get; private set; } = 2;
+        public bool allowPatternRepeats { get; private set; } = true;
 
         public Generator(string sourcePath, string name) {
             preset = new Preset(sourcePath, name);
@@ -108,16 +109,6 @@ namespace NAMEGEN.Core {
             return isValueSet;
         }
 
-        public bool SetMaxRowSyls(int newValue) {
-            bool isValueSet = false;
-
-            if (newValue != maxRowSyls && newValue >= minRow && newValue <= maxRow) {
-                maxRowVows = newValue;
-                isValueSet = true;
-            }
-            return isValueSet;
-        }
-
         public bool SetConCorrection(double newValue) {
             bool isValueSet = false;
             newValue = newValue / 100;
@@ -161,11 +152,21 @@ namespace NAMEGEN.Core {
             return isValueSet;
         }
 
-        public bool SetAllowRepeatsSyllables(bool newIsAllowed) {
+        public bool SetMaxPatterns(int newValue) {
+            bool isValueSet = false;
+
+            if (newValue != maxPatterns && newValue >= minRow && newValue <= maxRow) {
+                maxRowVows = newValue;
+                isValueSet = true;
+            }
+            return isValueSet;
+        }
+
+        public bool SetAllowRepeatsPatterns(bool newIsAllowed) {
             bool isValueSet = false;
 
             if (newIsAllowed != allowVowsRepeats) {
-                allowSylsRepeats = newIsAllowed;
+                allowPatternRepeats = newIsAllowed;
                 isValueSet = true;
             }
             return isValueSet;

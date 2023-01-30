@@ -33,46 +33,10 @@
 
             <StackPanel Margin="33 0 0 0">
 
-                <!-- SYLLABLES -->
-                <StackPanel
-                    Orientation="Horizontal"
-                    Margin="0 0 0 10">
-                    
-                    <TextBlock
-                        Text="patterns:"
-                        FontWeight="DemiBold"
-                        Margin="0 -3 48 0"
-                        FontSize="14"/>
-
-                    <StackPanel>
-                        <StackPanel
-                            Orientation="Horizontal"
-                            Margin="0 0 0 0">
-
-                            <TextBlock
-                                Text="allow repeats:"
-                                Width="75"/>
-
-                            <CheckBox
-                                Margin="11 1 0 0"
-                                Style="{StaticResource stylePanelCheckBoxes}"/>
-                        </StackPanel>
-
-                        <StackPanel
-                            Orientation="Horizontal"
-                            Margin="2 5 0 0">
-
-                            <Slider
-                                Width="70"/>
-
-                            <TextBlock
-                                Text="3"
-                                FontSize="12"
-                                Margin="18 0 0 0"/>
-                        </StackPanel>
-                    </StackPanel>
-                    
-                </StackPanel>
+                <!-- PATTERNS -->
+                <controls:PatternControlField
+                    AllowRepeats="{Binding patternsAllowRepeats, Mode=TwoWay}"
+                    PatternsCountValue="{Binding patternsMax, Mode=TwoWay}"/>
 
                 <!-- MIN MAX LENGTH -->
                 <StackPanel Orientation="Horizontal">
@@ -105,18 +69,18 @@
             <!-- CONS & VOWS -->
             <Grid Margin="35 0 0 0">
                 <controls:LetterControlColumn
-                            Title="consonants:"
-                            RowValue="{Binding consMaxRow, Mode=TwoWay}"
-                            CorrectionValue="{Binding consCorrection, Mode=TwoWay}"
-                            AllowAllRepeats="{Binding consAllowRepeats, Mode=TwoWay}"/>
+                    Title="consonants:"
+                    RowValue="{Binding consMaxRow, Mode=TwoWay}"
+                    CorrectionValue="{Binding consCorrection, Mode=TwoWay}"
+                    AllowRepeats="{Binding consAllowRepeats, Mode=TwoWay}"/>
             </Grid>
 
             <Grid Margin="15 0 0 0">
                 <controls:LetterControlColumn
-                            Title="vowels:"
-                            RowValue="{Binding vowsMaxRow, Mode=TwoWay}"
-                            CorrectionValue="{Binding vowsCorrection, Mode=TwoWay}"
-                            AllowAllRepeats="{Binding vowsAllowRepeats, Mode=TwoWay}"/>
+                    Title="vowels:"
+                    RowValue="{Binding vowsMaxRow, Mode=TwoWay}"
+                    CorrectionValue="{Binding vowsCorrection, Mode=TwoWay}"
+                    AllowRepeats="{Binding vowsAllowRepeats, Mode=TwoWay}"/>
             </Grid>
         </StackPanel>
 

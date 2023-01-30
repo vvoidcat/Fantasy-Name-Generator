@@ -54,7 +54,8 @@ namespace NAMEGEN.Core {
         private bool IsChoosableIndex(int index, int rowConsonants, int rowVowels, List<Letter> letters, Gender gender) {
             return (preset.alphabet.letters[index].isConsonant == IsConsonantChosen(rowConsonants, rowVowels)
                     && IsAllowedProbability(index, letters, gender)
-                    && IsAllowedRepeat(index, letters)) ? true : false;
+                    && IsAllowedRepeat(index, letters)
+                    && IsAllowedPattern(index, letters)) ? true : false;
         }
 
         private bool IsAllowedProbability(int index, List<Letter> letters, Gender gender) {
@@ -103,34 +104,19 @@ namespace NAMEGEN.Core {
             return result;
         }
 
-        private bool IsAllowedSyllable(int index, List<Letter> letters) {
+        private bool IsAllowedPattern(int index, List<Letter> letters) {
             bool result = true;
 
-            // syllable = pattern
-
-            // max syllable length = namelen / 2 rounded down = (6)
-            // start with min (2), add 1 in each iteration
-            // search for matching strings in namestring
-            // if found, check settings and return value
-
             if (letters.Count >= 3) {
-                string tempName = namestring.ToString().ToLower() + preset.alphabet.letters[index].lowercase;
-                int minPatternSize = 2, maxPatternSize = length / 2;
+                string tempname = namestring.ToString().ToLower() + preset.alphabet.letters[index].lowercase;
+                int minPatternSize = 2;
+                int substrStartIndex = tempname.Length - minPatternSize;
 
-                for (int i = minPatternSize; i <= maxPatternSize; i++) {
-                    int substrStartIndex = letters.Count - i;
+                string substr = tempname.Substring(substrStartIndex);
+                int matches = Regex.Matches(tempname, substr).Count;
 
-                    if (substrStartIndex >= 0) {
-                        string substr = tempName.Substring(substrStartIndex);
-                        int matches = Regex.Matches(tempName, substr).Count;
-
-                        if ((matches > 0 && !settings.allowSylsRepeats) || matches > settings.maxRowSyls) {
-                            result = false;
-                            break;
-                        }
-                    } else {
-                        break;
-                    }
+                if ((matches > 1 && !settings.allowPatternRepeats) || matches > settings.maxPatterns) {
+                    result = false;
                 }
             }
             return result;

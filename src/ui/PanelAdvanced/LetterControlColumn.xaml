@@ -108,7 +108,7 @@
                 </StackPanel>
 
                 <CheckBox
-                    IsChecked="{Binding AllowAllRepeats, ElementName=rootLetterControl}"
+                    IsChecked="{Binding AllowRepeats, ElementName=rootLetterControl}"
                     Margin="-1 1 0 0"
                     Style="{StaticResource stylePanelCheckBoxes}"/>
             </StackPanel>

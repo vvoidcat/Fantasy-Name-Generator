@@ -40,11 +40,11 @@ namespace NAMEGEN.Ui
             set { SetValue(valueCorrectionProperty, value); }
         }
 
-        public static readonly DependencyProperty allowAllRepeatsProperty =
-            DependencyProperty.Register("AllowAllRepeats", typeof(bool), typeof(LetterControlColumn), new PropertyMetadata(true));
-        public bool AllowAllRepeats {
-            get { return (bool)GetValue(allowAllRepeatsProperty); }
-            set { SetValue(allowAllRepeatsProperty, value); }
+        public static readonly DependencyProperty allowRepeatsProperty =
+            DependencyProperty.Register("AllowRepeats", typeof(bool), typeof(LetterControlColumn), new PropertyMetadata(true));
+        public bool AllowRepeats {
+            get { return (bool)GetValue(allowRepeatsProperty); }
+            set { SetValue(allowRepeatsProperty, value); }
         }
 
         public LetterControlColumn() {
