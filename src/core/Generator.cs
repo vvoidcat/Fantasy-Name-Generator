@@ -156,7 +156,7 @@ namespace NAMEGEN.Core {
             bool isValueSet = false;
 
             if (newValue != maxPatterns && newValue >= minRow && newValue <= maxRow) {
-                maxRowVows = newValue;
+                maxPatterns = newValue;
                 isValueSet = true;
             }
             return isValueSet;
@@ -165,7 +165,7 @@ namespace NAMEGEN.Core {
         public bool SetAllowRepeatsPatterns(bool newIsAllowed) {
             bool isValueSet = false;
 
-            if (newIsAllowed != allowVowsRepeats) {
+            if (newIsAllowed != allowPatternRepeats) {
                 allowPatternRepeats = newIsAllowed;
                 isValueSet = true;
             }

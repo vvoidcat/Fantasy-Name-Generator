@@ -28,8 +28,7 @@
 
         <StackPanel>
             <StackPanel
-                Orientation="Horizontal"
-                Margin="0 0 0 0">
+                Orientation="Horizontal">
 
                 <TextBlock
                     Text="allow repeats:"
@@ -48,9 +47,10 @@
 
                 <Slider
                     Name="sbarPatterns"
+                    IsEnabled="{Binding ElementName=checkAllowRepeats, Path=IsChecked, Mode=OneWay}"
                     Value="{Binding PatternsCountValue, ElementName=rootPatternControl}"
-                    Minimum="1"
-                    Maximum="3"
+                    Minimum="{Binding rowLowerbound}"
+                    Maximum="{Binding rowUpperbound}"
                     Width="70"
                     Height="18"
                     IsSnapToTickEnabled="True"
