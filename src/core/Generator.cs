@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NAMEGEN.Core {
     public class Generator {
-        public const int lengthLowerbound = 3;
+        public const int lengthLowerbound = 4;
         public const int lengthUpperbound = 12;
         public const int minRow = 1;
         public const int maxRow = 3;
@@ -15,8 +15,8 @@ namespace NAMEGEN.Core {
 
         public Preset preset { get; private set; }
         public Gender gender { get; private set; } = Gender.Neutral;
-        public int minLength { get; private set; } = lengthLowerbound;
-        public int maxLength { get; private set; } = lengthUpperbound;
+        public int minLength { get; private set; } = 5;
+        public int maxLength { get; private set; } = 10;
 
         public int maxRowCons { get; private set; } = 2;
         public int maxRowVows { get; private set; } = 2;

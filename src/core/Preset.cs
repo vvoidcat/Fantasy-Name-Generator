@@ -10,6 +10,8 @@ using CsvHelper.Configuration;
 using CsvHelper.Configuration.Attributes;
 using System.Data;
 using System.Security.Cryptography;
+using System.Reflection;
+using System.Xml.Linq;
 
 namespace NAMEGEN.Core {
     public class Preset {
@@ -20,7 +22,10 @@ namespace NAMEGEN.Core {
         
         public Alphabet alphabet { get; set; }
 
-        public Matrix permutationMatrix { get; private set; }
+        public Matrix permutationMatrixStart { get; private set; }
+        public Matrix permutationMatrixGeneral { get; private set; }
+        public Matrix permutationMatrixEnd { get; private set; }
+
         public Matrix probabilityMatrixStart { get; private set; }
         public Matrix probabilityMatrixEnd_Male { get; private set; }
         public Matrix probabilityMatrixEnd_Female { get; private set; }
@@ -32,7 +37,10 @@ namespace NAMEGEN.Core {
         public Preset(string newSourcepath, string newName) {
             alphabet = new Alphabet();
 
-            permutationMatrix = new Matrix(alphabet.letters.Count, alphabet.letters.Count);
+            permutationMatrixStart = new Matrix(alphabet.letters.Count, alphabet.letters.Count);
+            permutationMatrixGeneral = new Matrix(alphabet.letters.Count, alphabet.letters.Count);
+            permutationMatrixEnd = new Matrix(alphabet.letters.Count, alphabet.letters.Count);
+
             probabilityMatrixStart = new Matrix(1, alphabet.letters.Count);
             probabilityMatrixEnd_Male = new Matrix(1, alphabet.letters.Count);
             probabilityMatrixEnd_Female = new Matrix(1, alphabet.letters.Count);
@@ -116,38 +124,58 @@ namespace NAMEGEN.Core {
         }
 
         private void ProcessNameStr(string name, Gender gender) {
-            for (int i = 1; i < name.Length; i++) {
-                int indexCurrent = i - 1;
-                int indexNext = i;
+            for (int i = 0; i < name.Length - 1; i++) {
+                int indexCurrent = i;
+                int indexNext = i + 1;
                 char currentLetterLower = char.ToLower(name[indexCurrent]);
                 char nextLetterLower = char.ToLower(name[indexNext]);
 
-                for (int j = 0; j < alphabet.letters.Count; j++) {
-                    Letter alphabetLetter = alphabet.letters[j];
-                    if (currentLetterLower == alphabetLetter.lowercase) {
-                        indexCurrent = alphabetLetter.index;
-                    }
-                    if (nextLetterLower == alphabetLetter.lowercase) {
-                        indexNext = alphabetLetter.index;
-                    }
-                }
+                UpdateWorkingIndexes(currentLetterLower, nextLetterLower, ref indexCurrent, ref indexNext);
+                UpdateMatrices(name, gender, i, indexCurrent, indexNext);
+            }
+        }
 
-                if (i == 1) {
+        private void UpdateWorkingIndexes(char current, char next, ref int indexCurrent, ref int indexNext) {
+            for (int j = 0; j < alphabet.letters.Count; j++) {
+                Letter alphabetLetter = alphabet.letters[j];
+                if (current == alphabetLetter.lowercase) {
+                    indexCurrent = alphabetLetter.index;
+                }
+                if (next == alphabetLetter.lowercase) {
+                    indexNext = alphabetLetter.index;
+                }
+            }
+        }
+
+        private void UpdateMatrices(string name, Gender gender, int i, int indexCurrent, int indexNext) {
+            permutationMatrixGeneral.IncrementValueAtIndex(indexCurrent, indexNext);
+
+            if (i <= 1) {
+                permutationMatrixStart.IncrementValueAtIndex(indexCurrent, indexNext);
+                if (i == 0) {
                     probabilityMatrixStart.IncrementValueAtIndex(0, indexCurrent);
-                } else if (i == name.Length - 1) {
-                    if (gender == Gender.Male) {
-                        probabilityMatrixEnd_Male.IncrementValueAtIndex(0, indexNext);
-                    } else if (gender == Gender.Female) {
-                        probabilityMatrixEnd_Female.IncrementValueAtIndex(0, indexNext);
-                    }
                 }
-
-                permutationMatrix.IncrementValueAtIndex(indexCurrent, indexNext);
+            } else if (i == name.Length - 2) {
+                if (gender == Gender.Male) {
+                    probabilityMatrixEnd_Male.IncrementValueAtIndex(0, indexNext);
+                } else if (gender == Gender.Female) {
+                    probabilityMatrixEnd_Female.IncrementValueAtIndex(0, indexNext);
+                }
+            } else {
+                if (i >= name.Length - 4) {
+                    permutationMatrixEnd.IncrementValueAtIndex(indexCurrent, indexNext);
+                }
             }
         }
 
         private void FinalizeMatrices() {
-            Matrix[] matrices = new Matrix[] { permutationMatrix, probabilityMatrixStart, probabilityMatrixEnd_Male, probabilityMatrixEnd_Female };
+            Matrix[] matrices = new Matrix[] {
+                permutationMatrixStart,
+                permutationMatrixGeneral,
+                permutationMatrixEnd,
+                probabilityMatrixStart,
+                probabilityMatrixEnd_Male, 
+                probabilityMatrixEnd_Female };
 
             foreach (Matrix m in matrices) {
                 if (m.isZeroed) {
