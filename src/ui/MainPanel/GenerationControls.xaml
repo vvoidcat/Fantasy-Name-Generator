@@ -43,6 +43,7 @@
                 Style="{StaticResource stylePresetChoiceButtons}"/>
         </StackPanel>
 
+        
         <StackPanel 
             Orientation="Horizontal"
             Margin="0 10 0 10"

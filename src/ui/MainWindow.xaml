@@ -27,8 +27,9 @@
     <StackPanel>
         
         <!-- UPPER PANEL CONROL -->
-        <controls:PanelControls></controls:PanelControls>
-
+        <controls:PanelControls
+            Width="400"
+            HorizontalAlignment="Center"/>
 
         <!-- UPPER PANEL -->
         <Canvas Name="canvasUpperPanel">
@@ -42,14 +43,14 @@
                 Stretch="Fill" 
                 Canvas.ZIndex="0" />
 
-            <controls:PanelPresets></controls:PanelPresets>
-            <controls:PanelAdvanced></controls:PanelAdvanced>
-            <controls:PanelHistory></controls:PanelHistory>
+            <controls:PanelPresets/>
+            <controls:PanelAdvanced/>
+            <controls:PanelHistory/>
         </Canvas>
 
         
         <!-- GENERATION -->
-        <StackPanel Margin="0 120 0 10">
+        <StackPanel Margin="0 130 0 10">
 
             <!-- GENERATION FAST SETTINGS ROW -->
             <controls:GenerationControls></controls:GenerationControls>

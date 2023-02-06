@@ -5,7 +5,7 @@
     
     <!-- UPPER PANELS -->
     <Style x:Key="styleControlButtons" TargetType="Button">
-        <Setter Property="ItemsControl.Background" Value="LightGoldenrodYellow"/>
+        <Setter Property="ItemsControl.Background" Value="Lavender"/>
         <Setter Property="ItemsControl.BorderBrush" Value="LightGray"/>
         <Setter Property="ItemsControl.BorderThickness" Value="1"/>
     </Style>
