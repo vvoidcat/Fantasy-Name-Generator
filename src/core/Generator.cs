@@ -15,6 +15,7 @@ namespace NAMEGEN.Core {
 
         public Preset preset { get; private set; }
         public Gender gender { get; private set; } = Gender.Neutral;
+
         public int minLength { get; private set; } = 5;
         public int maxLength { get; private set; } = 10;
 
@@ -29,6 +30,8 @@ namespace NAMEGEN.Core {
 
         public int maxPatterns { get; private set; } = 2;
         public bool allowPatternRepeats { get; private set; } = true;
+
+        //public 
 
         public Generator(string sourcePath, string name) {
             preset = new Preset(sourcePath, name);

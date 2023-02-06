@@ -18,7 +18,7 @@
 
 
     <Canvas Name="canvasPanelAdvanced"
-            Visibility="{Binding panelVisibilities[2].val}">
+            Visibility="{Binding panelVisibilities[1].val}">
         <Rectangle
                 Name="bgOverlayAdvanced"
                 Height="120"

@@ -21,7 +21,6 @@ namespace NAMEGEN.Control {
         public List<DataWrapper<Visibility>> panelVisibilities { get; } = new List<DataWrapper<Visibility>> {
             new DataWrapper<Visibility>(Visibility.Collapsed),
             new DataWrapper<Visibility>(Visibility.Collapsed),
-            new DataWrapper<Visibility>(Visibility.Collapsed),
             new DataWrapper<Visibility>(Visibility.Collapsed)
         };
 

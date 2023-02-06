@@ -183,8 +183,7 @@ namespace NAMEGEN.Core {
         }
 
         private bool CalculateResultFromPercentage(double percentage) {
-            double num = random.NextDouble();
-            return (num <= percentage) ? true : false;
+            return (percentage > 0.97f || random.NextDouble() <= percentage) ? true : false;
         }
     }
 }
