@@ -29,11 +29,11 @@
         <!-- UPPER PANEL CONROL -->
         <controls:PanelControls
             Width="400"
-            HorizontalAlignment="Center"/>
+            HorizontalAlignment="left"/>
 
         <!-- UPPER PANEL -->
         <Canvas Name="canvasUpperPanel">
-            
+
             <!-- COVER IMAGE -->
             <Image
                 Name="bgImage"

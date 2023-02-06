@@ -26,7 +26,7 @@
             Name="buttonPresets"
             Content="presets"
             Command="{Binding panelVisibilityCommand}"
-            Width="100"
+            Width="80"
             CommandParameter="0"
             Grid.Column="0"
             Style="{StaticResource styleControlButtons}"/>
@@ -44,7 +44,7 @@
             Name="buttonHistory"
             Content="history"
             Command="{Binding panelVisibilityCommand}"
-            Width="100"
+            Width="80"
             CommandParameter="2"
             Grid.Column="2"
             Style="{StaticResource styleControlButtons}"/>
