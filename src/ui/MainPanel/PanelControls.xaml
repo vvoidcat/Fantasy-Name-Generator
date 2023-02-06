@@ -19,7 +19,6 @@
             <ColumnDefinition Width="{Binding ElementName=buttonPresets, Path=ActualWidth}" />
             <ColumnDefinition Width="{Binding ElementName=buttonCustom, Path=ActualWidth}" />
             <ColumnDefinition Width="{Binding ElementName=buttonHistory, Path=ActualWidth}" />
-            <ColumnDefinition Width="{Binding ElementName=buttonAbout, Path=ActualWidth}" />
         </Grid.ColumnDefinitions>
 
         <Button
@@ -39,7 +38,7 @@
             CommandParameter="1"
             Grid.Column="1"
             Style="{StaticResource styleControlButtons}"/>
-        
+
         <Button
             Name="buttonHistory"
             Content="history"
@@ -48,15 +47,5 @@
             CommandParameter="2"
             Grid.Column="2"
             Style="{StaticResource styleControlButtons}"/>
-
-        <!--
-        <Button
-            Name="buttonAbout"
-            Content="about"
-            Command="{Binding panelVisibilityCommand}"
-            CommandParameter="3"
-            Grid.Column="3"
-            Style="{StaticResource styleControlButtons}"/>
-        -->
     </Grid>
 </UserControl>

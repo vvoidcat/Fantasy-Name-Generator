@@ -145,9 +145,9 @@ namespace NAMEGEN.Core {
                 double percentage = 0.50f;
 
                 if (currentVowRow > currentConRow) {
-                    percentage = CalculatePercentage(currentVowRow, settings.maxRowVows, settings.vowPercentageCorrection);
+                    percentage = CalculatePercentage(currentVowRow, settings.maxRowVows);
                 } else if (currentVowRow < currentConRow) {
-                    percentage = CalculatePercentage(currentConRow, settings.maxRowCons, settings.conPercentageCorrection);
+                    percentage = CalculatePercentage(currentConRow, settings.maxRowCons);
                 }
                 isConsonant = CalculateResultFromPercentage(percentage);
             }
@@ -178,8 +178,8 @@ namespace NAMEGEN.Core {
             }
         }
 
-        private double CalculatePercentage(int currentValue, int maxValue, double correction) {
-            return ((double)currentValue / maxValue) + correction;
+        private double CalculatePercentage(int currentValue, int maxValue) {
+            return (double)currentValue / maxValue;
         }
 
         private bool CalculateResultFromPercentage(double percentage) {

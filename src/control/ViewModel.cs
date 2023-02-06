@@ -110,8 +110,6 @@ namespace NAMEGEN.Control {
 
         public double rowLowerbound { get { return Generator.minRow; } }
         public double rowUpperbound { get { return Generator.maxRow; } }
-        public double correctionLowerbound { get { return Generator.correctionLowerbound * 100; } }
-        public double correctionUpperbound { get { return Generator.correctionUpperbound * 100; } }
 
         public double consMaxRow {
             get { return gen.maxRowCons; }
@@ -127,24 +125,6 @@ namespace NAMEGEN.Control {
             set { 
                 if (gen.SetMaxRowVows((int)value)) {
                     OnPropertyChanged(nameof(vowsMaxRow));
-                }
-            }
-        }
-
-        public double consCorrection {
-            get { return gen.conPercentageCorrection * 100; }
-            set {
-                if (gen.SetConCorrection(value)) {
-                    OnPropertyChanged(nameof(consCorrection));
-                }
-            }
-        }
-
-        public double vowsCorrection {
-            get { return gen.vowPercentageCorrection * 100; }
-            set {
-                if (gen.SetVowCorrection(value)) {
-                    OnPropertyChanged(nameof(vowsCorrection));
                 }
             }
         }

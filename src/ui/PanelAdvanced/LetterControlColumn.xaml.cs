@@ -33,13 +33,6 @@ namespace NAMEGEN.Ui
             set { SetValue(valueRowProperty, value); }
         }
 
-        public static readonly DependencyProperty valueCorrectionProperty =
-            DependencyProperty.Register("CorrectionValue", typeof(double), typeof(LetterControlColumn), new PropertyMetadata(0.0));
-        public double CorrectionValue {
-            get { return (double)GetValue(valueCorrectionProperty); }
-            set { SetValue(valueCorrectionProperty, value); }
-        }
-
         public static readonly DependencyProperty allowRepeatsProperty =
             DependencyProperty.Register("AllowRepeats", typeof(bool), typeof(LetterControlColumn), new PropertyMetadata(true));
         public bool AllowRepeats {

@@ -10,8 +10,6 @@ namespace NAMEGEN.Core {
         public const int lengthUpperbound = 12;
         public const int minRow = 1;
         public const int maxRow = 3;
-        public const double correctionLowerbound = -0.5f;
-        public const double correctionUpperbound = 0.5f;
 
         public Preset preset { get; private set; }
         public Gender gender { get; private set; } = Gender.Neutral;
@@ -21,9 +19,6 @@ namespace NAMEGEN.Core {
 
         public int maxRowCons { get; private set; } = 2;
         public int maxRowVows { get; private set; } = 2;
-
-        public double conPercentageCorrection { get; private set; } = 0.0f;
-        public double vowPercentageCorrection { get; private set; } = 0.0f;
 
         public bool allowConsRepeats { get; private set; } = true;
         public bool allowVowsRepeats { get; private set; } = true;
@@ -107,28 +102,6 @@ namespace NAMEGEN.Core {
 
             if (newValue != maxRowVows && newValue >= minRow && newValue <= maxRow) {
                 maxRowVows = newValue;
-                isValueSet = true;
-            }
-            return isValueSet;
-        }
-
-        public bool SetConCorrection(double newValue) {
-            bool isValueSet = false;
-            newValue = newValue / 100;
-
-            if (newValue != conPercentageCorrection && newValue >= correctionLowerbound && newValue <= correctionUpperbound) {
-                conPercentageCorrection = newValue;
-                isValueSet = true;
-            }
-            return isValueSet;
-        }
-
-        public bool SetVowCorrection(double newValue) {
-            bool isValueSet = false;
-            newValue = newValue / 100;
-
-            if (newValue != vowPercentageCorrection && newValue >= correctionLowerbound && newValue <= correctionUpperbound) {
-                vowPercentageCorrection = newValue;
                 isValueSet = true;
             }
             return isValueSet;
