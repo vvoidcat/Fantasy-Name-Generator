@@ -54,39 +54,37 @@ namespace NAMEGEN.Core {
 
         private bool IsChoosableIndex(int index, int rowConsonants, int rowVowels, List<Letter> letters, Gender gender) {
             return (preset.alphabet.letters[index].isConsonant == IsConsonantChosen(rowConsonants, rowVowels)
-                    && IsAllowedProbability(index, letters, gender)
-                    && IsAllowedPermutation(index, letters)
+                    && IsAllowedProbability(index, letters)
+                    && IsAllowedPermutation(index, letters, gender)
                     && IsAllowedRepeat(index, letters)
                     && IsAllowedPattern(index, letters)) ? true : false;
         }
 
-        private bool IsAllowedPermutation(int index, List<Letter> letters) {
+        private bool IsAllowedProbability(int index, List<Letter> letters) {
+            double percentage = 1f;
+
+            if (letters.Count <= 0) {
+                percentage = preset.probabilityMatrixStart.GetValueAtIndex(0, index);
+            }
+            return CalculateResultFromPercentage(percentage);
+        }
+
+        private bool IsAllowedPermutation(int index, List<Letter> letters, Gender gender) {
             double percentage = 1f;
 
             if (letters.Count == 1) {
                 percentage = preset.permutationMatrixStart.GetValueAtIndex(letters.Last().index, index);
             } else if (letters.Count == length - 1) {
-                percentage = preset.permutationMatrixEnd.GetValueAtIndex(letters.Last().index, index);
-            } else if (letters.Count > 0) {
-                percentage = preset.permutationMatrixGeneral.GetValueAtIndex(letters.Last().index, index);
-            }
-            return CalculateResultFromPercentage(percentage);
-        }
-
-        private bool IsAllowedProbability(int index, List<Letter> letters, Gender gender) {
-            double percentage = 1f;
-
-            if (letters.Count <= 0) {
-                percentage = preset.probabilityMatrixStart.GetValueAtIndex(0, index);
-            } else if (letters.Count == length - 1) {
                 if (gender == Gender.Male) {
-                    percentage = preset.probabilityMatrixEnd_Male.GetValueAtIndex(0, index);
+                    percentage = preset.permutationMatrixEnd_Male.GetValueAtIndex(letters.Last().index, index);
                 } else if (gender == Gender.Female) {
-                    percentage = preset.probabilityMatrixEnd_Female.GetValueAtIndex(0, index);
+                    percentage = preset.permutationMatrixEnd_Female.GetValueAtIndex(letters.Last().index, index);
                 } else {
-                    percentage = preset.probabilityMatrixEnd_Male.GetValueAtIndex(0, index) +
-                                 preset.probabilityMatrixEnd_Female.GetValueAtIndex(0, index);
+                    percentage = preset.permutationMatrixEnd_Male.GetValueAtIndex(letters.Last().index, index) +
+                                 preset.permutationMatrixEnd_Female.GetValueAtIndex(letters.Last().index, index);
                 }
+            } else if (letters.Count > 1) {
+                percentage = preset.permutationMatrixGeneral.GetValueAtIndex(letters.Last().index, index);
             }
             return CalculateResultFromPercentage(percentage);
         }

@@ -24,11 +24,10 @@ namespace NAMEGEN.Core {
 
         public Matrix permutationMatrixStart { get; private set; }
         public Matrix permutationMatrixGeneral { get; private set; }
-        public Matrix permutationMatrixEnd { get; private set; }
+        public Matrix permutationMatrixEnd_Male { get; private set; }
+        public Matrix permutationMatrixEnd_Female { get; private set; }
 
         public Matrix probabilityMatrixStart { get; private set; }
-        public Matrix probabilityMatrixEnd_Male { get; private set; }
-        public Matrix probabilityMatrixEnd_Female { get; private set; }
 
         public string sourcepath { get; private set; } = "";
         public string sourceChecksum { get; private set; } = "";
@@ -39,11 +38,10 @@ namespace NAMEGEN.Core {
 
             permutationMatrixStart = new Matrix(alphabet.letters.Count, alphabet.letters.Count);
             permutationMatrixGeneral = new Matrix(alphabet.letters.Count, alphabet.letters.Count);
-            permutationMatrixEnd = new Matrix(alphabet.letters.Count, alphabet.letters.Count);
+            permutationMatrixEnd_Male = new Matrix(alphabet.letters.Count, alphabet.letters.Count);
+            permutationMatrixEnd_Female = new Matrix(alphabet.letters.Count, alphabet.letters.Count);
 
             probabilityMatrixStart = new Matrix(1, alphabet.letters.Count);
-            probabilityMatrixEnd_Male = new Matrix(1, alphabet.letters.Count);
-            probabilityMatrixEnd_Female = new Matrix(1, alphabet.letters.Count);
 
             SetSourcepath(newSourcepath);
 
@@ -150,20 +148,17 @@ namespace NAMEGEN.Core {
         private void UpdateMatrices(string name, Gender gender, int i, int indexCurrent, int indexNext) {
             permutationMatrixGeneral.IncrementValueAtIndex(indexCurrent, indexNext);
 
-            if (i <= 1) {
+            if (i == 0) {
                 permutationMatrixStart.IncrementValueAtIndex(indexCurrent, indexNext);
-                if (i == 0) {
-                    probabilityMatrixStart.IncrementValueAtIndex(0, indexCurrent);
-                }
+                probabilityMatrixStart.IncrementValueAtIndex(0, indexCurrent);
             } else if (i == name.Length - 2) {
                 if (gender == Gender.Male) {
-                    probabilityMatrixEnd_Male.IncrementValueAtIndex(0, indexNext);
+                    permutationMatrixEnd_Male.IncrementValueAtIndex(indexCurrent, indexNext);
                 } else if (gender == Gender.Female) {
-                    probabilityMatrixEnd_Female.IncrementValueAtIndex(0, indexNext);
+                    permutationMatrixEnd_Female.IncrementValueAtIndex(indexCurrent, indexNext);
                 }
             } else {
-                if (i >= name.Length - 4) {
-                    permutationMatrixEnd.IncrementValueAtIndex(indexCurrent, indexNext);
+                if (i >= name.Length - 3) {
                 }
             }
         }
@@ -172,10 +167,9 @@ namespace NAMEGEN.Core {
             Matrix[] matrices = new Matrix[] {
                 permutationMatrixStart,
                 permutationMatrixGeneral,
-                permutationMatrixEnd,
-                probabilityMatrixStart,
-                probabilityMatrixEnd_Male, 
-                probabilityMatrixEnd_Female };
+                permutationMatrixEnd_Male,
+                permutationMatrixEnd_Female,
+                probabilityMatrixStart };
 
             foreach (Matrix m in matrices) {
                 if (m.isZeroed) {
