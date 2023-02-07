@@ -29,12 +29,10 @@
         <StackPanel 
             Name="panelCustom"
             Canvas.ZIndex="1"
-            Margin="0 10 0 0"
+            Margin="0 13 0 0"
             Orientation="Horizontal">
 
             <StackPanel Margin="33 0 0 0">
-
-                
 
                 <!-- MIN MAX LENGTH -->
                 <StackPanel Orientation="Horizontal">
@@ -63,33 +61,24 @@
                     </StackPanel>
                 </StackPanel>
 
-                
-                <!-- BEGINNING AND ENDING LETTERS -->
-                <StackPanel Orientation="Horizontal"
-                            Margin="0 10 0 0">
 
-                    <StackPanel>
+                <!-- BEGINNING AND ENDING LETTERS -->
+                <StackPanel Margin="0 12 0 0">
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock
                             Name="tblockStart"
                             Text="starting letter:"
+                            Width="110"
                             FontWeight="DemiBold"
                             FontSize="14"/>
-                        
-                        <TextBlock
-                            Name="tblockEnd"
-                            Text="last letter:"
-                            FontWeight="DemiBold"
-                            FontSize="14"/>
-                    </StackPanel>
 
-
-                    <StackPanel Margin="13 0 0 0">
                         <ComboBox 
                             Name="cboxStart"
                             SelectedIndex="0"
                             Style="{DynamicResource ComboBoxStyle_GenderBox}"
                             FontSize="15"
-                            Width="100" Height="18"
+                            Width="70" Height="18"
+                            Margin="25 0 0 0"
                             BorderThickness="0"
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center">
@@ -105,13 +94,24 @@
                                 Content="V"
                                 BorderThickness="0"/>
                         </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                            Margin="0 0 0 0">
+                        <TextBlock
+                            Name="tblockEnd"
+                            Text="last letter:"
+                            Width="110"
+                            FontWeight="DemiBold"
+                            FontSize="14"/>
 
                         <ComboBox 
                             Name="cboxEnd"
                             SelectedIndex="0"
                             Style="{DynamicResource ComboBoxStyle_GenderBox}"
                             FontSize="15"
-                            Width="100" Height="18"
+                            Width="70" Height="18"
+                            Margin="25 0 0 0"
                             BorderThickness="0"
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center">
@@ -128,39 +128,34 @@
                                 BorderThickness="0"/>
                         </ComboBox>
                     </StackPanel>
-                    
                 </StackPanel>
+                
             </StackPanel>
 
 
             <StackPanel  Margin="45 0 0 0">
-                
-                
-
-                <!-- CONS & VOWS -->
-                <StackPanel Orientation="Horizontal">
-                    <Grid>
-                        <controls:LetterControlColumn
+                <Grid>
+                    <controls:LetterControlColumn
                             Title="consonants:"
                             RowValue="{Binding consMaxRow, Mode=TwoWay}"
                             AllowRepeats="{Binding consAllowRepeats, Mode=TwoWay}"/>
-                    </Grid>
+                </Grid>
 
-                    <Grid Margin="35 0 0 0">
-                        <controls:LetterControlColumn
+                <Grid Margin="0 15 0 0">
+                    <controls:LetterControlColumn
                             Title="vowels:"
                             RowValue="{Binding vowsMaxRow, Mode=TwoWay}"
                             AllowRepeats="{Binding vowsAllowRepeats, Mode=TwoWay}"/>
-                    </Grid>
-                </StackPanel>
+                </Grid>
 
-                <!-- PATTERNS -->
-                <controls:PatternControlField
-                    Margin="0 10 0 0"
-                    AllowRepeats="{Binding patternsAllowRepeats, Mode=TwoWay}"
-                    PatternsCountValue="{Binding patternsMax, Mode=TwoWay}"/>
+                
             </StackPanel>
-            
+
+            <!-- PATTERNS -->
+            <controls:PatternControlField
+                    Margin="45 25 0 0"
+                    PatternsCountValue="{Binding patternsMax, Mode=TwoWay}"/>
+
         </StackPanel>
 
     </Canvas>

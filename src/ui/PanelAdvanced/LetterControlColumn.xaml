@@ -15,14 +15,10 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    
 
-    <Grid Width="190">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
 
+    <StackPanel Orientation="Horizontal">
+     
         <TextBlock
             Text="{Binding Title, ElementName=rootLetterControl}"
             FontSize="14"
@@ -30,20 +26,20 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Padding="0 0 0 0"
+            Width="95"
             Height="25"
             Grid.Row="0"/>
-        
-        
-        <Grid Grid.Row="1">
+
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="90"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <!-- LABELS -->
             <StackPanel Grid.Column="0">
                 <TextBlock
-                    Text="max in a row:"
+                    Text="max (in a row):"
                     Margin="0 0"
                     Height="18"
                     FontSize="12"/>
@@ -86,5 +82,6 @@
             </StackPanel>
 
         </Grid>
-    </Grid>
+    </StackPanel>
+    
 </UserControl>

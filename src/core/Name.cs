@@ -61,12 +61,7 @@ namespace NAMEGEN.Core {
         }
 
         private bool IsAllowedProbability(int index, List<Letter> letters) {
-            double percentage = 1f;
-
-            if (letters.Count <= 0) {
-                percentage = preset.probabilityMatrixStart.GetValueAtIndex(0, index);
-            }
-            return CalculateResultFromPercentage(percentage);
+            return (letters.Count > 0) ? true : CalculateResultFromPercentage(preset.probabilityMatrixStart.GetValueAtIndex(0, index));
         }
 
         private bool IsAllowedPermutation(int index, List<Letter> letters, Gender gender) {
@@ -125,7 +120,7 @@ namespace NAMEGEN.Core {
                 string substr = tempname.Substring(substrStartIndex);
                 int matches = Regex.Matches(tempname, substr).Count;
 
-                if ((matches > 1 && !settings.allowPatternRepeats) || matches > settings.maxPatterns) {
+                if (matches > settings.maxPatterns) {
                     result = false;
                 }
             }
@@ -181,7 +176,7 @@ namespace NAMEGEN.Core {
         }
 
         private bool CalculateResultFromPercentage(double percentage) {
-            return (percentage > 0.97f || random.NextDouble() <= percentage) ? true : false;
+            return (percentage >= 1f || random.NextDouble() <= percentage) ? true : false;
         }
     }
 }

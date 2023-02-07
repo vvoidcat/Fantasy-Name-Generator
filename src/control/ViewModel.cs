@@ -162,15 +162,6 @@ namespace NAMEGEN.Control {
             }
         }
 
-        public bool patternsAllowRepeats {
-            get { return gen.allowPatternRepeats; }
-            set {
-                if (gen.SetAllowRepeatsPatterns(value)) {
-                    OnPropertyChanged(nameof(patternsAllowRepeats));
-                }
-            }
-        }
-
 
         // BUTTON COMMANDS
 

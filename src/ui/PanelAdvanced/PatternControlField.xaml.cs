@@ -18,13 +18,6 @@ namespace NAMEGEN.Ui {
     /// Interaction logic for PatternControlField.xaml
     /// </summary>
     public partial class PatternControlField : UserControl {
-        public static readonly DependencyProperty allowRepeatsProperty =
-            DependencyProperty.Register("AllowRepeats", typeof(bool), typeof(PatternControlField), new PropertyMetadata(true));
-        public bool AllowRepeats {
-            get { return (bool)GetValue(allowRepeatsProperty); }
-            set { SetValue(allowRepeatsProperty, value); }
-        }
-
         public static readonly DependencyProperty valueMaxProperty =
             DependencyProperty.Register("PatternsCountValue", typeof(double), typeof(PatternControlField), new PropertyMetadata(0.0));
         public double PatternsCountValue {

@@ -24,9 +24,8 @@ namespace NAMEGEN.Core {
         public bool allowVowsRepeats { get; private set; } = true;
 
         public int maxPatterns { get; private set; } = 2;
-        public bool allowPatternRepeats { get; private set; } = true;
 
-        //public 
+        //public fist letter last letter
 
         public Generator(string sourcePath, string name) {
             preset = new Preset(sourcePath, name);
@@ -133,16 +132,6 @@ namespace NAMEGEN.Core {
 
             if (newValue != maxPatterns && newValue >= minRow && newValue <= maxRow) {
                 maxPatterns = newValue;
-                isValueSet = true;
-            }
-            return isValueSet;
-        }
-
-        public bool SetAllowRepeatsPatterns(bool newIsAllowed) {
-            bool isValueSet = false;
-
-            if (newIsAllowed != allowPatternRepeats) {
-                allowPatternRepeats = newIsAllowed;
                 isValueSet = true;
             }
             return isValueSet;
