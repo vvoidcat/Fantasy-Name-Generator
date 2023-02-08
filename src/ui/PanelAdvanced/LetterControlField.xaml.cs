@@ -16,31 +16,31 @@ using System.Windows.Shapes;
 namespace NAMEGEN.Ui
 {
     /// <summary>
-    /// Interaction logic for LetterControlColumn.xaml
+    /// Interaction logic for LetterControlField.xaml
     /// </summary>
-    public partial class LetterControlColumn : UserControl {
+    public partial class LetterControlField : UserControl {
         public static readonly DependencyProperty titleProperty =
-            DependencyProperty.Register("Title", typeof(string), typeof(LetterControlColumn), new PropertyMetadata(String.Empty));
+            DependencyProperty.Register("Title", typeof(string), typeof(LetterControlField), new PropertyMetadata(String.Empty));
         public string Title {
             get { return (string)GetValue(titleProperty); }
             set { SetValue(titleProperty, value); }
         }
 
         public static readonly DependencyProperty valueRowProperty =
-            DependencyProperty.Register("RowValue", typeof(double), typeof(LetterControlColumn), new PropertyMetadata(0.0));
+            DependencyProperty.Register("RowValue", typeof(double), typeof(LetterControlField), new PropertyMetadata(0.0));
         public double RowValue {
             get { return (double)GetValue(valueRowProperty); }
             set { SetValue(valueRowProperty, value); }
         }
 
         public static readonly DependencyProperty allowRepeatsProperty =
-            DependencyProperty.Register("AllowRepeats", typeof(bool), typeof(LetterControlColumn), new PropertyMetadata(true));
+            DependencyProperty.Register("AllowRepeats", typeof(bool), typeof(LetterControlField), new PropertyMetadata(true));
         public bool AllowRepeats {
             get { return (bool)GetValue(allowRepeatsProperty); }
             set { SetValue(allowRepeatsProperty, value); }
         }
 
-        public LetterControlColumn() {
+        public LetterControlField() {
             InitializeComponent();
         }
     }

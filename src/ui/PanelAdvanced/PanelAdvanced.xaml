@@ -64,70 +64,8 @@
 
                 <!-- BEGINNING AND ENDING LETTERS -->
                 <StackPanel Margin="0 12 0 0">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock
-                            Name="tblockStart"
-                            Text="starting letter:"
-                            Width="110"
-                            FontWeight="DemiBold"
-                            FontSize="14"/>
-
-                        <ComboBox 
-                            Name="cboxStart"
-                            SelectedIndex="0"
-                            Style="{DynamicResource ComboBoxStyle_GenderBox}"
-                            FontSize="15"
-                            Width="70" Height="18"
-                            Margin="25 0 0 0"
-                            BorderThickness="0"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center">
-
-                            <ComboBoxItem
-                                Content="any"
-                                IsSelected="True"
-                                BorderThickness="0"/>
-                            <ComboBoxItem
-                                Content="A"
-                                BorderThickness="0"/>
-                            <ComboBoxItem
-                                Content="V"
-                                BorderThickness="0"/>
-                        </ComboBox>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal"
-                            Margin="0 0 0 0">
-                        <TextBlock
-                            Name="tblockEnd"
-                            Text="last letter:"
-                            Width="110"
-                            FontWeight="DemiBold"
-                            FontSize="14"/>
-
-                        <ComboBox 
-                            Name="cboxEnd"
-                            SelectedIndex="0"
-                            Style="{DynamicResource ComboBoxStyle_GenderBox}"
-                            FontSize="15"
-                            Width="70" Height="18"
-                            Margin="25 0 0 0"
-                            BorderThickness="0"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center">
-
-                            <ComboBoxItem
-                                Content="any"
-                                IsSelected="True"
-                                BorderThickness="0"/>
-                            <ComboBoxItem
-                                Content="a"
-                                BorderThickness="0"/>
-                            <ComboBoxItem
-                                Content="o"
-                                BorderThickness="0"/>
-                        </ComboBox>
-                    </StackPanel>
+                    <controls:LetterCombobox Title="starting letter:"/>
+                    <controls:LetterCombobox Title="last letter:"/>
                 </StackPanel>
                 
             </StackPanel>
@@ -135,14 +73,14 @@
 
             <StackPanel  Margin="45 0 0 0">
                 <Grid>
-                    <controls:LetterControlColumn
+                    <controls:LetterControlField
                             Title="consonants:"
                             RowValue="{Binding consMaxRow, Mode=TwoWay}"
                             AllowRepeats="{Binding consAllowRepeats, Mode=TwoWay}"/>
                 </Grid>
 
                 <Grid Margin="0 15 0 0">
-                    <controls:LetterControlColumn
+                    <controls:LetterControlField
                             Title="vowels:"
                             RowValue="{Binding vowsMaxRow, Mode=TwoWay}"
                             AllowRepeats="{Binding vowsAllowRepeats, Mode=TwoWay}"/>
