@@ -64,8 +64,30 @@
 
                 <!-- BEGINNING AND ENDING LETTERS -->
                 <StackPanel Margin="0 12 0 0">
-                    <controls:LetterCombobox Title="starting letter:"/>
-                    <controls:LetterCombobox Title="last letter:"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Text="starting letter:"
+                            Width="110"
+                            FontWeight="DemiBold"
+                            FontSize="14"
+                            Margin="0 0 5 0"/>
+
+                        <Grid>
+                            <controls:ComboBox BoxWidth="90" ButtonHeight="18"/>
+
+                        </Grid>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Text="last letter:"
+                            Width="110"
+                            FontWeight="DemiBold"
+                            FontSize="14"
+                            Margin="0 0 5 0"/>
+
+                        <controls:ComboBox BoxWidth="90" ButtonHeight="18"/>
+                    </StackPanel>
                 </StackPanel>
                 
             </StackPanel>
