@@ -16,7 +16,6 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-
     <Canvas Name="canvasPanelAdvanced"
             Visibility="{Binding panelVisibilities[1].val}">
         <Rectangle
@@ -36,7 +35,6 @@
 
                 <!-- MIN MAX LENGTH -->
                 <StackPanel Orientation="Horizontal">
-
                     <TextBlock
                             Name="tblockLength"
                             Text="name length:"
@@ -61,7 +59,6 @@
                     </StackPanel>
                 </StackPanel>
 
-
                 <!-- BEGINNING AND ENDING LETTERS -->
                 <StackPanel Margin="0 12 0 0">
                     <StackPanel Orientation="Horizontal">
@@ -77,7 +74,6 @@
                                 BoxWidth="90"
                                 ButtonHeight="18"
                                 Items="{Binding letters1}"/>
-
                         </Grid>
                     </StackPanel>
 
@@ -95,9 +91,7 @@
                                 Items="{Binding letters2}"/>
                     </StackPanel>
                 </StackPanel>
-
             </StackPanel>
-
 
             <StackPanel  Margin="45 0 0 0">
                 <Grid>
@@ -113,15 +107,12 @@
                             RowValue="{Binding vowsMaxRow, Mode=TwoWay}"
                             AllowRepeats="{Binding vowsAllowRepeats, Mode=TwoWay}"/>
                 </Grid>
-
-
             </StackPanel>
 
             <!-- PATTERNS -->
             <controls:PatternControlField
                     Margin="45 25 0 0"
                     PatternsCountValue="{Binding patternsMax, Mode=TwoWay}"/>
-
         </StackPanel>
     </Canvas>
 </UserControl>

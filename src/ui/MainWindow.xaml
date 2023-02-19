@@ -25,7 +25,7 @@
 
 
     <StackPanel>
-        
+
         <!-- UPPER PANEL CONROL -->
         <controls:PanelControls
             Width="400"
@@ -48,7 +48,7 @@
             <controls:PanelHistory/>
         </Canvas>
 
-        
+
         <!-- GENERATION -->
         <StackPanel Margin="0 130 0 10">
 
@@ -63,7 +63,6 @@
                 <controls:GeneratedNameItem Title="{Binding nameFields[3].val}"></controls:GeneratedNameItem>
                 <controls:GeneratedNameItem Title="{Binding nameFields[4].val}"></controls:GeneratedNameItem>
             </StackPanel>
-
         </StackPanel>
 
 
@@ -83,7 +82,5 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom" />
         </Grid>
-
     </StackPanel>
-
 </Window>

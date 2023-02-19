@@ -16,9 +16,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-
     <StackPanel Orientation="Horizontal">
-     
         <TextBlock
             Text="{Binding Title, ElementName=rootLetterControl}"
             FontSize="14"
@@ -51,7 +49,6 @@
                     FontSize="12"/>
             </StackPanel>
 
-
             <!-- INPUT FIELDS -->
             <StackPanel Grid.Column="1">
                 <StackPanel Orientation="Horizontal">
@@ -80,8 +77,6 @@
                     Margin="-1 1 0 0"
                     Style="{StaticResource stylePanelCheckBoxes}"/>
             </StackPanel>
-
         </Grid>
     </StackPanel>
-    
 </UserControl>

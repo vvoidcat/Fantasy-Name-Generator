@@ -14,10 +14,8 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    
 
     <StackPanel>
-
         <TextBlock
             Text="pattern repeats:"
             FontWeight="DemiBold"
@@ -27,29 +25,28 @@
         <StackPanel Orientation="Horizontal"
                     Margin="0 10 0 0">
             <TextBlock
-            Text="max (in a word):"
-            Width="95"
-            FontSize="12"/>
+                Text="max (in a word):"
+                Width="95"
+                FontSize="12"/>
 
             <Slider
-            Name="sbarPatterns"
-            IsEnabled="{Binding ElementName=checkAllowRepeats, Path=IsChecked, Mode=OneWay}"
-            Value="{Binding PatternsCountValue, ElementName=rootPatternControl}"
-            Minimum="{Binding rowLowerbound}"
-            Maximum="{Binding rowUpperbound}"
-            Width="70"
-            Height="18"
-            IsSnapToTickEnabled="True"
-            TickFrequency="1"
-            AutoToolTipPlacement="TopLeft"
-            Margin="1 0 0 0"
-            VerticalAlignment="Top"/>
+                Name="sbarPatterns"
+                Value="{Binding PatternsCountValue, ElementName=rootPatternControl}"
+                Minimum="{Binding rowLowerbound}"
+                Maximum="{Binding rowUpperbound}"
+                Width="70"
+                Height="18"
+                IsSnapToTickEnabled="True"
+                TickFrequency="1"
+                AutoToolTipPlacement="TopLeft"
+                Margin="1 0 0 0"
+                VerticalAlignment="Top"/>
 
             <TextBlock
-            Text="{Binding ElementName=sbarPatterns, Path=Value, Mode=OneWay}"
-            FontSize="12"
-            Margin="4 0 0 0"
-            VerticalAlignment="Top"/>
+                Text="{Binding ElementName=sbarPatterns, Path=Value, Mode=OneWay}"
+                FontSize="12"
+                Margin="4 0 0 0"
+                VerticalAlignment="Top"/>
         </StackPanel>
     </StackPanel>
 </UserControl>

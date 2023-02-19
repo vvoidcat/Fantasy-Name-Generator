@@ -42,15 +42,14 @@
                             <WrapPanel Width="750"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
-                        
+
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                        <controls:HistoryNameItem Title="{Binding val}"/>
+                            <controls:HistoryNameItem Title="{Binding val}"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
-            
         </StackPanel>
     </Canvas>
 </UserControl>

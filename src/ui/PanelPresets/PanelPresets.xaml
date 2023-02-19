@@ -16,11 +16,10 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    
     <Canvas 
         Name="canvasPanelPresets"
         Visibility="{Binding panelVisibilities[0].val}">
-        
+
         <Rectangle
                 Name="bgOverlayPresets"
                 Height="120"
@@ -35,28 +34,21 @@
             Margin="0 10 0 0"
             Orientation="Horizontal">
 
-            
             <!-- SCROLLABLE AREA / PRESETS -->
-
             <ScrollViewer 
                 Height="100"
                 Margin="25 0 0 0">
-                
+
                 <WrapPanel Width="480">
-                    
                     <controls:PresetItem Title="The Preset" Color="PaleVioletRed"/>
                     <controls:PresetItem Title="Preset"/>
                     <controls:PresetItem Title="Another" Color="LightSkyBlue"/>
                     <controls:PresetItem Title="Italian"/>
                     <controls:PresetItem Title="Aboba" Color="LightGoldenrodYellow"/>
-                    
                 </WrapPanel>
             </ScrollViewer>
 
-
-
             <!-- SETTINGS -->
-            
             <StackPanel Margin="25 0 0 0">
 
                 <!-- SAVE LOAD BUTTONS -->
@@ -68,22 +60,22 @@
                     </Grid.ColumnDefinitions>
 
                     <Button
-                            Name="buttonSave"
-                            Content="save"
-                            Grid.Column="0"
-                            Style="{StaticResource stylePanelSaveloadButtons}"/>
+                        Name="buttonSave"
+                        Content="save"
+                        Grid.Column="0"
+                        Style="{StaticResource stylePanelSaveloadButtons}"/>
 
                     <Button
-                            Name="buttonDiscard"
-                            Content="discard"
-                            Grid.Column="1"
-                            Style="{StaticResource stylePanelSaveloadButtons}"/>
+                        Name="buttonDiscard"
+                        Content="discard"
+                        Grid.Column="1"
+                        Style="{StaticResource stylePanelSaveloadButtons}"/>
 
                     <Button
-                            Name="buttonSaveas"
-                            Content="save as..."
-                            Grid.Column="2"
-                            Style="{StaticResource stylePanelSaveloadButtons}"/>
+                        Name="buttonSaveas"
+                        Content="save as..."
+                        Grid.Column="2"
+                        Style="{StaticResource stylePanelSaveloadButtons}"/>
                 </Grid>
 
 
@@ -91,62 +83,57 @@
 
                     <!-- INPUT FIELDS GENERAL -->
                     <StackPanel Margin="0 3 0 0">
+                        <StackPanel 
+                            Orientation="Horizontal"
+                            Margin="0 2">
 
-                        <StackPanel Orientation="Horizontal"
-                                        Margin="0 2">
                             <TextBlock
-                                    Name="tblockSourcepath"
-                                    Text="source table:"
-                                    Padding="0 1 0 0"
-                                    Margin="0 0 5 0"
-                                    FontSize="12"
-                                    Width="70"
-                                    Height="20"/>
+                                Name="tblockSourcepath"
+                                Text="source table:"
+                                Padding="0 1 0 0"
+                                Margin="0 0 5 0"
+                                FontSize="12"
+                                Width="70"
+                                Height="20"/>
 
                             <TextBox
-                                    Name="tboxSourcepath"
-                                    Text="{Binding sourcePath}"
-                                    FontSize="12"
-                                    Height="20"
-                                    Width="150"
-                                    Style="{StaticResource stylePanelTextBoxes}"/>
+                                Name="tboxSourcepath"
+                                Text="{Binding sourcePath}"
+                                FontSize="12"
+                                Height="20"
+                                Width="150"
+                                Style="{StaticResource stylePanelTextBoxes}"/>
 
                             <Button
-                                    Name="buttonSourcepath"
-                                    Content="..."
-                                    Height="20"
-                                    Width="20"
-                                    Style="{StaticResource stylePanelSquareButtons}"/>
+                                Name="buttonSourcepath"
+                                Content="..."
+                                Height="20"
+                                Width="20"
+                                Style="{StaticResource stylePanelSquareButtons}"/>
                         </StackPanel>
 
-                        
                         <StackPanel Orientation="Horizontal"
                                         Margin="0 2">
                             <TextBlock 
-                                    Name="tblockPresetName"
-                                    Text="preset name:"
-                                    Padding="0 1 0 0"
-                                    Margin="0 0 5 0"
-                                    FontSize="12"
-                                    Width="70"
-                                    Height="20"/>
+                                Name="tblockPresetName"
+                                Text="preset name:"
+                                Padding="0 1 0 0"
+                                Margin="0 0 5 0"
+                                FontSize="12"
+                                Width="70"
+                                Height="20"/>
 
                             <TextBox 
-                                    Name="tboxPresetName"
-                                    Text="{Binding presetName, UpdateSourceTrigger=LostFocus}"
-                                    FontSize="12"
-                                    Height="20"
-                                    Width="170"
-                                    Style="{StaticResource stylePanelTextBoxes}"/>
+                                Name="tboxPresetName"
+                                Text="{Binding presetName, UpdateSourceTrigger=LostFocus}"
+                                FontSize="12"
+                                Height="20"
+                                Width="170"
+                                Style="{StaticResource stylePanelTextBoxes}"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
-
-
-
             </StackPanel>
         </StackPanel>
-
     </Canvas>
-    
 </UserControl>

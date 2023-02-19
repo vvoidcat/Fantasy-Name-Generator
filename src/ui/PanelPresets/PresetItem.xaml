@@ -21,6 +21,7 @@
             Width="160"
             Height="40"
             Canvas.ZIndex="1">
+            
             <TextBlock
                 Text="{Binding Title, ElementName=rootPreset}"
                 FontSize="18"
@@ -32,6 +33,7 @@
             Width="160"
             Height="40"
             Canvas.ZIndex="2">
+            
             <Button
                 Content="x"
                 Height="10"
@@ -39,6 +41,5 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"/>
         </Grid>
-
     </Canvas>
 </UserControl>
