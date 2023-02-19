@@ -15,53 +15,37 @@ using System.Windows.Shapes;
 
 namespace NAMEGEN.Ui {
     public partial class MainWindow : Window {
+        Button[] controlButtons;
+        UserControl[] panels;
+
         public MainWindow() {
             InitializeComponent();
+            Init();
         }
 
+        private void Init() {
+            controlButtons = new Button[] { buttonPresets, buttonAdvanced, buttonHistory };
+            panels = new UserControl[] { panelPresets, panelAdvanced, panelHistory };
 
-        // NAME LENGTH
-
-        private void On_buttonMinLengthLesser_Clicked(object sender, RoutedEventArgs e) {
-            //int value = Int32.Parse(tboxMinLength.Text);
-            //int newValue = value - 1;
-
-            //if (newValue >= 3) {
-            //    tboxMinLength.Text = newValue.ToString();
-            //    controller.currentPreset.minLength = newValue;
-            //}
-            // deactivate button if value == lower bound
+            foreach (var panel in panels) {
+                panel.Visibility = Visibility.Collapsed;
+            }
         }
 
-        private void On_buttonMinLengthGreater_Clicked(object sender, RoutedEventArgs e) {
-            //int value = Int32.Parse(tboxMinLength.Text);
-            //int newValue = value + 1;
+        private void ControlButton_Click(object sender, RoutedEventArgs e) {
+            if (sender is not null && sender is Button) {
+                Button thebutton = (Button)sender;
 
-            //if (newValue <= 12 && newValue < Int32.Parse(tboxMaxLength.Text)) {
-            //    tboxMinLength.Text = newValue.ToString();
-            //    controller.currentPreset.minLength = newValue;
-            //}
-        }
-
-        private void On_buttonMaxLengthLesser_Clicked(object sender, RoutedEventArgs e) {
-            //int value = Int32.Parse(tboxMaxLength.Text);
-            //int newValue = value - 1;
-
-            //if (newValue >= 3 && newValue > Int32.Parse(tboxMinLength.Text)) {
-            //    tboxMaxLength.Text = newValue.ToString();
-            //    controller.currentPreset.maxLength = newValue;
-            //}
-            // deactivate button if value == lower bound
-        }
-
-        private void On_buttonMaxLengthGreater_Clicked(object sender, RoutedEventArgs e) {
-            //int value = Int32.Parse(tboxMaxLength.Text);
-            //int newValue = value + 1;
-
-            //if (newValue <= 12) {
-            //    tboxMaxLength.Text = newValue.ToString();
-            //    controller.currentPreset.maxLength = newValue;
-            //}
+                for (int i = 0; i < controlButtons.Length; i++) {
+                    if (controlButtons[i] == thebutton) {
+                        controlButtons[i].BorderThickness = new Thickness(1, 1, 1, 0);
+                        panels[i].Visibility = Visibility.Visible;
+                    } else {
+                        controlButtons[i].BorderThickness = new Thickness(1, 1, 1, 1);
+                        panels[i].Visibility = Visibility.Collapsed;
+                    }
+                }
+            }
         }
     }
 }

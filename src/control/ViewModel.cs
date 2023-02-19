@@ -16,14 +16,6 @@ namespace NAMEGEN.Control {
     class ViewModel : ObservableObject {
         private Generator gen;
 
-        // APPLICATION SETTINGS
-
-        public List<DataWrapper<Visibility>> panelVisibilities { get; } = new List<DataWrapper<Visibility>> {
-            new DataWrapper<Visibility>(Visibility.Collapsed),
-            new DataWrapper<Visibility>(Visibility.Collapsed),
-            new DataWrapper<Visibility>(Visibility.Collapsed)
-        };
-
 
         // GENERATION SETTINGS
 
@@ -176,7 +168,6 @@ namespace NAMEGEN.Control {
 
         // COMMANDS
 
-        public ICommand panelVisibilityCommand { get; private set; }
         public ICommand generateCommand { get; private set; }
         public ICommand saveNameCommand { get; private set; }
         public ICommand deleteNameCommand { get; private set; }
@@ -203,7 +194,6 @@ namespace NAMEGEN.Control {
             gen = new Generator(_sourcePath, _presetName);
 
             generateCommand = new RelayCommand<object>(UpdateNameFields);
-            panelVisibilityCommand = new RelayCommand<string>(UpdateVisibilities);
             saveNameCommand = new RelayCommand<string>(SaveNameToHistory);
             deleteNameCommand = new RelayCommand<string>(DeleteNameFromHistory);
 
@@ -230,21 +220,6 @@ namespace NAMEGEN.Control {
                 nameFields[i].val = nameFields[i - 1].val;
             }
             nameFields[0].val = gen.GenerateName();
-        }
-
-        private void UpdateVisibilities(string indexStr) {
-            int index = Int32.Parse(indexStr);
-            for (int i = 0; i < panelVisibilities.Count; i++) {
-                Visibility vis = panelVisibilities[i].val;
-
-                if (i == index && vis != Visibility.Visible) {
-                    vis = Visibility.Visible;
-                } else {
-                    vis = Visibility.Collapsed;
-                }
-
-                panelVisibilities[i].val = vis;
-            }
         }
 
         private void SaveNameToHistory(string nameToSave) {

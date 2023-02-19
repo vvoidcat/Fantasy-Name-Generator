@@ -27,10 +27,39 @@
     <StackPanel>
 
         <!-- UPPER PANEL CONROL -->
-        <controls:PanelControls
-            Width="400"
-            HorizontalAlignment="left"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{Binding ElementName=buttonPresets, Path=ActualWidth}" />
+                <ColumnDefinition Width="{Binding ElementName=buttonAdvanced, Path=ActualWidth}" />
+                <ColumnDefinition Width="{Binding ElementName=buttonHistory, Path=ActualWidth}" />
+            </Grid.ColumnDefinitions>
 
+            <Button
+                Name="buttonPresets"
+                Content="presets"
+                Click="ControlButton_Click"
+                Width="80"
+                Grid.Column="0"
+                Style="{StaticResource styleControlButtons}"/>
+
+            <Button
+                Name="buttonAdvanced"
+                Content="advanced generation settings"
+                Click="ControlButton_Click"
+                Width="200"
+                Grid.Column="1"
+                Style="{StaticResource styleControlButtons}"/>
+
+            <Button
+                Name="buttonHistory"
+                Content="history"
+                Click="ControlButton_Click"
+                Width="80"
+                Grid.Column="2"
+                Style="{StaticResource styleControlButtons}"/>
+        </Grid>
+
+        
         <!-- UPPER PANEL -->
         <Canvas Name="canvasUpperPanel">
 
@@ -43,9 +72,9 @@
                 Stretch="Fill" 
                 Canvas.ZIndex="0" />
 
-            <controls:PanelPresets/>
-            <controls:PanelAdvanced/>
-            <controls:PanelHistory/>
+            <controls:PanelPresets x:Name="panelPresets"/>
+            <controls:PanelAdvanced x:Name="panelAdvanced"/>
+            <controls:PanelHistory x:Name="panelHistory"/>
         </Canvas>
 
 
