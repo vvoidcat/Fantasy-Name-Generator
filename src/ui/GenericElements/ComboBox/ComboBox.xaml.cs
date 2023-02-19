@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,6 +56,13 @@ namespace NAMEGEN.Ui {
             set { SetValue(PopupMaxHeightProperty, value); }
         }
 
+        public static readonly DependencyProperty ItemsCollectionProperty = 
+            DependencyProperty.Register("Items", typeof(IEnumerable<string>), typeof(ComboBox), new PropertyMetadata(null));
+        public IEnumerable<string> Items {
+            get { return (IEnumerable<string>)GetValue(ItemsCollectionProperty); }
+            set { SetValue(ItemsCollectionProperty, value); }
+        }
+
 
         // CONSTRUCTOR
 
@@ -98,5 +108,29 @@ namespace NAMEGEN.Ui {
                 ComboboxPopup.IsOpen = false;
             }
         }
+
+        //private static void OnItemsCollectionChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
+        //    var control = (ComboBox)obj;
+        //    var oldCollection = e.OldValue as INotifyCollectionChanged;
+        //    var newCollection = e.NewValue as INotifyCollectionChanged;
+
+        //    if (oldCollection is not null) {
+        //        oldCollection.CollectionChanged -= control.ItemsCollectionChanged;
+        //    }
+
+        //    if (newCollection is not null) {
+        //        newCollection.CollectionChanged += control.ItemsCollectionChanged;
+        //    }
+
+        //    control.UpdateItems();
+        //}
+
+        //private void ItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
+        //    UpdateItems();
+        //}
+
+        //private void UpdateItems() {
+        //    Debug.WriteLine("updated");
+        //}
     }
 }

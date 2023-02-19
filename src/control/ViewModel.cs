@@ -78,7 +78,7 @@ namespace NAMEGEN.Control {
         public string presetName {
             get { return _presetName; }
             set {
-                _presetName = value; 
+                _presetName = value;
                 gen.preset.presetName = value;
                 OnPropertyChanged(nameof(presetName));
             }
@@ -98,7 +98,7 @@ namespace NAMEGEN.Control {
 
         public int maxLen {
             get { return gen.maxLength; }
-            set { 
+            set {
                 if (gen.SetMaxLength(value)) {
                     OnPropertyChanged(nameof(maxLen));
                 }
@@ -113,7 +113,7 @@ namespace NAMEGEN.Control {
 
         public double consMaxRow {
             get { return gen.maxRowCons; }
-            set { 
+            set {
                 if (gen.SetMaxRowCons((int)value)) {
                     OnPropertyChanged(nameof(consMaxRow));
                 }
@@ -122,7 +122,7 @@ namespace NAMEGEN.Control {
 
         public double vowsMaxRow {
             get { return gen.maxRowVows; }
-            set { 
+            set {
                 if (gen.SetMaxRowVows((int)value)) {
                     OnPropertyChanged(nameof(vowsMaxRow));
                 }
@@ -134,7 +134,7 @@ namespace NAMEGEN.Control {
 
         public bool consAllowRepeats {
             get { return gen.allowConsRepeats; }
-            set { 
+            set {
                 if (gen.SetAllowRepeatsCons(value)) {
                     OnPropertyChanged(nameof(consAllowRepeats));
                 }
@@ -163,7 +163,18 @@ namespace NAMEGEN.Control {
         }
 
 
-        // BUTTON COMMANDS
+        // STARTING AND ENDING LETTERS
+
+        public ObservableCollection<string> letters1 { get; } = new ObservableCollection<string>() {
+            "x", "y", "z"
+        };
+
+        public ObservableCollection<string> letters2 { get; } = new ObservableCollection<string>() {
+            "a", "b", "c", "d", "e"
+        };
+
+
+        // COMMANDS
 
         public ICommand panelVisibilityCommand { get; private set; }
         public ICommand generateCommand { get; private set; }

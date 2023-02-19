@@ -73,7 +73,10 @@
                             Margin="0 0 5 0"/>
 
                         <Grid>
-                            <controls:ComboBox BoxWidth="90" ButtonHeight="18"/>
+                            <controls:ComboBox
+                                BoxWidth="90"
+                                ButtonHeight="18"
+                                Items="{Binding letters1}"/>
 
                         </Grid>
                     </StackPanel>
@@ -86,10 +89,13 @@
                             FontSize="14"
                             Margin="0 0 5 0"/>
 
-                        <controls:ComboBox BoxWidth="90" ButtonHeight="18"/>
+                        <controls:ComboBox
+                                BoxWidth="90"
+                                ButtonHeight="18"
+                                Items="{Binding letters2}"/>
                     </StackPanel>
                 </StackPanel>
-                
+
             </StackPanel>
 
 
@@ -108,7 +114,7 @@
                             AllowRepeats="{Binding vowsAllowRepeats, Mode=TwoWay}"/>
                 </Grid>
 
-                
+
             </StackPanel>
 
             <!-- PATTERNS -->
@@ -117,7 +123,5 @@
                     PatternsCountValue="{Binding patternsMax, Mode=TwoWay}"/>
 
         </StackPanel>
-
     </Canvas>
-    
 </UserControl>
