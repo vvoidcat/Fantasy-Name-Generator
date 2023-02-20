@@ -35,7 +35,7 @@
 
                     <TextBlock
                         Name="ControlButtonHeader"
-                        Text="{Binding ElementName=ContentList, Path=SelectedItem.Content}"
+                        Text="{Binding ElementName=ContentList, Path=SelectedItem}"
                         Height="{Binding ElementName=ColumnArrow, Path=Width}"
                         TextAlignment="Center"
                         Grid.Column="0"/>
@@ -79,12 +79,19 @@
                 MaxHeight="{Binding ElementName=rootComboBox, Path=PopupMaxHeight}"
                 ItemsSource="{Binding ElementName=rootComboBox, Path=Items}"
                 SizeChanged="ContentList_SizeChanged"
+                SelectionChanged="ContentList_SelectionChanged"
                 BorderThickness="0"
-                ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding}"/>
+                        <StackPanel
+                            Width="{Binding ElementName=rootComboBox, Path=BoxWidth}"
+                            Height="{Binding ElementName=rootComboBox, Path=ItemHeight}"
+                            PreviewMouseDown="ListBoxItem_PreviewMouseDown">
+                            <TextBlock Text="{Binding}"/>
+                        </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

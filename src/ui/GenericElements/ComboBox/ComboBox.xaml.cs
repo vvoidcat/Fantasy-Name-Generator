@@ -36,7 +36,7 @@ namespace NAMEGEN.Ui {
         }
 
         public static readonly DependencyProperty ItemHeightProperty =
-            DependencyProperty.Register("ItemHeight", typeof(int), typeof(ComboBox), new PropertyMetadata(20));
+            DependencyProperty.Register("ItemHeight", typeof(int), typeof(ComboBox), new PropertyMetadata(15));
         public int ItemHeight {
             get { return (int)GetValue(ItemHeightProperty); }
             set { SetValue(ItemHeightProperty, value); }
@@ -77,6 +77,10 @@ namespace NAMEGEN.Ui {
 
         private void ControlButton_OnLoaded(object sender, EventArgs e) {
             ControlButtonHeader.Width = BoxWidth - ButtonHeight;
+
+            if (ContentList is not null && ContentList.Items.Count > 0) {
+                ContentList.SelectedItem = Items.First();
+            }
             Loaded -= ControlButton_OnLoaded;
         }
 
@@ -99,38 +103,19 @@ namespace NAMEGEN.Ui {
         }
 
         private void ListBoxItem_PreviewMouseDown(object sender, MouseButtonEventArgs e) {
-            if (sender as ListBoxItem is not null) {
-                if (sender != ContentList.SelectedItem) {
-                    ListBoxItem item = (ListBoxItem)sender;
-                    ContentList.SelectedItem = item;
-                    item.IsSelected = true;
+            if (sender as StackPanel is not null && ContentList.SelectedItem is not null) {
+                StackPanel item = (StackPanel)sender;
+                TextBlock child = (TextBlock)item.Children[0];
+
+                if (child is not null && child.Text == ContentList.SelectedItem.ToString()) {
+                    ComboboxPopup.IsOpen = false;
+
                 }
-                ComboboxPopup.IsOpen = false;
             }
         }
 
-        //private static void OnItemsCollectionChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
-        //    var control = (ComboBox)obj;
-        //    var oldCollection = e.OldValue as INotifyCollectionChanged;
-        //    var newCollection = e.NewValue as INotifyCollectionChanged;
-
-        //    if (oldCollection is not null) {
-        //        oldCollection.CollectionChanged -= control.ItemsCollectionChanged;
-        //    }
-
-        //    if (newCollection is not null) {
-        //        newCollection.CollectionChanged += control.ItemsCollectionChanged;
-        //    }
-
-        //    control.UpdateItems();
-        //}
-
-        //private void ItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
-        //    UpdateItems();
-        //}
-
-        //private void UpdateItems() {
-        //    Debug.WriteLine("updated");
-        //}
+        private void ContentList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            ComboboxPopup.IsOpen = false;
+        }
     }
 }
