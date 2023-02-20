@@ -63,6 +63,13 @@ namespace NAMEGEN.Ui {
             set { SetValue(ItemsCollectionProperty, value); }
         }
 
+        public static readonly DependencyProperty ItemsSelectedIndexProperty =
+            DependencyProperty.Register("ItemsSelectedIndex", typeof(int), typeof(ComboBox), new PropertyMetadata(0));
+        public int ItemsSelectedIndex {
+            get { return (int)GetValue(ItemsSelectedIndexProperty); }
+            set { SetValue(ItemsSelectedIndexProperty, value); }
+        }
+
 
         // CONSTRUCTOR
 
@@ -115,6 +122,7 @@ namespace NAMEGEN.Ui {
         }
 
         private void ContentList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            ItemsSelectedIndex = ContentList.SelectedIndex;
             ComboboxPopup.IsOpen = false;
         }
     }

@@ -55,31 +55,8 @@
                 BoxWidth="105"
                 ButtonHeight="35"
                 ItemHeight="20"
-                Items="{Binding genderOptions}"/>
-
-            <ComboBox 
-                Name="cboxGender"
-                SelectedIndex="{Binding gender}"
-                Style="{DynamicResource ComboBoxStyle_GenderBox}"
-                FontSize="15"
-                Width="105"
-                BorderThickness="0"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center">
-                
-                <ComboBoxItem
-                        Name="cboxItemMale"
-                        Content="Male"
-                        BorderThickness="0"/>
-                <ComboBoxItem
-                        Name="cboxItemFemale"
-                        Content="Female"
-                        BorderThickness="0"/>
-                <ComboBoxItem
-                        Name="cboxItemNeutral"
-                        Content="Neutral"
-                        BorderThickness="0"/>
-            </ComboBox>
+                Items="{Binding genderOptions}"
+                ItemsSelectedIndex="{Binding gender}"/>
 
             <!-- GENERATE BUTTON -->
             <Button

@@ -27,7 +27,7 @@ namespace NAMEGEN.Control {
         //}
 
         public ObservableCollection<string> genderOptions { get; } = new ObservableCollection<string>() {
-            "Male", "Female", "Neutral/Both"
+            "Male", "Female", "Neutral"
         };
 
         public int gender {
@@ -206,15 +206,15 @@ namespace NAMEGEN.Control {
             maxlenDecreaseCommand = new RelayCommand<object>(DecreaseMaxLen);
             maxlenIncreaseCommand = new RelayCommand<object>(IncreaseMaxLen);
 
-            //Task.Run(() => {
-            //    while (true) {
-            //        //if (historyNames.Count > 2) {
-            //        //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
-            //        //}
-            //        Debug.WriteLine(": " + minLen + " | " + maxLen + " | " + patternsAllowRepeats + " | " + patternsMax);
-            //        Thread.Sleep(500);
-            //    }
-            //});
+            Task.Run(() => {
+                while (true) {
+                    //if (historyNames.Count > 2) {
+                    //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
+                    //}
+                    Debug.WriteLine(": " + gender);
+                    Thread.Sleep(500);
+                }
+            });
         }
 
 
