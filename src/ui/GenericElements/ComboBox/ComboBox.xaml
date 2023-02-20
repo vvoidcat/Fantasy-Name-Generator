@@ -78,7 +78,6 @@
                 Height="{Binding ElementName=rootComboBox, Path=PopupHeight}"
                 MaxHeight="{Binding ElementName=rootComboBox, Path=PopupMaxHeight}"
                 ItemsSource="{Binding ElementName=rootComboBox, Path=Items}"
-                SelectedIndex="{Binding ElementName=rootComboBox, Path=ItemsSelectedIndex, Mode=TwoWay}"
                 SizeChanged="ContentList_SizeChanged"
                 SelectionChanged="ContentList_SelectionChanged"
                 BorderThickness="0"

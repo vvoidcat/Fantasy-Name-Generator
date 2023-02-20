@@ -56,7 +56,7 @@
                 ButtonHeight="35"
                 ItemHeight="20"
                 Items="{Binding genderOptions}"
-                ItemsSelectedIndex="{Binding gender}"/>
+                ItemsSelectedIndex="{Binding gender, Mode=OneWayToSource}"/>
 
             <!-- GENERATE BUTTON -->
             <Button
