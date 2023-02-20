@@ -26,6 +26,10 @@ namespace NAMEGEN.Control {
         //    }
         //}
 
+        public ObservableCollection<string> genderOptions { get; } = new ObservableCollection<string>() {
+            "Male", "Female", "Neutral/Both"
+        };
+
         public int gender {
             get { return (int)gen.gender; }
             set {
@@ -157,11 +161,11 @@ namespace NAMEGEN.Control {
 
         // STARTING AND ENDING LETTERS
 
-        public ObservableCollection<string> letters1 { get; } = new ObservableCollection<string>() {
+        public ObservableCollection<string> startingLetters { get; } = new ObservableCollection<string>() {
             "x", "y", "z"
         };
 
-        public ObservableCollection<string> letters2 { get; } = new ObservableCollection<string>() {
+        public ObservableCollection<string> endingLetters { get; } = new ObservableCollection<string>() {
             "a", "b", "c", "d", "e"
         };
 
@@ -212,6 +216,7 @@ namespace NAMEGEN.Control {
             //    }
             //});
         }
+
 
         // COMMAND ACTIONS
 

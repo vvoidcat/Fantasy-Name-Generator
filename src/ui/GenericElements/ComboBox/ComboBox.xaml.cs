@@ -68,7 +68,6 @@ namespace NAMEGEN.Ui {
 
         public ComboBox() {
             Loaded += ControlButton_OnLoaded;
-
             InitializeComponent();
         }
 
@@ -96,7 +95,8 @@ namespace NAMEGEN.Ui {
 
         private void ContentList_SizeChanged(object sender, SizeChangedEventArgs e) {
             if (ContentList.Items.Count > 0) {
-                PopupHeight = ItemHeight * ContentList.Items.Count + 2;
+                PopupHeight = ItemHeight * ContentList.Items.Count + ItemHeight;
+                PopupMaxHeight = ItemHeight * 4;
             } else {
                 PopupHeight = ButtonHeight;
             }

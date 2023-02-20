@@ -73,7 +73,7 @@
                             <controls:ComboBox
                                 BoxWidth="90"
                                 ButtonHeight="18"
-                                Items="{Binding letters1}"/>
+                                Items="{Binding startingLetters}"/>
                         </Grid>
                     </StackPanel>
 
@@ -88,7 +88,7 @@
                         <controls:ComboBox
                                 BoxWidth="90"
                                 ButtonHeight="18"
-                                Items="{Binding letters2}"/>
+                                Items="{Binding endingLetters}"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
