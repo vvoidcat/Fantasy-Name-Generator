@@ -37,7 +37,7 @@ namespace NAMEGEN.Ui {
                 Button thebutton = (Button)sender;
 
                 for (int i = 0; i < controlButtons.Length; i++) {
-                    if (controlButtons[i] == thebutton) {
+                    if (controlButtons[i] == thebutton && panels[i].Visibility != Visibility.Visible) {
                         controlButtons[i].BorderThickness = new Thickness(1, 1, 1, 0);
                         panels[i].Visibility = Visibility.Visible;
                     } else {
