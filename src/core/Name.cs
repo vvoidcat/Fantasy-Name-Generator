@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace NAMEGEN.Core {
     public class Name {
@@ -43,22 +44,18 @@ namespace NAMEGEN.Core {
 
         private Letter ChooseLetter(int rowConsonants, int rowVowels, List<Letter> letters, Gender gender) {
             int index = 0;
-            bool isChosen = false;
 
-            if (settings.selectedStartIndex > 0 && letters.Count <= 1) {
-                index = ChooseStartIndexesRestricted(letters);
-            } else if (settings.selectedEndIndex > 0 && letters.Count >= length - 1) {
-
+            if (settings.selectedStartIndex >= 0 && letters.Count <= 1) {
+                index = ChooseIndexPrefixRestricted(rowConsonants, rowVowels, letters);
+            } else if (settings.selectedEndIndex >= 0 && letters.Count >= length - 2) {
+                index = ChooseIndexEndingRestricted(rowConsonants, rowVowels, letters);
             } else {
-                while (!isChosen) {
-                    index = ChooseRandomIndex();
-                    isChosen = IsChoosableIndex(index, rowConsonants, rowVowels, letters, gender);
-                }
+                index = ChooseIndex(rowConsonants, rowVowels, letters, gender);
             }
             return preset.alphabet.letters[index];
         }
 
-        private int ChooseStartIndexesRestricted(List<Letter> letters) {
+        private int ChooseIndexPrefixRestricted(int rowConsonants, int rowVowels, List<Letter> letters) {
             int index = settings.selectedStartIndex;
 
             if (letters.Count == 1) {
@@ -67,9 +64,20 @@ namespace NAMEGEN.Core {
             return index;
         }
 
-        private int ChooseEndIndexesRestricted(List<Letter> letters) {
+        private int ChooseIndexEndingRestricted(int rowConsonants, int rowVowels, List<Letter> letters) {
             int index = settings.selectedEndIndex;
 
+            return index;
+        }
+
+        private int ChooseIndex(int rowConsonants, int rowVowels, List<Letter> letters, Gender gender) {
+            int index = 0;
+            bool isChosen = false;
+
+            while (!isChosen) {
+                index = ChooseRandomIndex();
+                isChosen = IsChoosableIndex(index, rowConsonants, rowVowels, letters, gender);
+            }
             return index;
         }
 
