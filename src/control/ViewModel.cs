@@ -29,7 +29,6 @@ namespace NAMEGEN.Control {
         public ObservableCollection<string> genderOptions { get; } = new ObservableCollection<string>() {
             "Male", "Female", "Neutral"
         };
-
         public int gender {
             get { return (int)gen.gender; }
             set {
@@ -154,10 +153,7 @@ namespace NAMEGEN.Control {
 
         // STARTING AND ENDING LETTERS
 
-        public ObservableCollection<string> startingLetters { get; } = new ObservableCollection<string>() {
-            "any"
-        };
-
+        public ObservableCollection<string> startingLetters { get; } = new ObservableCollection<string>();
         public int selectedStartingLetter {
             get { return gen.selectedStartIndex + 1; }
             set {
@@ -167,10 +163,7 @@ namespace NAMEGEN.Control {
             }
         }
 
-        public ObservableCollection<string> endingLetters { get; } = new ObservableCollection<string>() {
-            "any"
-        };
-
+        public ObservableCollection<string> endingLetters { get; } = new ObservableCollection<string>();
         public int selectedEndingLetter {
             get { return gen.selectedEndIndex + 1; }
             set {
@@ -206,7 +199,6 @@ namespace NAMEGEN.Control {
         public ViewModel() {
             // load saved preset/values if they exist
 
-            gen = new Generator(_sourcePath, _presetName);
             Init();
 
             generateCommand = new RelayCommand<int>(UpdateNameFields);
@@ -218,18 +210,28 @@ namespace NAMEGEN.Control {
             maxlenDecreaseCommand = new RelayCommand<object>(DecreaseMaxLen);
             maxlenIncreaseCommand = new RelayCommand<object>(IncreaseMaxLen);
 
-            Task.Run(() => {
-                while (true) {
-                    //if (historyNames.Count > 2) {
-                    //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
-                    //}
-                    Debug.WriteLine(": " + gen.selectedStartIndex + " | " + gen.selectedEndIndex);
-                    Thread.Sleep(500);
-                }
-            });
+            //Task.Run(() => {
+            //    while (true) {
+            //        //if (historyNames.Count > 2) {
+            //        //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
+            //        //}
+            //        Debug.WriteLine(": " + gen.selectedStartIndex + " | " + gen.selectedEndIndex);
+            //        Thread.Sleep(500);
+            //    }
+            //});
         }
 
         private void Init() {
+            gen = new Generator(_sourcePath, _presetName);
+
+            startingLetters.Add("any");
+            endingLetters.Add("any");
+
+            foreach (Letter letter in gen.preset.alphabet.letters) {
+                startingLetters.Add(letter.lowercase.ToString());
+                endingLetters.Add(letter.lowercase.ToString());
+            }
+
             for (int i = 0; i < 20; i++) {
                 nameFields.Add("");
             }

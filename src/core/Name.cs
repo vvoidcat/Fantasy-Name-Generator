@@ -45,11 +45,32 @@ namespace NAMEGEN.Core {
             int index = 0;
             bool isChosen = false;
 
-            while (!isChosen) {
-                index = ChooseRandomIndex();
-                isChosen = IsChoosableIndex(index, rowConsonants, rowVowels, letters, gender);
+            if (settings.selectedStartIndex > 0 && letters.Count <= 1) {
+                index = ChooseStartIndexesRestricted(letters);
+            } else if (settings.selectedEndIndex > 0 && letters.Count >= length - 1) {
+
+            } else {
+                while (!isChosen) {
+                    index = ChooseRandomIndex();
+                    isChosen = IsChoosableIndex(index, rowConsonants, rowVowels, letters, gender);
+                }
             }
             return preset.alphabet.letters[index];
+        }
+
+        private int ChooseStartIndexesRestricted(List<Letter> letters) {
+            int index = settings.selectedStartIndex;
+
+            if (letters.Count == 1) {
+
+            }
+            return index;
+        }
+
+        private int ChooseEndIndexesRestricted(List<Letter> letters) {
+            int index = settings.selectedEndIndex;
+
+            return index;
         }
 
         private bool IsChoosableIndex(int index, int rowConsonants, int rowVowels, List<Letter> letters, Gender gender) {
