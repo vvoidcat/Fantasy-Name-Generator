@@ -234,9 +234,12 @@ namespace NAMEGEN.Control {
                 nameFields[0] = newnames[0];
             } else {
                 for (int i = 0; i < num; i++) {
-                    nameFields.Insert(i, newnames[i]);
-                    nameFields.RemoveAt(nameFields.Count - (1 + i));
+                    nameFields.Insert(0, newnames[i]);
                 }
+            }
+
+            while (nameFields.Count > 20) {
+                nameFields.RemoveAt(nameFields.Count - 1);
             }
         }
 
