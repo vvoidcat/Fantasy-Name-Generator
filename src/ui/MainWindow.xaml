@@ -81,40 +81,9 @@
         <!-- GENERATION -->
         <StackPanel Margin="0 130 0 10">
 
-            <!-- GENERATION FAST SETTINGS ROW -->
             <controls:GenerationControls></controls:GenerationControls>
 
-            <!-- NAME FIELDS -->
-            <StackPanel Visibility="Collapsed">
-                <controls:GeneratedMainNameItem Title="{Binding nameFields[0]}"/>
-                <controls:GeneratedNameItem Title="{Binding nameFields[1]}"/>
-                <controls:GeneratedNameItem Title="{Binding nameFields[2]}"/>
-                <controls:GeneratedNameItem Title="{Binding nameFields[3]}"/>
-                <controls:GeneratedNameItem Title="{Binding nameFields[4]}"/>
-            </StackPanel>
 
-            <Grid HorizontalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"/>
-                    <ColumnDefinition Width="200"/>
-                </Grid.ColumnDefinitions>
-
-                <StackPanel Grid.Column="0">
-                    <controls:GeneratedNameItem Title="{Binding nameFields[0]}"/>
-                    <controls:GeneratedNameItem Title="{Binding nameFields[1]}"/>
-                    <controls:GeneratedNameItem Title="{Binding nameFields[2]}"/>
-                    <controls:GeneratedNameItem Title="{Binding nameFields[3]}"/>
-                    <controls:GeneratedNameItem Title="{Binding nameFields[4]}"/>
-                </StackPanel>
-
-                <StackPanel Grid.Column="1">
-                    <controls:GeneratedNameItem Title="{Binding nameFields[5]}"/>
-                    <controls:GeneratedNameItem Title="{Binding nameFields[6]}"/>
-                    <controls:GeneratedNameItem Title="{Binding nameFields[7]}"/>
-                    <controls:GeneratedNameItem Title="{Binding nameFields[8]}"/>
-                    <controls:GeneratedNameItem Title="{Binding nameFields[9]}"/>
-                </StackPanel>
-            </Grid>
         </StackPanel>
 
 

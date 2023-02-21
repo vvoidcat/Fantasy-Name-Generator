@@ -18,6 +18,8 @@
 
     <StackPanel>
 
+        <!-- GENERATION FAST SETTINGS ROW -->
+
         <!-- PRESET -->
         <StackPanel 
             Orientation="Horizontal"
@@ -104,5 +106,79 @@
                     Style="{StaticResource styleNamegenNumButtons}"/>
             </Grid>
         </StackPanel>
+
+
+        <!-- NAME FIELDS -->
+        <StackPanel Name="containerGenNum_1">
+            <controls:GeneratedMainNameItem Title="{Binding nameFields[0]}"/>
+            <controls:GeneratedNameItem Title="{Binding nameFields[1]}"/>
+            <controls:GeneratedNameItem Title="{Binding nameFields[2]}"/>
+            <controls:GeneratedNameItem Title="{Binding nameFields[3]}"/>
+            <controls:GeneratedNameItem Title="{Binding nameFields[4]}"/>
+        </StackPanel>
+
+        <Grid Name="containerGenNum_10" HorizontalAlignment="Center" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <controls:GeneratedNameItem Title="{Binding nameFields[0]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[1]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[2]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[3]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[4]}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1">
+                <controls:GeneratedNameItem Title="{Binding nameFields[5]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[6]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[7]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[8]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[9]}"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Name="containerGenNum_20" HorizontalAlignment="Center" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <controls:GeneratedNameItem Title="{Binding nameFields[0]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[1]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[2]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[3]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[4]}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1">
+                <controls:GeneratedNameItem Title="{Binding nameFields[5]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[6]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[7]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[8]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[9]}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2">
+                <controls:GeneratedNameItem Title="{Binding nameFields[10]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[11]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[12]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[13]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[14]}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="3">
+                <controls:GeneratedNameItem Title="{Binding nameFields[15]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[16]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[17]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[18]}"/>
+                <controls:GeneratedNameItem Title="{Binding nameFields[19]}"/>
+            </StackPanel>
+        </Grid>
     </StackPanel>
 </UserControl>

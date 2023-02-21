@@ -22,6 +22,7 @@ namespace NAMEGEN.Ui {
     /// </summary>
     public partial class GenerationControls : UserControl {
         private ToggleButton[] numControls;
+        private Object[] nameitemContainers;
 
         public static readonly DependencyProperty SelectedNumValueProperty =
             DependencyProperty.Register("SelectedNumValue", typeof(int), typeof(GenerationControls), new PropertyMetadata(1));
@@ -37,6 +38,7 @@ namespace NAMEGEN.Ui {
 
         private void Init() {
             numControls = new ToggleButton[] { buttonGenNum_1, buttonGenNum_10, buttonGenNum_20 };
+            nameitemContainers = new Object[] { containerGenNum_1, containerGenNum_10, containerGenNum_20 };
         }
 
         private void ButtonNumControl_Checked(object sender, RoutedEventArgs e) {
@@ -46,12 +48,14 @@ namespace NAMEGEN.Ui {
                 for (int i = 0; i < numControls.Length; i++) {
                     if (tbutton != numControls[i]) {
                         numControls[i].IsChecked = false;
+                        UpdateContainerVisibility(i, Visibility.Collapsed);
                     } else {
                         if (Int32.TryParse(numControls[i].Content.ToString(), out int res)) {
                             SelectedNumValue = res;
                         } else {
                             SelectedNumValue = 1;
                         }
+                        UpdateContainerVisibility(i, Visibility.Visible);
                     }
                 }
             }
@@ -75,6 +79,16 @@ namespace NAMEGEN.Ui {
                 if (countChecks == 0) {
                     numControls[indexChecked].IsChecked = true;
                 }
+            }
+        }
+
+        private void UpdateContainerVisibility(int index, Visibility newVisState) {
+            if (nameitemContainers[index] is StackPanel) {
+                StackPanel container = (StackPanel)nameitemContainers[index];
+                container.Visibility = newVisState;
+            } else if (nameitemContainers[index] is Grid) {
+                Grid container = (Grid)nameitemContainers[index];
+                container.Visibility = newVisState;
             }
         }
     }
