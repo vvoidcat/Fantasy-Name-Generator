@@ -155,12 +155,30 @@ namespace NAMEGEN.Control {
         // STARTING AND ENDING LETTERS
 
         public ObservableCollection<string> startingLetters { get; } = new ObservableCollection<string>() {
-            "any", "x", "y", "z"
+            "any"
         };
 
+        public int selectedStartingLetter {
+            get { return gen.selectedStartIndex + 1; }
+            set {
+                if (gen.SetSelectedIndexStart(value)) {
+                    OnPropertyChanged(nameof(selectedStartingLetter));
+                }
+            }
+        }
+
         public ObservableCollection<string> endingLetters { get; } = new ObservableCollection<string>() {
-            "any", "a", "b", "c", "d", "e"
+            "any"
         };
+
+        public int selectedEndingLetter {
+            get { return gen.selectedEndIndex + 1; }
+            set {
+                if (gen.SetSelectedIndexEnd(value)) {
+                    OnPropertyChanged(nameof(selectedEndingLetter));
+                }
+            }
+        }
 
 
         // COMMANDS
@@ -200,15 +218,15 @@ namespace NAMEGEN.Control {
             maxlenDecreaseCommand = new RelayCommand<object>(DecreaseMaxLen);
             maxlenIncreaseCommand = new RelayCommand<object>(IncreaseMaxLen);
 
-            //Task.Run(() => {
-            //    while (true) {
-            //        //if (historyNames.Count > 2) {
-            //        //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
-            //        //}
-            //        Debug.WriteLine(": " + gender);
-            //        Thread.Sleep(500);
-            //    }
-            //});
+            Task.Run(() => {
+                while (true) {
+                    //if (historyNames.Count > 2) {
+                    //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
+                    //}
+                    Debug.WriteLine(": " + gen.selectedStartIndex + " | " + gen.selectedEndIndex);
+                    Thread.Sleep(500);
+                }
+            });
         }
 
         private void Init() {

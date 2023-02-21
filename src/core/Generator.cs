@@ -25,7 +25,9 @@ namespace NAMEGEN.Core {
 
         public int maxPatterns { get; private set; } = 2;
 
-        //public fist letter last letter
+        public int selectedStartIndex { get; private set; } = -1;
+        public int selectedEndIndex { get; private set; } = -1;
+
 
         public Generator(string sourcePath, string name) {
             preset = new Preset(sourcePath, name);
@@ -132,6 +134,26 @@ namespace NAMEGEN.Core {
 
             if (newValue != maxPatterns && newValue >= minRow && newValue <= maxRow) {
                 maxPatterns = newValue;
+                isValueSet = true;
+            }
+            return isValueSet;
+        }
+
+        public bool SetSelectedIndexStart(int newValue) {
+            bool isValueSet = false;
+
+            if (newValue != selectedStartIndex) {
+                selectedStartIndex = newValue - 1;
+                isValueSet = true;
+            }
+            return isValueSet;
+        }
+
+        public bool SetSelectedIndexEnd(int newValue) {
+            bool isValueSet = false;
+
+            if (newValue != selectedEndIndex) {
+                selectedEndIndex = newValue - 1;
                 isValueSet = true;
             }
             return isValueSet;

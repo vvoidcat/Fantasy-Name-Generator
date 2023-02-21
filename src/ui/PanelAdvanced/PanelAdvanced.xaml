@@ -73,7 +73,8 @@
                             <controls:ComboBox
                                 BoxWidth="90"
                                 ButtonHeight="18"
-                                Items="{Binding startingLetters}"/>
+                                Items="{Binding startingLetters}"
+                                ItemsSelectedIndex="{Binding selectedStartingLetter, Mode=OneWayToSource}"/>
                         </Grid>
                     </StackPanel>
 
@@ -88,7 +89,8 @@
                         <controls:ComboBox
                                 BoxWidth="90"
                                 ButtonHeight="18"
-                                Items="{Binding endingLetters}"/>
+                                Items="{Binding endingLetters}"
+                                ItemsSelectedIndex="{Binding selectedEndingLetter, Mode=OneWayToSource}"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
