@@ -70,7 +70,8 @@ namespace NAMEGEN.Core {
                 } else {
                     if (preset.alphabet.letters[index].isConsonant == IsConsonantChosen(rowConsonants, rowVowels)
                         && IsAllowedRepeat(index, letters)
-                        && IsAllowedPattern(index, letters)) {
+                        && IsAllowedPattern(index, letters)
+                        && IsAllowedProbability(index, letters)) {
                         isChosen = true;
                         // throw an error message
                     }
@@ -166,16 +167,15 @@ namespace NAMEGEN.Core {
             double percentage = 100f;
 
             if (letters.Count == 1) {
-                if (settings.selectedStartIndex >= 0) {
-                    percentage = GetMultipleMatrixPercentage(settings.selectedStartIndex, index, preset.permutationMatrixStart, preset.permutationMatrixGeneral);
-                } else {
-                    percentage = preset.permutationMatrixStart.GetValueAtIndex(letters.Last().index, index);
-                }
+                percentage = preset.permutationMatrixStart.GetValueAtIndex(letters.Last().index, index);
             } else if (letters.Count == length - 1) {
                 percentage = GetPrefixPercentage(letters.Last().index, index, gender);
             } else if (letters.Count == length - 2 && settings.selectedEndIndex >= 0) {
-                if (GetMultipleMatrixPercentage(index, settings.selectedEndIndex, preset.permutationMatrixEnd_Male, preset.permutationMatrixEnd_Female) != 100f) {
-                    percentage = GetMultipleMatrixPercentage(index, settings.selectedEndIndex, preset.permutationMatrixStart, preset.permutationMatrixGeneral);
+                double percDefault = GetPrefixPercentage(letters.Last().index, index, gender);
+                double percAdd = GetPrefixPercentage(index, settings.selectedEndIndex, gender);
+
+                if (percDefault > 0f || percAdd > 0f) {
+                    percentage = 100f;
                 }
             } else if (letters.Count > 1) {
                 percentage = preset.permutationMatrixGeneral.GetValueAtIndex(letters.Last().index, index);
