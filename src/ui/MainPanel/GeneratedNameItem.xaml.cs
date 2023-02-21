@@ -25,6 +25,20 @@ namespace NAMEGEN.Ui {
             set { SetValue(titleProperty, value); }
         }
 
+        public static readonly DependencyProperty ButtonSizeProperty =
+            DependencyProperty.Register("ButtonSize", typeof(int), typeof(GeneratedNameItem), new PropertyMetadata(20));
+        public int ButtonSize {
+            get { return (int)GetValue(ButtonSizeProperty); }
+            set { SetValue(ButtonSizeProperty, value); }
+        }
+
+        public static readonly DependencyProperty ItemFontSizeProperty =
+            DependencyProperty.Register("ItemFontSize", typeof(int), typeof(GeneratedNameItem), new PropertyMetadata(20));
+        public int ItemFontSize {
+            get { return (int)GetValue(ItemFontSizeProperty); }
+            set { SetValue(ItemFontSizeProperty, value); }
+        }
+
         public GeneratedNameItem() {
             InitializeComponent();
         }

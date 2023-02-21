@@ -16,7 +16,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <StackPanel>
+    <StackPanel Height="350">
 
         <!-- GENERATION FAST SETTINGS ROW -->
 
@@ -110,14 +110,14 @@
 
         <!-- NAME FIELDS -->
         <StackPanel Name="containerGenNum_1">
-            <controls:GeneratedMainNameItem Title="{Binding nameFields[0]}"/>
+            <controls:GeneratedNameItem Margin="0 20 0 10" ButtonSize="25" ItemFontSize="30" Title="{Binding nameFields[0]}"/>
             <controls:GeneratedNameItem Title="{Binding nameFields[1]}"/>
             <controls:GeneratedNameItem Title="{Binding nameFields[2]}"/>
             <controls:GeneratedNameItem Title="{Binding nameFields[3]}"/>
             <controls:GeneratedNameItem Title="{Binding nameFields[4]}"/>
         </StackPanel>
 
-        <Grid Name="containerGenNum_10" HorizontalAlignment="Center" Visibility="Collapsed">
+        <Grid Name="containerGenNum_10" HorizontalAlignment="Center" Visibility="Collapsed" Margin="0 30 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="200"/>
@@ -140,7 +140,7 @@
             </StackPanel>
         </Grid>
 
-        <Grid Name="containerGenNum_20" HorizontalAlignment="Center" Visibility="Collapsed">
+        <Grid Name="containerGenNum_20" HorizontalAlignment="Center" Visibility="Collapsed" Margin="0 30 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="200"/>

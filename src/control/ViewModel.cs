@@ -222,7 +222,6 @@ namespace NAMEGEN.Control {
 
         private void UpdateNameFields(int num) {
             List<string> newnames = new List<string>();
-
             for (int i = 0; i < num; i++) {
                 newnames.Add(gen.GenerateName());
             }

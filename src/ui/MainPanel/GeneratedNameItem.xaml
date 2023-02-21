@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             x:Name="rootGeneratedNamePrev"
+             x:Name="rootGeneratedNameItem"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="830">
 
@@ -15,7 +15,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Margin="0 0 0 10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="{Binding ElementName=textName_1, Path=ActualWidth, Mode=OneWay}"/>
@@ -24,21 +24,22 @@
 
         <TextBlock
             Name="textName_1"
-            Text="{Binding Title, ElementName=rootGeneratedNamePrev}"
-            Margin="0 10 0 0"
+            Text="{Binding Title, ElementName=rootGeneratedNameItem}"
+            FontSize="{Binding ElementName=rootGeneratedNameItem, Path=ItemFontSize}"
             Grid.Column="1"
             HorizontalAlignment="Center"
-            Style="{StaticResource styleOldName}"/>
+            Style="{StaticResource styleNameItemText}"/>
 
         <Button
             Content="+"
             Command="{Binding saveNameCommand}"
             CommandParameter="{Binding ElementName=textName_1, Path=Text}"
-            Width="20"
-            Height="20"
+            Width="{Binding ElementName=rootGeneratedNameItem, Path=ButtonSize}"
+            Height="{Binding ElementName=rootGeneratedNameItem, Path=ButtonSize}"
             Margin="10 0 0 2"
             Grid.Column="2"
             HorizontalAlignment="Left"
-            VerticalAlignment="Bottom"/>
+            VerticalAlignment="Bottom"
+            Style="{StaticResource styleNameItemButton}"/>
     </Grid>
 </UserControl>

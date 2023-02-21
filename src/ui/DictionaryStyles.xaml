@@ -70,17 +70,32 @@
 
     
     <!-- NAMES -->
-    <Style x:Key="styleNewName" TargetType="TextBlock">
-        <Setter Property="ItemsControl.FontSize" Value="30"/>
-        <Setter Property="ItemsControl.FontWeight" Value="Bold"/>
+    <Style x:Key="styleNameItemText" TargetType="TextBlock">
         <Setter Property="ItemsControl.HorizontalAlignment" Value="Center"/>
         <Setter Property="ItemsControl.HorizontalContentAlignment" Value="Center"/>
+        <Style.Triggers>
+            <Trigger Property="FontSize" Value="30">
+                <Setter Property="FontWeight" Value="Bold"/>
+            </Trigger>
+            <Trigger Property="FontSize" Value="20">
+                <Setter Property="FontWeight" Value="Thin"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
-    <Style x:Key="styleOldName" TargetType="TextBlock">
-        <Setter Property="ItemsControl.FontSize" Value="20"/>
-        <Setter Property="ItemsControl.FontWeight" Value="Thin"/>
-        <Setter Property="ItemsControl.HorizontalAlignment" Value="Center"/>
-        <Setter Property="ItemsControl.HorizontalContentAlignment" Value="Center"/>
+    <Style x:Key="styleNameItemButton" TargetType="Button">
+        <Setter Property="ItemsControl.Background" Value="Lavender"/>
+        <Setter Property="ItemsControl.BorderBrush" Value="Transparent"/>
+        <Setter Property="ItemsControl.BorderThickness" Value="0"/>
+        <Style.Triggers>
+            <Trigger Property="Width" Value="25">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Margin" Value="10 0 0 14"/>
+            </Trigger>
+            <Trigger Property="Width" Value="20">
+                <Setter Property="Margin" Value="10 0 0 2"/>
+                <Setter Property="VerticalContentAlignment" Value="Top"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>
