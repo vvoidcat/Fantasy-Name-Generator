@@ -43,8 +43,7 @@ namespace NAMEGEN.Control {
         // GENERATION OUTPUT
 
         public ObservableCollection<string> nameFields { get; set; } = new ObservableCollection<string>();
-
-        public ObservableCollection<DataWrapper<string>> historyNames { get; set; } = new ObservableCollection<DataWrapper<string>>();
+        public ObservableCollection<string> historyNames { get; set; } = new ObservableCollection<string>();
 
 
         // PRESET GENERAL SETTINGS
@@ -236,7 +235,7 @@ namespace NAMEGEN.Control {
             } else {
                 for (int i = 0; i < num; i++) {
                     nameFields.Insert(i, newnames[i]);
-                    nameFields.RemoveAt(nameFields.Count - (i + 1));
+                    nameFields.RemoveAt(nameFields.Count - (1 + i));
                 }
             }
         }
@@ -244,7 +243,7 @@ namespace NAMEGEN.Control {
         private void SaveNameToHistory(string nameToSave) {
             int index = GetHistoryNameAtIndex(nameToSave);
             if (index < 0) {
-                historyNames.Add(new DataWrapper<string>(nameToSave));
+                historyNames.Add(nameToSave);
             }
         }
 
@@ -259,10 +258,10 @@ namespace NAMEGEN.Control {
             int i = 0, j = historyNames.Count - 1, result = -100;
 
             while (i <= j && !String.IsNullOrEmpty(nameToFind)) {
-                if (historyNames[i].val == nameToFind) {
+                if (historyNames[i] == nameToFind) {
                     result = i;
                     break;
-                } else if (historyNames[j].val == nameToFind) {
+                } else if (historyNames[j] == nameToFind) {
                     result = j;
                     break;
                 } else {

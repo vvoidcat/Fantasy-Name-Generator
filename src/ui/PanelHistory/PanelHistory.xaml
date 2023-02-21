@@ -45,7 +45,7 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <controls:HistoryNameItem Title="{Binding val}"/>
+                            <controls:HistoryNameItem Title="{Binding}"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
