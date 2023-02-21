@@ -142,7 +142,7 @@ namespace NAMEGEN.Core {
         public bool SetSelectedIndexStart(int newValue) {
             bool isValueSet = false;
 
-            if (newValue != selectedStartIndex) {
+            if ((newValue - 1) != selectedStartIndex) {
                 selectedStartIndex = newValue - 1;
                 isValueSet = true;
             }
@@ -152,7 +152,7 @@ namespace NAMEGEN.Core {
         public bool SetSelectedIndexEnd(int newValue) {
             bool isValueSet = false;
 
-            if (newValue != selectedEndIndex) {
+            if ((newValue - 1) != selectedEndIndex) {
                 selectedEndIndex = newValue - 1;
                 isValueSet = true;
             }
