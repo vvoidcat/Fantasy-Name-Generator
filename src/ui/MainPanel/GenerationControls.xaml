@@ -74,21 +74,30 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Button
+                <ToggleButton
                     Name="buttonGenNum_1"
+                    IsChecked="False"
+                    Checked="ButtonNumControl_Checked"
+                    Unchecked="ButtonNumControl_Unchecked"
                     Content="1"
                     Grid.Column="0"
                     Style="{StaticResource styleNamegenNumButtons}"/>
 
-                <Button
+                <ToggleButton
                     Name="buttonGenNum_5"
+                    IsChecked="True"
+                    Checked="ButtonNumControl_Checked"
+                    Unchecked="ButtonNumControl_Unchecked"
                     Content="5"
                     Grid.Column="1"
                     Style="{StaticResource styleNamegenNumButtons}"/>
 
-                <Button
-                    Name="buttonGenNum_10"
-                    Content="10"
+                <ToggleButton
+                    Name="buttonGenNum_15"
+                    IsChecked="False"
+                    Checked="ButtonNumControl_Checked"
+                    Unchecked="ButtonNumControl_Unchecked"
+                    Content="15"
                     Grid.Column="2"
                     Style="{StaticResource styleNamegenNumButtons}"/>
             </Grid>

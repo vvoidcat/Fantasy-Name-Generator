@@ -15,8 +15,8 @@ using System.Windows.Shapes;
 
 namespace NAMEGEN.Ui {
     public partial class MainWindow : Window {
-        Button[] controlButtons;
-        UserControl[] panels;
+        private Button[] controlButtons;
+        private UserControl[] panels;
 
         public MainWindow() {
             InitializeComponent();

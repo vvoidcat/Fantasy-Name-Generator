@@ -162,11 +162,11 @@ namespace NAMEGEN.Control {
         // STARTING AND ENDING LETTERS
 
         public ObservableCollection<string> startingLetters { get; } = new ObservableCollection<string>() {
-            "x", "y", "z"
+            "any", "x", "y", "z"
         };
 
         public ObservableCollection<string> endingLetters { get; } = new ObservableCollection<string>() {
-            "a", "b", "c", "d", "e"
+            "any", "a", "b", "c", "d", "e"
         };
 
 
