@@ -57,11 +57,23 @@ namespace NAMEGEN.Core {
 
         private int ChooseIndex(int rowConsonants, int rowVowels, List<Letter> letters, Gender gender) {
             int index = 0;
+            int restrict = 0;
             bool isChosen = false;
 
             while (!isChosen) {
                 index = ChooseRandomIndex();
-                isChosen = IsChoosableIndex(index, rowConsonants, rowVowels, letters, gender);
+
+                if (restrict < 100) {
+                    isChosen = IsChoosableIndex(index, rowConsonants, rowVowels, letters, gender);
+                } else {
+                    if (preset.alphabet.letters[index].isConsonant == IsConsonantChosen(rowConsonants, rowVowels)
+                        && IsAllowedRepeat(index, letters)
+                        && IsAllowedPattern(index, letters)) {
+                        isChosen = true;
+                        // throw an error message
+                    }
+                }
+                restrict++;
             }
             return index;
         }
