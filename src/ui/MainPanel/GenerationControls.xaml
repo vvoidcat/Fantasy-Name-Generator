@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:NAMEGEN.Ui"
+             x:Name="rootGenerationControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="830">
     
@@ -63,6 +64,7 @@
                 Name="buttonGenerate"
                 Content="Generate"
                 Command="{Binding generateCommand}"
+                CommandParameter="{Binding ElementName=rootGenerationControls, Path=SelectedNumValue}"
                 Grid.Column="2"
                 Style="{StaticResource styleGenerateButton}"/>
 
@@ -76,7 +78,7 @@
 
                 <ToggleButton
                     Name="buttonGenNum_1"
-                    IsChecked="False"
+                    IsChecked="True"
                     Checked="ButtonNumControl_Checked"
                     Unchecked="ButtonNumControl_Unchecked"
                     Content="1"
@@ -84,20 +86,20 @@
                     Style="{StaticResource styleNamegenNumButtons}"/>
 
                 <ToggleButton
-                    Name="buttonGenNum_5"
-                    IsChecked="True"
+                    Name="buttonGenNum_10"
+                    IsChecked="False"
                     Checked="ButtonNumControl_Checked"
                     Unchecked="ButtonNumControl_Unchecked"
-                    Content="5"
+                    Content="10"
                     Grid.Column="1"
                     Style="{StaticResource styleNamegenNumButtons}"/>
 
                 <ToggleButton
-                    Name="buttonGenNum_15"
+                    Name="buttonGenNum_20"
                     IsChecked="False"
                     Checked="ButtonNumControl_Checked"
                     Unchecked="ButtonNumControl_Unchecked"
-                    Content="15"
+                    Content="20"
                     Grid.Column="2"
                     Style="{StaticResource styleNamegenNumButtons}"/>
             </Grid>

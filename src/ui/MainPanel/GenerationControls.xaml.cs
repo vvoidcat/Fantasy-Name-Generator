@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,13 +23,20 @@ namespace NAMEGEN.Ui {
     public partial class GenerationControls : UserControl {
         private ToggleButton[] numControls;
 
+        public static readonly DependencyProperty SelectedNumValueProperty =
+            DependencyProperty.Register("SelectedNumValue", typeof(int), typeof(GenerationControls), new PropertyMetadata(1));
+        public int SelectedNumValue {
+            get { return (int)GetValue(SelectedNumValueProperty); }
+            set { SetValue(SelectedNumValueProperty, value); }
+        }
+
         public GenerationControls() {
             InitializeComponent();
             Init();
         }
 
         private void Init() {
-            numControls = new ToggleButton[] { buttonGenNum_1, buttonGenNum_5, buttonGenNum_15 };
+            numControls = new ToggleButton[] { buttonGenNum_1, buttonGenNum_10, buttonGenNum_20 };
         }
 
         private void ButtonNumControl_Checked(object sender, RoutedEventArgs e) {
@@ -38,8 +46,12 @@ namespace NAMEGEN.Ui {
                 for (int i = 0; i < numControls.Length; i++) {
                     if (tbutton != numControls[i]) {
                         numControls[i].IsChecked = false;
-                    } else if (tbutton == numControls[i] && tbutton.IsChecked == false) {
-                        numControls[i].IsChecked = true;
+                    } else {
+                        if (Int32.TryParse(numControls[i].Content.ToString(), out int res)) {
+                            SelectedNumValue = res;
+                        } else {
+                            SelectedNumValue = 1;
+                        }
                     }
                 }
             }

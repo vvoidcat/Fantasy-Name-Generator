@@ -42,13 +42,7 @@ namespace NAMEGEN.Control {
 
         // GENERATION OUTPUT
 
-        public List<DataWrapper<string>> nameFields { get; } = new List<DataWrapper<string>> {
-            new DataWrapper<string>(""),
-            new DataWrapper<string>(""),
-            new DataWrapper<string>(""),
-            new DataWrapper<string>(""),
-            new DataWrapper<string>("")
-        };
+        public ObservableCollection<string> nameFields { get; set; } = new ObservableCollection<string>();
 
         public ObservableCollection<DataWrapper<string>> historyNames { get; set; } = new ObservableCollection<DataWrapper<string>>();
 
@@ -196,8 +190,9 @@ namespace NAMEGEN.Control {
             // load saved preset/values if they exist
 
             gen = new Generator(_sourcePath, _presetName);
+            Init();
 
-            generateCommand = new RelayCommand<object>(UpdateNameFields);
+            generateCommand = new RelayCommand<int>(UpdateNameFields);
             saveNameCommand = new RelayCommand<string>(SaveNameToHistory);
             deleteNameCommand = new RelayCommand<string>(DeleteNameFromHistory);
 
@@ -206,25 +201,44 @@ namespace NAMEGEN.Control {
             maxlenDecreaseCommand = new RelayCommand<object>(DecreaseMaxLen);
             maxlenIncreaseCommand = new RelayCommand<object>(IncreaseMaxLen);
 
-            Task.Run(() => {
-                while (true) {
-                    //if (historyNames.Count > 2) {
-                    //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
-                    //}
-                    Debug.WriteLine(": " + gender);
-                    Thread.Sleep(500);
-                }
-            });
+            //Task.Run(() => {
+            //    while (true) {
+            //        //if (historyNames.Count > 2) {
+            //        //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
+            //        //}
+            //        Debug.WriteLine(": " + gender);
+            //        Thread.Sleep(500);
+            //    }
+            //});
+        }
+
+        private void Init() {
+            for (int i = 0; i < 20; i++) {
+                nameFields.Add("");
+            }
         }
 
 
         // COMMAND ACTIONS
 
-        private void UpdateNameFields(object sender) {
-            for (int i = nameFields.Count - 1; i >= 1; i--) {
-                nameFields[i].val = nameFields[i - 1].val;
+        private void UpdateNameFields(int num) {
+            List<string> newnames = new List<string>();
+
+            for (int i = 0; i < num; i++) {
+                newnames.Add(gen.GenerateName());
             }
-            nameFields[0].val = gen.GenerateName();
+
+            if (num == 1) {
+                for (int i = nameFields.Count - 1; i >= 1; i--) {
+                    nameFields[i] = nameFields[i - 1];
+                }
+                nameFields[0] = newnames[0];
+            } else {
+                for (int i = 0; i < num; i++) {
+                    nameFields.Insert(i, newnames[i]);
+                    nameFields.RemoveAt(nameFields.Count - (i + 1));
+                }
+            }
         }
 
         private void SaveNameToHistory(string nameToSave) {
