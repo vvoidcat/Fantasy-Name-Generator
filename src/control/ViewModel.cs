@@ -47,9 +47,9 @@ namespace NAMEGEN.Control {
 
         // PRESET GENERAL SETTINGS
 
-        // private string _sourcePath = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\elven_generic.csv";
+        private string _sourcePath = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\elven_generic.csv";
         // private string _sourcePath = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\human_generic.csv";
-        private string _sourcePath = @"D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\italian.csv";
+        // private string _sourcePath = @"D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\italian.csv";
         // private string _sourcePath = @"nosuchfile";
 
         // upd
@@ -210,15 +210,15 @@ namespace NAMEGEN.Control {
             maxlenDecreaseCommand = new RelayCommand<object>(DecreaseMaxLen);
             maxlenIncreaseCommand = new RelayCommand<object>(IncreaseMaxLen);
 
-            Task.Run(() => {
-                while (true) {
-                    //if (historyNames.Count > 2) {
-                    //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
-                    //}
-                    Debug.WriteLine(": " + gen.selectedStartIndex + " | " + gen.selectedEndIndex);
-                    Thread.Sleep(500);
-                }
-            });
+            //Task.Run(() => {
+            //    while (true) {
+            //        //if (historyNames.Count > 2) {
+            //        //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
+            //        //}
+            //        Debug.WriteLine(": " + gen.selectedStartIndex + " | " + gen.selectedEndIndex);
+            //        Thread.Sleep(500);
+            //    }
+            //});
         }
 
         private void Init() {

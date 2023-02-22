@@ -174,7 +174,7 @@ namespace NAMEGEN.Core {
                 double percDefault = GetPrefixPercentage(letters.Last().index, index, gender);
                 double percAdd = GetPrefixPercentage(index, settings.selectedEndIndex, gender);
 
-                if (percDefault > 0f || percAdd > 0f) {
+                if (percDefault > 0f && percAdd > 0f) {
                     percentage = 100f;
                 }
             } else if (letters.Count > 1) {
