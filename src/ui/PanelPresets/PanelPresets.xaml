@@ -40,6 +40,7 @@
                 Margin="25 0 0 0">
 
                 <WrapPanel Width="480">
+                    <controls:PresetItem Title="+" Color="Transparent"/>
                     <controls:PresetItem Title="The Preset" Color="PaleVioletRed"/>
                     <controls:PresetItem Title="Preset"/>
                     <controls:PresetItem Title="Another" Color="LightSkyBlue"/>
@@ -52,31 +53,7 @@
             <StackPanel Margin="25 0 0 0">
 
                 <!-- SAVE LOAD BUTTONS -->
-                <Grid Margin="0 0 0 3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-
-                    <Button
-                        Name="buttonSave"
-                        Content="save"
-                        Grid.Column="0"
-                        Style="{StaticResource stylePanelSaveloadButtons}"/>
-
-                    <Button
-                        Name="buttonDiscard"
-                        Content="discard"
-                        Grid.Column="1"
-                        Style="{StaticResource stylePanelSaveloadButtons}"/>
-
-                    <Button
-                        Name="buttonSaveas"
-                        Content="save as..."
-                        Grid.Column="2"
-                        Style="{StaticResource stylePanelSaveloadButtons}"/>
-                </Grid>
+                <TextBlock Text="edit"/>
 
 
                 <StackPanel>
@@ -131,6 +108,27 @@
                                 Width="170"
                                 Style="{StaticResource stylePanelTextBoxes}"/>
                         </StackPanel>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="75"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button
+                                Name="buttonSave"
+                                Content="save changes"
+                                Grid.Column="1"
+                                Style="{StaticResource stylePanelSaveloadButtons}"/>
+
+                            <Button
+                                Name="buttonDiscard"
+                                Content="discard"
+                                Grid.Column="2"
+                                Style="{StaticResource stylePanelSaveloadButtons}"/>
+                        </Grid>
+
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
