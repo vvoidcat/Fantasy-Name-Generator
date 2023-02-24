@@ -157,9 +157,6 @@ namespace NAMEGEN.Core {
                 } else if (gender == Gender.Female) {
                     permutationMatrixEnd_Female.IncrementValueAtIndex(indexCurrent, indexNext);
                 }
-            } else {
-                if (i >= name.Length - 3) {
-                }
             }
         }
 

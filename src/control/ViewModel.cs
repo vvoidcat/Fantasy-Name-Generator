@@ -47,10 +47,11 @@ namespace NAMEGEN.Control {
 
         // PRESET GENERAL SETTINGS
 
-        private string _sourcePath = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\elven_generic.csv";
+        //private string _sourcePath = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\elven_generic.csv";
         // private string _sourcePath = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\human_generic.csv";
-        // private string _sourcePath = @"D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\italian.csv";
-        // private string _sourcePath = @"nosuchfile";
+        private string _sourcePath = @"D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\italian.csv";
+        // private string _sourcePath = @"D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\russian.csv";
+        //private string _sourcePath = @"nosuchfile";
 
         // upd
         public string sourcePath {
