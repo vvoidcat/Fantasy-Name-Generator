@@ -8,26 +8,28 @@
              d:DesignHeight="40" d:DesignWidth="160">
 
     <Canvas
+        Name="presetCanvas"
         Width="160"
         Height="40">
 
-        <Rectangle 
-            Width="160"
-            Height="40"
-            Fill="{Binding Color, ElementName=rootPreset}"
-            Canvas.ZIndex="0"/>
+        <Button
+            Name="mainButton"
+            Width="{Binding ElementName=presetCanvas, Path=ActualWidth}"
+            Height="{Binding ElementName=presetCanvas, Path=ActualHeight}"
+            Background="{Binding Color, ElementName=rootPreset}"
+            Canvas.ZIndex="0"
+            BorderBrush="Transparent"
+            BorderThickness="0"
+            HorizontalContentAlignment="Center">
 
-        <Grid
-            Width="160"
-            Height="40"
-            Canvas.ZIndex="1">
-            
-            <TextBlock
-                Text="{Binding Title, ElementName=rootPreset}"
-                FontSize="18"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"/>
-        </Grid>
+            <Button.Content>
+                <TextBlock
+                    Text="{Binding Title, ElementName=rootPreset}"
+                    FontSize="18"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"/>
+            </Button.Content>
+        </Button>
 
         <Grid
             Width="160"

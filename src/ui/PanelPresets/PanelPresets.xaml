@@ -53,13 +53,16 @@
             <StackPanel Margin="25 0 0 0">
 
                 <!-- SAVE LOAD BUTTONS -->
-                <TextBlock Text="edit"/>
-
+                <TextBlock
+                    Text="EDIT PRESET"
+                    FontSize="15"
+                    FontWeight="Medium"
+                    HorizontalAlignment="Center"/>
 
                 <StackPanel>
 
                     <!-- INPUT FIELDS GENERAL -->
-                    <StackPanel Margin="0 3 0 0">
+                    <StackPanel Margin="0 5 0 0">
                         <StackPanel 
                             Orientation="Horizontal"
                             Margin="0 2">
@@ -109,7 +112,7 @@
                                 Style="{StaticResource stylePanelTextBoxes}"/>
                         </StackPanel>
 
-                        <Grid>
+                        <Grid Margin="0 5 0 0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="75"/>
                                 <ColumnDefinition Width="*"/>
