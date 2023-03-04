@@ -7,6 +7,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="20" d:DesignWidth="145">
 
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../DictionaryStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
     <StackPanel
         Width="150"
         Height="20"
@@ -16,13 +24,10 @@
             Content="x"
             Command="{Binding DataContext.deleteNameCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
             CommandParameter="{Binding ElementName=tblockHistoryName, Path=Text}"
-            HorizontalContentAlignment="Center"
-            VerticalContentAlignment="Top"
-            Width="10"
-            Height="10"
             Margin="0 0 4 4"
             HorizontalAlignment="Left"
-            VerticalAlignment="Bottom"/>
+            VerticalAlignment="Bottom"
+            Style="{StaticResource styleDeleteButton}"/>
 
         <TextBlock 
             Name="tblockHistoryName"

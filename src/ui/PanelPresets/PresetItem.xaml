@@ -7,13 +7,22 @@
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="160">
 
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../DictionaryStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Canvas
         Name="presetCanvas"
         Width="160"
         Height="40">
 
-        <Button
+        <ToggleButton
             Name="mainButton"
+            IsChecked="False"
             Width="{Binding ElementName=presetCanvas, Path=ActualWidth}"
             Height="{Binding ElementName=presetCanvas, Path=ActualHeight}"
             Background="{Binding Color, ElementName=rootPreset}"
@@ -22,14 +31,14 @@
             BorderThickness="0"
             HorizontalContentAlignment="Center">
 
-            <Button.Content>
+            <ToggleButton.Content>
                 <TextBlock
                     Text="{Binding Title, ElementName=rootPreset}"
                     FontSize="18"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"/>
-            </Button.Content>
-        </Button>
+            </ToggleButton.Content>
+        </ToggleButton>
 
         <Grid
             Width="160"
@@ -38,10 +47,9 @@
             
             <Button
                 Content="x"
-                Height="10"
-                Width="10"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top"/>
+                VerticalAlignment="Top"
+                Style="{StaticResource styleDeleteButton}"/>
         </Grid>
     </Canvas>
 </UserControl>

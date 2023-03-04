@@ -98,4 +98,24 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    
+    <!-- DELETE ITEM BUTTONS -->
+    <Style x:Key="styleDeleteButton" TargetType="Button">
+        <Setter Property="Foreground" Value="LightGray"/>
+        <Setter Property="Background" Value="Lavender"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Height" Value="10"/>
+        <Setter Property="Width" Value="10"/>
+        <Setter Property="VerticalContentAlignment" Value="Top"/>
+        <Style.Triggers>
+            <Trigger Property="BorderThickness" Value="0">
+                <Setter Property="Padding" Value="0 -5 0 0"/>
+            </Trigger>
+            <Trigger Property="BorderThickness" Value="1">
+                <Setter Property="Padding" Value="0 -6 0 0"/>
+                <Setter Property="ItemsControl.BorderBrush" Value="LightGray"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>
