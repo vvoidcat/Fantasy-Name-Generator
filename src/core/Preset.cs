@@ -31,9 +31,11 @@ namespace NAMEGEN.Core {
 
         public string sourcepath { get; private set; } = "";
         public string sourceChecksum { get; private set; } = "";
-        public string presetName { get; set; } = "Unsaved Preset";
+        public string presetName { get; set; } = "New Preset";
 
-        public Preset(string newSourcepath, string newName) {
+        public Preset() : this("New preset", "") { }
+
+        public Preset(string newName, string newSourcepath) {
             alphabet = new Alphabet();
 
             permutationMatrixStart = new Matrix(alphabet.letters.Count, alphabet.letters.Count);
@@ -54,7 +56,7 @@ namespace NAMEGEN.Core {
                 if (sourcepath == "") {
                     sourcepath = "generic";
                     FinalizeMatrices();
-                    //throw new ArgumentException("aboba1");
+                    //throw new ArgumentException("aboba1");    // inititlize default state without a model
                 }
                 //else {
                 //    throw new ArgumentException("aboba2");    // = last path was ok, the new one is unacceptable, leave the last one be

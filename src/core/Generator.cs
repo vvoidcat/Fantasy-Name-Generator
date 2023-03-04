@@ -39,13 +39,13 @@ namespace NAMEGEN.Core {
             return newName.namestring.ToString();
         }
 
-        public bool SetPreset(Preset newPreset) {
+        public bool SetPreset(string newName, string newPath) {
             bool isValueSet = false;
 
-            // if (preset != newPreset)
-            preset = newPreset;
-            isValueSet = true;
-
+            if (newPath != preset.sourcepath) {
+                preset = new Preset(newName, newPath);
+                isValueSet = true;
+            }
             return isValueSet;
         }
 

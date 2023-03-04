@@ -19,12 +19,30 @@ namespace NAMEGEN.Control {
 
         // GENERATION SETTINGS
 
-        //public string currentPreset {
-        //    get { return gen.preset.presetName; }
-        //    set {
-        //        //gen.preset.presetName = value;
-        //    }
-        //}
+        public class PresetItem {
+            public string title { get; private set; }
+            public string filepath { get; private set; }
+
+            public PresetItem() : this("New Preset", "") { }
+
+            public PresetItem(string newTitle, string newPath) {
+                title = newTitle;
+                filepath = newPath;
+            }
+        }
+
+        public ObservableCollection<PresetItem> presetItems { get; set; } = new ObservableCollection<PresetItem>();
+
+        private PresetItem _currentPreset;
+        public PresetItem currentPreset {
+            get { return currentPreset; }
+            set {
+                if (value is not null && gen.SetPreset(value.title, value.filepath)) {
+                    currentPreset = value;
+                    OnPropertyChanged(nameof(currentPreset));
+                }
+            }
+        }
 
         public ObservableCollection<string> genderOptions { get; } = new ObservableCollection<string>() {
             "Male", "Female", "Neutral"
@@ -185,12 +203,11 @@ namespace NAMEGEN.Control {
         public ICommand maxlenDecreaseCommand { get; private set; }
         public ICommand maxlenIncreaseCommand { get; private set; }
 
-        // unf
-        public ICommand deletePresetCommand { get; }
+        // unf}
         public ICommand saveCommand { get; }
-        public ICommand saveasCommand { get; }
-        public ICommand loadCommand { get; }
-        public ICommand openSourcepathCommand { get; }
+        public ICommand discardCOmmand { get; }
+        public ICommand openFinderCommand { get; }
+        public ICommand deletePresetCommand { get; }
         public ICommand presetLesserCommand { get; }
         public ICommand presetGreaterCommand { get; }
 
