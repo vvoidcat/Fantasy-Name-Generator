@@ -19,23 +19,61 @@ namespace NAMEGEN.Control {
 
         // GENERATION SETTINGS
 
-        public class PresetItem {
-            public string title { get; private set; }
-            public string filepath { get; private set; }
+        public static Brush[] presetBrushes = new Brush[] {
+            Brushes.AliceBlue,
+            Brushes.AntiqueWhite,
+            Brushes.PaleVioletRed,
+            Brushes.LightSkyBlue,
+            Brushes.LightGoldenrodYellow,
+            Brushes.White
+        };
 
-            public PresetItem() : this("New Preset", "") { }
-
-            public PresetItem(string newTitle, string newPath) {
-                title = newTitle;
-                filepath = newPath;
+        private int _selectedBrushIndex = -1;
+        public int selectedBrushIndex {
+            get {
+                int index = 0;
+                if (_selectedBrushIndex < 0) {
+                    Random rand = new Random();
+                    index = rand.Next(0, presetBrushes.Length - 1);
+                } else {
+                    index = _selectedBrushIndex;
+                }
+                return index;
+            }
+            set {
+                _selectedBrushIndex = value;
+                OnPropertyChanged(nameof(selectedBrushIndex));
             }
         }
 
-        public ObservableCollection<PresetItem> presetItems { get; set; } = new ObservableCollection<PresetItem>();
+        public class PresetItem {
+            public string title { get; private set; }
+            public string filepath { get; private set; }
+            public Brush color { get; private set; }
+            public bool isPersistent { get; private set; }
+
+            public PresetItem() : this("New Preset", "", false, Brushes.White) { }
+
+            public PresetItem(string newTitle, string newPath, bool newIsPersistent, Brush selectedBrush) {
+                title = newTitle;
+                filepath = newPath;
+                color = selectedBrush;
+                isPersistent = newIsPersistent;
+            }
+        }
+
+        public ObservableCollection<PresetItem> presetItems { get; set; } = new ObservableCollection<PresetItem>() {
+            new PresetItem("+", "", true, Brushes.Transparent),
+            new PresetItem("Italian", @"D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\italian.csv", false, presetBrushes[1]),
+            new PresetItem("Human", @"D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\human_generic.csv", false, presetBrushes[2]),
+            new PresetItem("Elven", @"D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\elven_generic.csv", false, presetBrushes[3]),
+            new PresetItem("Russian", @"D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\russian.csv", false, presetBrushes[4]),
+            new PresetItem("error", @"nosuchfile", false, presetBrushes[0])
+        };
 
         private PresetItem _currentPreset;
         public PresetItem currentPreset {
-            get { return currentPreset; }
+            get { return presetItems[1]; }
             set {
                 if (value is not null && gen.SetPreset(value.title, value.filepath)) {
                     currentPreset = value;
@@ -61,35 +99,6 @@ namespace NAMEGEN.Control {
 
         public ObservableCollection<string> nameFields { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> historyNames { get; set; } = new ObservableCollection<string>();
-
-
-        // PRESET GENERAL SETTINGS
-
-        //private string _sourcePath = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\elven_generic.csv";
-        // private string _sourcePath = "D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\human_generic.csv";
-        private string _sourcePath = @"D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\italian.csv";
-        // private string _sourcePath = @"D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\russian.csv";
-        //private string _sourcePath = @"nosuchfile";
-
-        // upd
-        public string sourcePath {
-            get { return _sourcePath; }
-            set {
-                _sourcePath = value;
-                gen.preset.SetSourcepath(value);
-            }
-        }
-
-        // upd
-        private string _presetName = "aboba";
-        public string presetName {
-            get { return _presetName; }
-            set {
-                _presetName = value;
-                gen.preset.presetName = value;
-                OnPropertyChanged(nameof(presetName));
-            }
-        }
 
 
         // MIN MAX NAME LENGTH
@@ -240,7 +249,7 @@ namespace NAMEGEN.Control {
         }
 
         private void Init() {
-            gen = new Generator(_sourcePath, _presetName);
+            gen = new Generator(currentPreset.title, currentPreset.filepath);
 
             startingLetters.Add("any");
             endingLetters.Add("any");

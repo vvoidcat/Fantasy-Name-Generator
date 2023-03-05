@@ -34,20 +34,27 @@
             Margin="0 10 0 0"
             Orientation="Horizontal">
 
-            <!-- SCROLLABLE AREA / PRESETS -->
-            <ScrollViewer 
+            <!-- SCROLLABLE AREA / PRESETS -->            
+            <ScrollViewer
+                Name="presetScroll"
                 Height="100"
                 Margin="25 0 0 0">
 
-                <WrapPanel Width="480">
-                    <controls:PresetItem Title="+" Color="Transparent"/>
-                    <controls:PresetItem Title="The Preset" Color="PaleVioletRed"/>
-                    <controls:PresetItem Title="Preset"/>
-                    <controls:PresetItem Title="Another" Color="LightSkyBlue"/>
-                    <controls:PresetItem Title="Italian"/>
-                    <controls:PresetItem Title="Aboba" Color="LightGoldenrodYellow"/>
-                </WrapPanel>
-            </ScrollViewer>
+                <ItemsControl ItemsSource="{Binding presetItems}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Width="480"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <controls:PresetItem Title="{Binding title}" Color="{Binding color}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>            
+
 
             <!-- SETTINGS -->
             <StackPanel Margin="25 0 0 0">

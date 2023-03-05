@@ -50,8 +50,7 @@ namespace NAMEGEN.Core {
             presetName = newName;
         }
 
-
-        public void SetSourcepath(string newSourcepath) {
+        private void SetSourcepath(string newSourcepath) {
             if (!File.Exists(newSourcepath) || Path.GetExtension(newSourcepath) != ".csv") {
                 if (sourcepath == "") {
                     sourcepath = "generic";

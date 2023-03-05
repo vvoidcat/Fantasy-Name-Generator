@@ -29,8 +29,8 @@ namespace NAMEGEN.Core {
         public int selectedEndIndex { get; private set; } = -1;
 
 
-        public Generator(string sourcePath, string name) {
-            preset = new Preset(sourcePath, name);
+        public Generator(string name, string sourcePath) {
+            preset = new Preset(name, sourcePath);
         }
 
         public string GenerateName() {
