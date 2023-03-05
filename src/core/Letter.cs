@@ -25,16 +25,16 @@ namespace NAMEGEN.Core {
         }
 
         public static bool operator ==(Letter a, Letter b) {
-            return Equals(a, b);
+            return (a is not null && b is not null && a.isConsonant == b.isConsonant && a.isVowel == b.isVowel
+                   && a.uppercase == b.uppercase && a.lowercase == b.lowercase && a.index == b.index) ? true : false;
         }
 
         public static bool operator !=(Letter a, Letter b) {
             return !Equals(a, b);
         }
 
-        public static bool Equals(Letter a, Letter b) {
-            return (a.isConsonant == b.isConsonant && a.isVowel == b.isVowel
-                 && a.uppercase == b.uppercase && a.lowercase == b.lowercase && a.index == b.index) ? true : false;
+        public override bool Equals(object? obj) {
+            return (obj is not null && obj is Letter && (Letter)obj == this) ? true : false;
         }
     }
 }

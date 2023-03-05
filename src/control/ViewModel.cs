@@ -19,7 +19,7 @@ namespace NAMEGEN.Control {
 
         // GENERATION SETTINGS
 
-        public static Brush[] presetBrushes = new Brush[] {
+        public static List<Brush> presetBrushes = new List<Brush> {
             Brushes.AliceBlue,
             Brushes.AntiqueWhite,
             Brushes.PaleVioletRed,
@@ -34,7 +34,7 @@ namespace NAMEGEN.Control {
                 int index = 0;
                 if (_selectedBrushIndex < 0) {
                     Random rand = new Random();
-                    index = rand.Next(0, presetBrushes.Length - 1);
+                    index = rand.Next(0, presetBrushes.Count - 1);
                 } else {
                     index = _selectedBrushIndex;
                 }
@@ -43,22 +43,6 @@ namespace NAMEGEN.Control {
             set {
                 _selectedBrushIndex = value;
                 OnPropertyChanged(nameof(selectedBrushIndex));
-            }
-        }
-
-        public class PresetItem {
-            public string title { get; private set; }
-            public string filepath { get; private set; }
-            public Brush color { get; private set; }
-            public bool isPersistent { get; private set; }
-
-            public PresetItem() : this("New Preset", "", false, Brushes.White) { }
-
-            public PresetItem(string newTitle, string newPath, bool newIsPersistent, Brush selectedBrush) {
-                title = newTitle;
-                filepath = newPath;
-                color = selectedBrush;
-                isPersistent = newIsPersistent;
             }
         }
 
@@ -211,12 +195,14 @@ namespace NAMEGEN.Control {
         public ICommand minlenIncreaseCommand { get; private set; }
         public ICommand maxlenDecreaseCommand { get; private set; }
         public ICommand maxlenIncreaseCommand { get; private set; }
+        public ICommand selectPresetCommand { get; private set; }
+        public ICommand deletePresetCommand { get; private set; }
 
-        // unf}
+        // unf
+        public ICommand addPresetCommand { get; }
         public ICommand saveCommand { get; }
         public ICommand discardCOmmand { get; }
         public ICommand openFinderCommand { get; }
-        public ICommand deletePresetCommand { get; }
         public ICommand presetLesserCommand { get; }
         public ICommand presetGreaterCommand { get; }
 
@@ -231,6 +217,10 @@ namespace NAMEGEN.Control {
             generateCommand = new RelayCommand<int>(UpdateNameFields);
             saveNameCommand = new RelayCommand<string>(SaveNameToHistory);
             deleteNameCommand = new RelayCommand<string>(DeleteNameFromHistory);
+
+            selectPresetCommand = new RelayCommand<string>(UpdatePresetSelection);
+            //addPresetCommand = new RelayCommand
+            deletePresetCommand = new RelayCommand<string>(DeletePresetItem);
 
             minlenDecreaseCommand = new RelayCommand<object>(DecreaseMinLen);
             minlenIncreaseCommand = new RelayCommand<object>(IncreaseMinLen);
@@ -290,35 +280,17 @@ namespace NAMEGEN.Control {
         }
 
         private void SaveNameToHistory(string nameToSave) {
-            int index = GetHistoryNameAtIndex(nameToSave);
+            int index = GetListItemAtIndex(nameToSave, historyNames.ToList<string>());
             if (index < 0) {
                 historyNames.Add(nameToSave);
             }
         }
 
         private void DeleteNameFromHistory(string nameToDelete) {
-            int index = GetHistoryNameAtIndex(nameToDelete);
+            int index = GetListItemAtIndex(nameToDelete, historyNames.ToList<string>());
             if (index >= 0) {
                 historyNames.RemoveAt(index);
             }
-        }
-
-        private int GetHistoryNameAtIndex(string nameToFind) {
-            int i = 0, j = historyNames.Count - 1, result = -100;
-
-            while (i <= j && !String.IsNullOrEmpty(nameToFind)) {
-                if (historyNames[i] == nameToFind) {
-                    result = i;
-                    break;
-                } else if (historyNames[j] == nameToFind) {
-                    result = j;
-                    break;
-                } else {
-                    i++;
-                    j--;
-                }
-            }
-            return result;
         }
 
         private void DecreaseMinLen(object sender) {
@@ -335,6 +307,54 @@ namespace NAMEGEN.Control {
 
         private void IncreaseMaxLen(object sender) {
             maxLen += 1;
+        }
+
+        private void UpdatePresetSelection(string selectedTitle) {
+            PresetItem selectItem = new PresetItem(selectedTitle);
+            int index = GetListItemAtIndex(selectItem, presetItems.ToList<PresetItem>());
+            if (index >= 0) {
+                for (int i = 0; i < presetItems.Count; i++) {
+                    if (i != index) {
+                        presetItems[i].isChecked = false;
+                    } else {
+                        presetItems[i].isChecked = true;
+                    }
+                }
+            }
+        }
+
+        private void AddPresetItem(string selectedTitle) {
+            //
+        }
+
+        private void DeletePresetItem(string selectedTitle) {
+            PresetItem deleteItem = new PresetItem(selectedTitle);
+            int index = GetListItemAtIndex(deleteItem, presetItems.ToList<PresetItem>());
+            if (index >= 0) {
+                presetItems.RemoveAt(index);
+            }
+            Debug.WriteLine("aboba, index = " + index);
+        }
+
+
+        // HELPERS
+
+        private int GetListItemAtIndex<T>(T objToFind, List<T> list) {
+            int i = 0, j = list.Count - 1, result = -100;
+
+            while (i <= j && objToFind is not null) {
+                if (objToFind.Equals(list[i])) {
+                    result = i;
+                    break;
+                } else if (objToFind.Equals(list[j])) {
+                    result = j;
+                    break;
+                } else {
+                    i++;
+                    j--;
+                }
+            }
+            return result;
         }
     }
 }

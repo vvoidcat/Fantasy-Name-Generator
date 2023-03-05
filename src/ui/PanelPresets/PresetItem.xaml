@@ -23,6 +23,8 @@
         <ToggleButton
             Name="mainButton"
             IsChecked="False"
+            Command="{Binding DataContext.selectPresetCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+            CommandParameter="{Binding ElementName=presetTextField, Path=Text}"
             Width="{Binding ElementName=presetCanvas, Path=ActualWidth}"
             Height="{Binding ElementName=presetCanvas, Path=ActualHeight}"
             Background="{Binding Color, ElementName=rootPreset}"
@@ -33,6 +35,7 @@
 
             <ToggleButton.Content>
                 <TextBlock
+                    Name="presetTextField"
                     Text="{Binding Title, ElementName=rootPreset}"
                     FontSize="18"
                     HorizontalAlignment="Center"
@@ -47,6 +50,8 @@
             
             <Button
                 Content="x"
+                Command="{Binding DataContext.deletePresetCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                CommandParameter="{Binding ElementName=presetTextField, Path=Text}"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Style="{StaticResource styleDeleteButton}"/>
