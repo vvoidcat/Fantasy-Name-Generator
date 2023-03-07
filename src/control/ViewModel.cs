@@ -315,9 +315,9 @@ namespace NAMEGEN.Control {
             if (index >= 0) {
                 for (int i = 0; i < presetItems.Count; i++) {
                     if (i != index) {
-                        presetItems[i].isChecked = false;
+                        presetItems[i].isSelected = false;
                     } else {
-                        presetItems[i].isChecked = true;
+                        presetItems[i].isSelected = true;
                     }
                 }
             }
@@ -333,7 +333,6 @@ namespace NAMEGEN.Control {
             if (index >= 0) {
                 presetItems.RemoveAt(index);
             }
-            Debug.WriteLine("aboba, index = " + index);
         }
 
 

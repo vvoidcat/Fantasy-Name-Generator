@@ -32,19 +32,19 @@ namespace NAMEGEN.Ui {
             set { SetValue(colorProperty, value); }
         }
 
-        //public static readonly DependencyProperty persistentProperty =
-        //    DependencyProperty.Register("IsPersistent", typeof(bool), typeof(PresetItem), new PropertyMetadata(false));
-        //public string IsPersistent {
-        //    get { return (string)GetValue(persistentProperty); }
-        //    set { SetValue(persistentProperty, value); }
-        //}
+        public static readonly DependencyProperty persistentProperty =
+            DependencyProperty.Register("IsPersistent", typeof(bool), typeof(PresetItem), new PropertyMetadata(false));
+        public bool IsPersistent {
+            get { return (bool)GetValue(persistentProperty); }
+            set { SetValue(persistentProperty, value); }
+        }
 
-        //public static readonly DependencyProperty titleProperty =
-        //    DependencyProperty.Register("Title", typeof(string), typeof(PresetItem), new PropertyMetadata(string.Empty));
-        //public string Title {
-        //    get { return (string)GetValue(titleProperty); }
-        //    set { SetValue(titleProperty, value); }
-        //}
+        public static readonly DependencyProperty selectionProperty =
+            DependencyProperty.Register("IsSelected", typeof(bool), typeof(PresetItem), new PropertyMetadata(false));
+        public bool IsSelected {
+            get { return (bool)GetValue(selectionProperty); }
+            set { SetValue(selectionProperty, value); }
+        }
 
         public PresetItem() {
             InitializeComponent();

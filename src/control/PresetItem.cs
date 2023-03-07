@@ -6,12 +6,22 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace NAMEGEN.Control {
-    public class PresetItem {
+    public class PresetItem : ObservableObject {
         public string title { get; private set; }
         public string filepath { get; private set; }
         public Brush color { get; private set; }
         public bool isPersistent { get; private set; }
-        public bool isChecked { get; set; } = false;
+
+        private bool _isSelected = false;
+        public bool isSelected {
+            get { return _isSelected; }
+            set {
+                if (_isSelected != value) {
+                    _isSelected = value;
+                    OnPropertyChanged(nameof(isSelected));
+                }
+            }
+        }
 
         public PresetItem(string newTitle) : this(newTitle, "", false, Brushes.Transparent) { }
 

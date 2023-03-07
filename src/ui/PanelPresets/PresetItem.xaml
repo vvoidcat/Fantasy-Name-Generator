@@ -22,7 +22,7 @@
 
         <ToggleButton
             Name="mainButton"
-            IsChecked="False"
+            IsChecked="{Binding ElementName=rootPreset, Path=IsSelected}"
             Command="{Binding DataContext.selectPresetCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
             CommandParameter="{Binding ElementName=presetTextField, Path=Text}"
             Width="{Binding ElementName=presetCanvas, Path=ActualWidth}"

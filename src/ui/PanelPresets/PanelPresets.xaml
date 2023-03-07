@@ -49,7 +49,10 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <controls:PresetItem Title="{Binding title}" Color="{Binding color}"/>
+                            <controls:PresetItem
+                                Title="{Binding title}"
+                                Color="{Binding color}"
+                                IsSelected="{Binding isSelected, Mode=TwoWay}"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
