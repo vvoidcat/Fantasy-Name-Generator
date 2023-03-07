@@ -7,10 +7,27 @@ using System.Windows.Media;
 
 namespace NAMEGEN.Control {
     public class PresetItem : ObservableObject {
-        public string title { get; private set; }
-        public string filepath { get; private set; }
-        public Brush color { get; private set; }
-        public bool isPersistent { get; private set; }
+        private string _title;
+        public string title { 
+            get { return _title; }
+            set {
+                if (_title != value) {
+                    _title = value;
+                    OnPropertyChanged(nameof(title));
+                }
+            }
+        }
+
+        private string _filepath;
+        public string filepath {
+            get { return _filepath; }
+            set {
+                if (filepath != value) {
+                    _filepath = value;
+                    OnPropertyChanged(nameof(filepath));
+                }
+            }
+        }
 
         private bool _isSelected = false;
         public bool isSelected {
@@ -22,6 +39,9 @@ namespace NAMEGEN.Control {
                 }
             }
         }
+
+        public Brush color { get; private set; }
+        public bool isPersistent { get; private set; }
 
         public PresetItem(string newTitle) : this(newTitle, "", false, Brushes.Transparent) { }
 

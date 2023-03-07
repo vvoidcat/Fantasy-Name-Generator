@@ -11,6 +11,8 @@ namespace NAMEGEN.Core {
         public const int minRow = 1;
         public const int maxRow = 3;
 
+        public Alphabet alphabet { get; private set; }
+
         public Preset preset { get; private set; }
         public Gender gender { get; private set; } = Gender.Neutral;
 
@@ -30,7 +32,8 @@ namespace NAMEGEN.Core {
 
 
         public Generator(string name, string sourcePath) {
-            preset = new Preset(name, sourcePath);
+            alphabet = new Alphabet();
+            preset = new Preset(alphabet, name, sourcePath);
         }
 
         public string GenerateName() {
@@ -43,7 +46,7 @@ namespace NAMEGEN.Core {
             bool isValueSet = false;
 
             if (newPath != preset.sourcepath) {
-                preset = new Preset(newName, newPath);
+                preset = new Preset(alphabet, newName, newPath);
                 isValueSet = true;
             }
             return isValueSet;

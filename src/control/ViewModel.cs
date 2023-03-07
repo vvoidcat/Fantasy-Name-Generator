@@ -57,10 +57,12 @@ namespace NAMEGEN.Control {
 
         private PresetItem _currentPreset;
         public PresetItem currentPreset {
-            get { return presetItems[1]; }
+            get {
+                return (_currentPreset is null) ? presetItems[0] : _currentPreset;
+            }
             set {
-                if (value is not null && gen.SetPreset(value.title, value.filepath)) {
-                    currentPreset = value;
+                if (value is not null && gen is not null && gen.SetPreset(value.title, value.filepath)) {
+                    _currentPreset = value;
                     OnPropertyChanged(nameof(currentPreset));
                 }
             }
@@ -244,7 +246,7 @@ namespace NAMEGEN.Control {
             startingLetters.Add("any");
             endingLetters.Add("any");
 
-            foreach (Letter letter in gen.preset.alphabet.letters) {
+            foreach (Letter letter in gen.alphabet.letters) {
                 startingLetters.Add(letter.lowercase.ToString());
                 endingLetters.Add(letter.lowercase.ToString());
             }
@@ -311,16 +313,18 @@ namespace NAMEGEN.Control {
 
         private void UpdatePresetSelection(string selectedTitle) {
             PresetItem selectItem = new PresetItem(selectedTitle);
-            int index = GetListItemAtIndex(selectItem, presetItems.ToList<PresetItem>());
-            if (index >= 0) {
-                for (int i = 0; i < presetItems.Count; i++) {
-                    if (i != index) {
-                        presetItems[i].isSelected = false;
-                    } else {
-                        presetItems[i].isSelected = true;
+
+                int index = GetListItemAtIndex(selectItem, presetItems.ToList<PresetItem>());
+                if (index >= 0) {
+                    for (int i = 0; i < presetItems.Count; i++) {
+                        if (i != index) {
+                            presetItems[i].isSelected = false;
+                        } else {
+                            presetItems[i].isSelected = true;
+                            currentPreset = presetItems[i];
+                        }
                     }
                 }
-            }
         }
 
         private void AddPresetItem(string selectedTitle) {

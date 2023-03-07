@@ -20,7 +20,7 @@ namespace NAMEGEN.Core {
             [Index(1)] public string femaleName { get; set; } = "";
         }
         
-        public Alphabet alphabet { get; set; }
+        public Alphabet alphabet { get; private set; }
 
         public Matrix permutationMatrixStart { get; private set; }
         public Matrix permutationMatrixGeneral { get; private set; }
@@ -33,10 +33,8 @@ namespace NAMEGEN.Core {
         public string sourceChecksum { get; private set; } = "";
         public string presetName { get; set; } = "New Preset";
 
-        public Preset() : this("New preset", "") { }
-
-        public Preset(string newName, string newSourcepath) {
-            alphabet = new Alphabet();
+        public Preset(Alphabet newAlphabet, string newName, string newSourcepath) {
+            alphabet = newAlphabet;
 
             permutationMatrixStart = new Matrix(alphabet.letters.Count, alphabet.letters.Count);
             permutationMatrixGeneral = new Matrix(alphabet.letters.Count, alphabet.letters.Count);

@@ -59,8 +59,8 @@
             </ScrollViewer>            
 
 
-            <!-- SETTINGS -->
-            <StackPanel Margin="25 0 0 0">
+            <!-- PRESET SETTINGS -->
+            <StackPanel Margin="20 0 0 0">
 
                 <!-- SAVE LOAD BUTTONS -->
                 <TextBlock
@@ -81,14 +81,14 @@
                                 Name="tblockSourcepath"
                                 Text="source table:"
                                 Padding="0 1 0 0"
-                                Margin="0 0 5 0"
+                                Margin="0 0 10 0"
                                 FontSize="12"
                                 Width="70"
                                 Height="20"/>
 
                             <TextBox
                                 Name="tboxSourcepath"
-                                Text="{Binding sourcePath}"
+                                Text="{Binding currentPreset.filepath}"
                                 FontSize="12"
                                 Height="20"
                                 Width="150"
@@ -108,14 +108,14 @@
                                 Name="tblockPresetName"
                                 Text="preset name:"
                                 Padding="0 1 0 0"
-                                Margin="0 0 5 0"
+                                Margin="0 0 10 0"
                                 FontSize="12"
                                 Width="70"
                                 Height="20"/>
 
                             <TextBox 
                                 Name="tboxPresetName"
-                                Text="{Binding presetName, UpdateSourceTrigger=LostFocus}"
+                                Text="{Binding currentPreset.title}"
                                 FontSize="12"
                                 Height="20"
                                 Width="170"
@@ -124,7 +124,7 @@
 
                         <Grid Margin="0 5 0 0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="75"/>
+                                <ColumnDefinition Width="80"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
