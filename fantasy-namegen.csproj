@@ -17,4 +17,8 @@
     <Resource Include="materials\images\temp.jpg" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="src\ui\GenericElements\IntSpinBox\" />
+  </ItemGroup>
+
 </Project>

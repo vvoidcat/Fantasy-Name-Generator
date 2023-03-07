@@ -68,6 +68,18 @@ namespace NAMEGEN.Control {
             }
         }
 
+        private int _currentPresetIndex = 0;
+        private int currentPresetIndex {
+            get {
+                return (presetItems is null || presetItems.Count <= 1) ? 0 : _currentPresetIndex;
+            }
+            set {
+                if (value >= 1 && value < presetItems.Count) {
+                    _currentPresetIndex = value;
+                }
+            }
+        }
+
         public ObservableCollection<string> genderOptions { get; } = new ObservableCollection<string>() {
             "Male", "Female", "Neutral"
         };
@@ -205,8 +217,8 @@ namespace NAMEGEN.Control {
         public ICommand saveCommand { get; }
         public ICommand discardCOmmand { get; }
         public ICommand openFinderCommand { get; }
-        public ICommand presetLesserCommand { get; }
-        public ICommand presetGreaterCommand { get; }
+        public ICommand presetLesserCommand { get; private set; }
+        public ICommand presetGreaterCommand { get; private set; }
 
 
         // CONSTRUCTOR
@@ -223,37 +235,23 @@ namespace NAMEGEN.Control {
             selectPresetCommand = new RelayCommand<string>(UpdatePresetSelection);
             //addPresetCommand = new RelayCommand
             deletePresetCommand = new RelayCommand<string>(DeletePresetItem);
+            presetLesserCommand = new RelayCommand<string>(DecreasePreset);
+            presetGreaterCommand = new RelayCommand<string>(IncreasePreset);
 
             minlenDecreaseCommand = new RelayCommand<object>(DecreaseMinLen);
             minlenIncreaseCommand = new RelayCommand<object>(IncreaseMinLen);
             maxlenDecreaseCommand = new RelayCommand<object>(DecreaseMaxLen);
             maxlenIncreaseCommand = new RelayCommand<object>(IncreaseMaxLen);
 
-            //Task.Run(() => {
-            //    while (true) {
-            //        //if (historyNames.Count > 2) {
-            //        //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
-            //        //}
-            //        Debug.WriteLine(": " + gen.selectedStartIndex + " | " + gen.selectedEndIndex);
-            //        Thread.Sleep(500);
-            //    }
-            //});
-        }
-
-        private void Init() {
-            gen = new Generator(currentPreset.title, currentPreset.filepath);
-
-            startingLetters.Add("any");
-            endingLetters.Add("any");
-
-            foreach (Letter letter in gen.alphabet.letters) {
-                startingLetters.Add(letter.lowercase.ToString());
-                endingLetters.Add(letter.lowercase.ToString());
-            }
-
-            for (int i = 0; i < 20; i++) {
-                nameFields.Add("");
-            }
+            Task.Run(() => {
+                while (true) {
+                    //if (historyNames.Count > 2) {
+                    //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
+                    //}
+                    Debug.WriteLine(": " + currentPresetIndex);
+                    Thread.Sleep(500);
+                }
+            });
         }
 
 
@@ -313,18 +311,19 @@ namespace NAMEGEN.Control {
 
         private void UpdatePresetSelection(string selectedTitle) {
             PresetItem selectItem = new PresetItem(selectedTitle);
+            int index = GetListItemAtIndex(selectItem, presetItems.ToList<PresetItem>());
 
-                int index = GetListItemAtIndex(selectItem, presetItems.ToList<PresetItem>());
-                if (index >= 0) {
-                    for (int i = 0; i < presetItems.Count; i++) {
-                        if (i != index) {
-                            presetItems[i].isSelected = false;
-                        } else {
-                            presetItems[i].isSelected = true;
-                            currentPreset = presetItems[i];
-                        }
+            if (index >= 0) {
+                for (int i = 0; i < presetItems.Count; i++) {
+                    if (i != index) {
+                        presetItems[i].isSelected = false;
+                    } else {
+                        presetItems[i].isSelected = true;
+                        currentPreset = presetItems[i];
+                        currentPresetIndex = i;
                     }
                 }
+            }
         }
 
         private void AddPresetItem(string selectedTitle) {
@@ -339,8 +338,34 @@ namespace NAMEGEN.Control {
             }
         }
 
+        private void DecreasePreset(object sender) {
+            currentPresetIndex -= 1;
+            UpdatePresetSelection(presetItems[currentPresetIndex].title);
+        }
+
+        private void IncreasePreset(object sender) {
+            currentPresetIndex += 1;
+            UpdatePresetSelection(presetItems[currentPresetIndex].title);
+        }
+
 
         // HELPERS
+
+        private void Init() {
+            gen = new Generator(currentPreset.title, currentPreset.filepath);
+
+            startingLetters.Add("any");
+            endingLetters.Add("any");
+
+            foreach (Letter letter in gen.alphabet.letters) {
+                startingLetters.Add(letter.lowercase.ToString());
+                endingLetters.Add(letter.lowercase.ToString());
+            }
+
+            for (int i = 0; i < 20; i++) {
+                nameFields.Add("");
+            }
+        }
 
         private int GetListItemAtIndex<T>(T objToFind, List<T> list) {
             int i = 0, j = list.Count - 1, result = -100;

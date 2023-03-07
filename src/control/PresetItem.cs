@@ -18,6 +18,15 @@ namespace NAMEGEN.Control {
             }
         }
 
+        public string displayText {
+            get {
+                return (isPersistent) ? "..." : _title;
+            }
+            set {
+                title = value;
+            }
+        }
+
         private string _filepath;
         public string filepath {
             get { return _filepath; }

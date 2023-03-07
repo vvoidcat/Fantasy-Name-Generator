@@ -115,7 +115,7 @@
 
                             <TextBox 
                                 Name="tboxPresetName"
-                                Text="{Binding currentPreset.title}"
+                                Text="{Binding currentPreset.displayText}"
                                 FontSize="12"
                                 Height="20"
                                 Width="170"
