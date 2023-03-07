@@ -48,10 +48,10 @@ namespace NAMEGEN.Control {
 
         public ObservableCollection<PresetItem> presetItems { get; set; } = new ObservableCollection<PresetItem>() {
             new PresetItem("+", "", true, Brushes.Transparent),
-            new PresetItem("Italian", @"D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\italian.csv", false, presetBrushes[1]),
-            new PresetItem("Human", @"D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\human_generic.csv", false, presetBrushes[2]),
-            new PresetItem("Elven", @"D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\elven_generic.csv", false, presetBrushes[3]),
-            new PresetItem("Russian", @"D:\\FUCKING CODE\\Fantasy-Name-Generator\\materials\\source-tables\\russian.csv", false, presetBrushes[4]),
+            new PresetItem("Italian", @"../../../materials/source-tables/italian.csv", false, presetBrushes[1]),
+            new PresetItem("Human", @"../../../materials/source-tables/human_generic.csv", false, presetBrushes[2]),
+            new PresetItem("Elven", @"../../../materials/source-tables/elven_generic.csv", false, presetBrushes[3]),
+            new PresetItem("Russian", @"../../../materials/source-tables/russian.csv", false, presetBrushes[4]),
             new PresetItem("error", @"nosuchfile", false, presetBrushes[0])
         };
 
@@ -211,8 +211,6 @@ namespace NAMEGEN.Control {
         public ICommand maxlenIncreaseCommand { get; private set; }
         public ICommand selectPresetCommand { get; private set; }
         public ICommand deletePresetCommand { get; private set; }
-
-        // unf
         public ICommand addPresetCommand { get; }
         public ICommand saveCommand { get; }
         public ICommand discardCOmmand { get; }
@@ -243,15 +241,15 @@ namespace NAMEGEN.Control {
             maxlenDecreaseCommand = new RelayCommand<object>(DecreaseMaxLen);
             maxlenIncreaseCommand = new RelayCommand<object>(IncreaseMaxLen);
 
-            Task.Run(() => {
-                while (true) {
-                    //if (historyNames.Count > 2) {
-                    //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
-                    //}
-                    Debug.WriteLine(": " + currentPresetIndex);
-                    Thread.Sleep(500);
-                }
-            });
+            //Task.Run(() => {
+            //    while (true) {
+            //        //if (historyNames.Count > 2) {
+            //        //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
+            //        //}
+            //        Debug.WriteLine(": " + currentPresetIndex);
+            //        Thread.Sleep(500);
+            //    }
+            //});
         }
 
 

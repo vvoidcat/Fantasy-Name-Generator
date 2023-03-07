@@ -23,12 +23,12 @@
         <!-- PRESET -->
         <StackPanel 
             Orientation="Horizontal"
-            Margin="0 20 0 5"
+            Margin="0 20 0 10"
             HorizontalAlignment="Center">
 
             <controls:StringSpinBox
                 BoxHeight="20"
-                BoxWidth="130"
+                BoxWidth="150"
                 BoxValue="{Binding currentPreset.displayText}"
                 DecreaseCommand="{Binding presetLesserCommand}"
                 IncreaseCommand="{Binding presetGreaterCommand}"/>
