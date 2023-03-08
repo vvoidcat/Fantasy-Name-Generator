@@ -119,7 +119,7 @@
 
                             <TextBox
                                 Name="tboxSourcepath"
-                                Text="{Binding currentPreset.filepath}"
+                                Text="{Binding displayedSourcepath}"
                                 FontSize="12"
                                 Height="20"
                                 Width="150"
@@ -128,6 +128,7 @@
                             <Button
                                 Name="buttonSourcepath"
                                 Content="..."
+                                Command="{Binding openFinderCommand}"
                                 Height="20"
                                 Width="20"
                                 Style="{StaticResource stylePanelSquareButtons}"/>
@@ -146,7 +147,7 @@
 
                             <TextBox 
                                 Name="tboxPresetName"
-                                Text="{Binding currentPreset.displayText}"
+                                Text="{Binding displayedTitle}"
                                 FontSize="12"
                                 Height="20"
                                 Width="170"
@@ -163,16 +164,17 @@
                             <Button
                                 Name="buttonSave"
                                 Content="save changes"
+                                Command="{Binding saveCommand}"
                                 Grid.Column="1"
                                 Style="{StaticResource stylePanelSaveloadButtons}"/>
 
                             <Button
                                 Name="buttonDiscard"
                                 Content="discard"
+                                Command="{Binding discardCommand}"
                                 Grid.Column="2"
                                 Style="{StaticResource stylePanelSaveloadButtons}"/>
                         </Grid>
-
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

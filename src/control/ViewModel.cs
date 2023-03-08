@@ -19,7 +19,7 @@ namespace NAMEGEN.Control {
         private int addCounter = 1;
 
 
-        // GENERATION SETTINGS
+        // PRESET SETTINGS
 
         public static List<Brush> presetBrushes { get; } = new List<Brush> {
             Brushes.White,
@@ -80,6 +80,39 @@ namespace NAMEGEN.Control {
             }
         }
 
+        private string _displayedSourcepath;
+        public string displayedSourcepath {
+            get { return _displayedSourcepath; }
+            set {
+                if (_displayedSourcepath != value) {
+                    _displayedSourcepath = value;
+                    OnPropertyChanged(nameof(displayedSourcepath));
+                }
+            }
+        }
+
+        private string _displayedTitle;
+        public string displayedTitle {
+            get { return _displayedTitle; }
+            set {
+                if (_displayedTitle != value) {
+                    _displayedTitle = value;
+                    OnPropertyChanged(nameof(displayedTitle));
+                }
+            }
+        }
+
+
+        // GENERATION OUTPUT
+
+        public ObservableCollection<string> nameFields { get; set; } = new ObservableCollection<string>();
+        public ObservableCollection<string> historyNames { get; set; } = new ObservableCollection<string>();
+
+
+        // GENERATION SETTINGS
+
+        // GENDER
+
         public ObservableCollection<string> genderOptions { get; } = new ObservableCollection<string>() {
             "Male", "Female", "Neutral"
         };
@@ -91,12 +124,6 @@ namespace NAMEGEN.Control {
                 }
             }
         }
-
-
-        // GENERATION OUTPUT
-
-        public ObservableCollection<string> nameFields { get; set; } = new ObservableCollection<string>();
-        public ObservableCollection<string> historyNames { get; set; } = new ObservableCollection<string>();
 
 
         // MIN MAX NAME LENGTH
@@ -213,9 +240,9 @@ namespace NAMEGEN.Control {
         public ICommand deletePresetCommand { get; private set; }
         public ICommand presetLesserCommand { get; private set; }
         public ICommand presetGreaterCommand { get; private set; }
-        public ICommand saveCommand { get; }
-        public ICommand discardCOmmand { get; }
-        public ICommand openFinderCommand { get; }
+        public ICommand saveCommand { get; private set; }
+        public ICommand discardCommand { get; private set; }
+        public ICommand openFinderCommand { get; private set; }
 
 
         // CONSTRUCTOR
@@ -233,6 +260,10 @@ namespace NAMEGEN.Control {
             deletePresetCommand = new RelayCommand<string>(DeletePresetItem);
             presetLesserCommand = new RelayCommand<string>(DecreasePreset);
             presetGreaterCommand = new RelayCommand<string>(IncreasePreset);
+
+            saveCommand = new RelayCommand<object>(SavePresetSettings);
+            discardCommand = new RelayCommand<object>(DiscardPresetSettings);
+            openFinderCommand = new RelayCommand<object>(OpenFileExplorer);
 
             minlenDecreaseCommand = new RelayCommand<object>(DecreaseMinLen);
             minlenIncreaseCommand = new RelayCommand<object>(IncreaseMinLen);
@@ -325,6 +356,8 @@ namespace NAMEGEN.Control {
                             currentPreset = presetItems[i];
                             currentPresetIndex = i;
                             selectedBrush = presetItems[i].color;
+                            displayedSourcepath = currentPreset.filepath;
+                            displayedTitle = currentPreset.displayText;
                         }
                     }
                 }
@@ -369,10 +402,28 @@ namespace NAMEGEN.Control {
             }
         }
 
+        private void SavePresetSettings(object sender) {
+            currentPreset.color = selectedBrush;
+            currentPreset.filepath = displayedSourcepath;
+            currentPreset.title = displayedTitle;
+        }
+
+        private void DiscardPresetSettings(object sender) {
+            selectedBrush = currentPreset.color;
+            displayedSourcepath = currentPreset.filepath;
+            displayedTitle = currentPreset.displayText;
+        }
+
+        private void OpenFileExplorer(object sender) {
+            //
+        }
+
 
         // HELPERS
 
         private void Init() {
+            displayedSourcepath = currentPreset.filepath;
+            displayedTitle = currentPreset.displayText;
             gen = new Generator(currentPreset.title, currentPreset.filepath);
 
             startingLetters.Add("any");
