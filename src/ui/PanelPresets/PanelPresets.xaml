@@ -65,18 +65,18 @@
 
                 <!-- COLOR SWATCHES -->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}"/>
-                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}"/>
-                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}" IsChecked="True"/>
-                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}"/>
-                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}"/>
-                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}"/>
-                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}"/>
-                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}"/>
-                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}"/>
-                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}"/>
-                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}"/>
-                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}"/>
+                    <ToggleButton Background="{Binding presetBrushes[0]}" Style="{StaticResource styleSwatches}"/>
+                    <ToggleButton Background="{Binding presetBrushes[1]}" Style="{StaticResource styleSwatches}"/>
+                    <ToggleButton Background="{Binding presetBrushes[2]}" Style="{StaticResource styleSwatches}"/>
+                    <ToggleButton Background="{Binding presetBrushes[3]}" Style="{StaticResource styleSwatches}" IsChecked="True"/>
+                    <ToggleButton Background="{Binding presetBrushes[4]}" Style="{StaticResource styleSwatches}"/>
+                    <ToggleButton Background="{Binding presetBrushes[5]}" Style="{StaticResource styleSwatches}"/>
+                    <ToggleButton Background="{Binding presetBrushes[6]}" Style="{StaticResource styleSwatches}"/>
+                    <ToggleButton Background="{Binding presetBrushes[7]}" Style="{StaticResource styleSwatches}"/>
+                    <ToggleButton Background="{Binding presetBrushes[8]}" Style="{StaticResource styleSwatches}"/>
+                    <ToggleButton Background="{Binding presetBrushes[9]}" Style="{StaticResource styleSwatches}"/>
+                    <ToggleButton Background="{Binding presetBrushes[10]}" Style="{StaticResource styleSwatches}"/>
+                    <ToggleButton Background="{Binding presetBrushes[11]}" Style="{StaticResource styleSwatches}"/>
                 </StackPanel>
 
                 <StackPanel>

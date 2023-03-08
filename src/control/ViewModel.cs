@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using NAMEGEN.Core;
@@ -19,13 +20,19 @@ namespace NAMEGEN.Control {
 
         // GENERATION SETTINGS
 
-        public static List<Brush> presetBrushes = new List<Brush> {
-            Brushes.AliceBlue,
-            Brushes.AntiqueWhite,
+        public static List<Brush> presetBrushes { get; } = new List<Brush> {
+            Brushes.White,
+            Brushes.LightGray,
+            Brushes.Gray,
             Brushes.PaleVioletRed,
-            Brushes.LightSkyBlue,
+            Brushes.LightCoral,
+            Brushes.LightPink,
             Brushes.LightGoldenrodYellow,
-            Brushes.White
+            Brushes.CornflowerBlue,
+            Brushes.LightSkyBlue,
+            Brushes.LightCyan,
+            Brushes.LightSeaGreen,
+            Brushes.LightGreen
         };
 
         private int _selectedBrushIndex = -1;

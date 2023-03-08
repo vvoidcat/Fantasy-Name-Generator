@@ -49,7 +49,17 @@ namespace NAMEGEN.Control {
             }
         }
 
-        public Brush color { get; private set; }
+        private Brush _color;
+        public Brush color {
+            get { return _color; }
+            set {
+                if (_color != value) {
+                    _color = value;
+                    OnPropertyChanged(nameof(color));
+                }
+            }
+        }
+
         public bool isPersistent { get; private set; }
 
         public PresetItem(string newTitle) : this(newTitle, "", false, Brushes.Transparent) { }
