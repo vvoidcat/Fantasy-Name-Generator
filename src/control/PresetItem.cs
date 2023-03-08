@@ -21,7 +21,7 @@ namespace NAMEGEN.Control {
 
         public string displayText {
             get {
-                return (isPersistent) ? "none" : _title;
+                return (!isDeletable) ? "none" : _title;
             }
             set {
                 title = value;
@@ -61,14 +61,14 @@ namespace NAMEGEN.Control {
             }
         }
 
-        public bool isPersistent { get; private set; }
+        public bool isDeletable { get; private set; }
 
         public PresetItem(string newTitle) : this(newTitle, "", false, null) { }
 
         public PresetItem(string newTitle, string newPath, bool newIsPersistent, List<Brush>? brushList) {
             title = newTitle;
             filepath = newPath;
-            isPersistent = newIsPersistent;
+            isDeletable = newIsPersistent;
             AssignInitialBrush(brushList);
         }
 
@@ -85,7 +85,7 @@ namespace NAMEGEN.Control {
         }
 
         private void AssignInitialBrush(List<Brush> brushList) {
-            if (brushList is null || isPersistent) {
+            if (brushList is null || !isDeletable) {
                 color = Brushes.Transparent;
             } else {
                 Random rand = new Random();

@@ -2,17 +2,15 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converter="clr-namespace:System.Windows.Controls;assembly=PresentationFramework"
              x:Name="rootPreset"
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="160">
 
     <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../DictionaryStyles.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <converter:BooleanToVisibilityConverter x:Key="boolConv"/>
+
     </UserControl.Resources>
 
     <Canvas
@@ -47,13 +45,14 @@
             Width="160"
             Height="40"
             Canvas.ZIndex="2">
-            
+
             <Button
                 Content="x"
                 Command="{Binding DataContext.deletePresetCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                 CommandParameter="{Binding ElementName=presetTextField, Path=Text}"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
+                Visibility="{Binding ElementName=rootPreset, Path=IsDeletable, Converter={StaticResource boolConv}}"
                 Style="{StaticResource styleDeleteButton}"/>
         </Grid>
     </Canvas>

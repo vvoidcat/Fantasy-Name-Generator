@@ -53,7 +53,8 @@
                             <controls:PresetItem
                                 Title="{Binding title}"
                                 Color="{Binding color}"
-                                IsSelected="{Binding isSelected, Mode=TwoWay}"/>
+                                IsSelected="{Binding isSelected, Mode=TwoWay}"
+                                IsDeletable="{Binding isDeletable}"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

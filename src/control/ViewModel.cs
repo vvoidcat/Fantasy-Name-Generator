@@ -47,12 +47,12 @@ namespace NAMEGEN.Control {
         }
 
         public ObservableCollection<PresetItem> presetItems { get; set; } = new ObservableCollection<PresetItem>() {
-            new PresetItem("+", "", true, null),
-            new PresetItem("Italian", @"../../../materials/source-tables/italian.csv", false, presetBrushes),
-            new PresetItem("Human", @"../../../materials/source-tables/human_generic.csv", false, presetBrushes),
-            new PresetItem("Elven", @"../../../materials/source-tables/elven_generic.csv", false, presetBrushes),
-            new PresetItem("Russian", @"../../../materials/source-tables/russian.csv", false, presetBrushes),
-            new PresetItem("error", @"nosuchfile", false, presetBrushes)
+            new PresetItem("+", "", false, null),
+            new PresetItem("Italian", @"../../../materials/source-tables/italian.csv", true, presetBrushes),
+            new PresetItem("Human", @"../../../materials/source-tables/human_generic.csv", true, presetBrushes),
+            new PresetItem("Elven", @"../../../materials/source-tables/elven_generic.csv", true, presetBrushes),
+            new PresetItem("Russian", @"../../../materials/source-tables/russian.csv", true, presetBrushes),
+            new PresetItem("error", @"nosuchfile", true, presetBrushes)
         };
 
         private PresetItem _currentPreset;
@@ -71,10 +71,10 @@ namespace NAMEGEN.Control {
         private int _currentPresetIndex = 0;
         private int currentPresetIndex {
             get {
-                return (presetItems is null || presetItems.Count <= 1) ? 0 : _currentPresetIndex;
+                return _currentPresetIndex;
             }
             set {
-                if (value >= 1 && value < presetItems.Count) {
+                if (value >= 0 && value < presetItems.Count) {
                     _currentPresetIndex = value;
                 }
             }
@@ -239,15 +239,15 @@ namespace NAMEGEN.Control {
             maxlenDecreaseCommand = new RelayCommand<object>(DecreaseMaxLen);
             maxlenIncreaseCommand = new RelayCommand<object>(IncreaseMaxLen);
 
-            Task.Run(() => {
-                while (true) {
-                    //if (historyNames.Count > 2) {
-                    //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
-                    //}
-                    Debug.WriteLine(": " + currentPresetIndex + " | " + selectedBrush.ToString());
-                    Thread.Sleep(500);
-                }
-            });
+            //Task.Run(() => {
+            //    while (true) {
+            //        //if (historyNames.Count > 2) {
+            //        //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
+            //        //}
+            //        Debug.WriteLine(": " + currentPresetIndex + " | " + selectedBrush.ToString());
+            //        Thread.Sleep(500);
+            //    }
+            //});
         }
 
 
@@ -255,6 +255,7 @@ namespace NAMEGEN.Control {
 
         private void UpdateNameFields(int num) {
             List<string> newnames = new List<string>();
+
             for (int i = 0; i < num; i++) {
                 newnames.Add(gen.GenerateName());
             }
@@ -277,6 +278,7 @@ namespace NAMEGEN.Control {
 
         private void SaveNameToHistory(string nameToSave) {
             int index = GetListItemAtIndex(nameToSave, historyNames.ToList<string>());
+
             if (index < 0) {
                 historyNames.Add(nameToSave);
             }
@@ -284,6 +286,7 @@ namespace NAMEGEN.Control {
 
         private void DeleteNameFromHistory(string nameToDelete) {
             int index = GetListItemAtIndex(nameToDelete, historyNames.ToList<string>());
+
             if (index >= 0) {
                 historyNames.RemoveAt(index);
             }
@@ -310,13 +313,13 @@ namespace NAMEGEN.Control {
             int index = GetListItemAtIndex(selectItem, presetItems.ToList<PresetItem>());
 
             if (index >= 0) {
-                for (int i = 0; i < presetItems.Count; i++) {
-                    if (i != index) {
-                        presetItems[i].isSelected = false;
-                    } else {
-                        if (presetItems[i].isPersistent) {
+                if (!presetItems[index].isDeletable) {
+                    presetItems[index].isSelected = false;
+                    AddPresetItem();
+                } else {
+                    for (int i = 0; i < presetItems.Count; i++) {
+                        if (i != index) {
                             presetItems[i].isSelected = false;
-                            AddPresetItem();
                         } else {
                             presetItems[i].isSelected = true;
                             currentPreset = presetItems[i];
@@ -331,19 +334,39 @@ namespace NAMEGEN.Control {
         private void DeletePresetItem(string selectedTitle) {
             PresetItem deleteItem = new PresetItem(selectedTitle);
             int index = GetListItemAtIndex(deleteItem, presetItems.ToList<PresetItem>());
+
             if (index >= 0) {
                 presetItems.RemoveAt(index);
+
+                if (currentPresetIndex == index) {
+                    if (presetItems.Count > index) {
+                        UpdatePresetSelection(presetItems[index].title);
+                    } else if (presetItems.Count == index) {
+                        DecreasePreset(null);
+                    }
+                }
+            }
+            if (presetItems.Count == 1) {
+                currentPresetIndex = 0;
+                currentPreset = presetItems[0];
+
             }
         }
 
-        private void DecreasePreset(object sender) {
+        private void DecreasePreset(object? sender) {
             currentPresetIndex -= 1;
-            UpdatePresetSelection(presetItems[currentPresetIndex].title);
+
+            if (currentPresetIndex > 0) { 
+                UpdatePresetSelection(presetItems[currentPresetIndex].title);
+            }
         }
 
-        private void IncreasePreset(object sender) {
+        private void IncreasePreset(object? sender) {
             currentPresetIndex += 1;
-            UpdatePresetSelection(presetItems[currentPresetIndex].title);
+
+            if (currentPresetIndex > 0) {
+                UpdatePresetSelection(presetItems[currentPresetIndex].title);
+            }
         }
 
 
@@ -369,7 +392,7 @@ namespace NAMEGEN.Control {
             while (presetItems.Contains(new PresetItem("New Preset " + addCounter))) {
                 addCounter++;
             }
-            presetItems.Add(new PresetItem("New Preset " + addCounter, "choose a path", false, presetBrushes));
+            presetItems.Add(new PresetItem("New Preset " + addCounter, "choose a path", true, presetBrushes));
             addCounter++;
         }
 

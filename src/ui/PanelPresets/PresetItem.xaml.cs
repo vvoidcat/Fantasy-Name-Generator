@@ -32,11 +32,11 @@ namespace NAMEGEN.Ui {
             set { SetValue(colorProperty, value); }
         }
 
-        public static readonly DependencyProperty persistentProperty =
-            DependencyProperty.Register("IsPersistent", typeof(bool), typeof(PresetItem), new PropertyMetadata(false));
-        public bool IsPersistent {
-            get { return (bool)GetValue(persistentProperty); }
-            set { SetValue(persistentProperty, value); }
+        public static readonly DependencyProperty deletableProperty =
+            DependencyProperty.Register("IsDeletable", typeof(bool), typeof(PresetItem), new PropertyMetadata(false));
+        public bool IsDeletable {
+            get { return (bool)GetValue(deletableProperty); }
+            set { SetValue(deletableProperty, value); }
         }
 
         public static readonly DependencyProperty selectionProperty =
