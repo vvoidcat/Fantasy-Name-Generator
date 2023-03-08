@@ -21,7 +21,7 @@ namespace NAMEGEN.Control {
 
         public string displayText {
             get {
-                return (isPersistent) ? "..." : _title;
+                return (isPersistent) ? "none" : _title;
             }
             set {
                 title = value;

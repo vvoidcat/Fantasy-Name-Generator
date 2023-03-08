@@ -16,6 +16,7 @@ using NAMEGEN.Core;
 namespace NAMEGEN.Control {
     class ViewModel : ObservableObject {
         private Generator gen;
+        private int addCounter = 1;
 
 
         // GENERATION SETTINGS
@@ -210,12 +211,11 @@ namespace NAMEGEN.Control {
         public ICommand maxlenIncreaseCommand { get; private set; }
         public ICommand selectPresetCommand { get; private set; }
         public ICommand deletePresetCommand { get; private set; }
-        public ICommand addPresetCommand { get; }
+        public ICommand presetLesserCommand { get; private set; }
+        public ICommand presetGreaterCommand { get; private set; }
         public ICommand saveCommand { get; }
         public ICommand discardCOmmand { get; }
         public ICommand openFinderCommand { get; }
-        public ICommand presetLesserCommand { get; private set; }
-        public ICommand presetGreaterCommand { get; private set; }
 
 
         // CONSTRUCTOR
@@ -230,7 +230,6 @@ namespace NAMEGEN.Control {
             deleteNameCommand = new RelayCommand<string>(DeleteNameFromHistory);
 
             selectPresetCommand = new RelayCommand<string>(UpdatePresetSelection);
-            //addPresetCommand = new RelayCommand
             deletePresetCommand = new RelayCommand<string>(DeletePresetItem);
             presetLesserCommand = new RelayCommand<string>(DecreasePreset);
             presetGreaterCommand = new RelayCommand<string>(IncreasePreset);
@@ -240,15 +239,15 @@ namespace NAMEGEN.Control {
             maxlenDecreaseCommand = new RelayCommand<object>(DecreaseMaxLen);
             maxlenIncreaseCommand = new RelayCommand<object>(IncreaseMaxLen);
 
-            //Task.Run(() => {
-            //    while (true) {
-            //        //if (historyNames.Count > 2) {
-            //        //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
-            //        //}
-            //        Debug.WriteLine(": " + currentPresetIndex);
-            //        Thread.Sleep(500);
-            //    }
-            //});
+            Task.Run(() => {
+                while (true) {
+                    //if (historyNames.Count > 2) {
+                    //    Debug.WriteLine(": " + historyNames[historyNames.Count - 1].val + " | " + historyNames[historyNames.Count - 2].val);
+                    //}
+                    Debug.WriteLine(": " + currentPresetIndex + " | " + selectedBrush.ToString());
+                    Thread.Sleep(500);
+                }
+            });
         }
 
 
@@ -315,17 +314,18 @@ namespace NAMEGEN.Control {
                     if (i != index) {
                         presetItems[i].isSelected = false;
                     } else {
-                        presetItems[i].isSelected = true;
-                        currentPreset = presetItems[i];
-                        currentPresetIndex = i;
-                        selectedBrush = presetItems[i].color;
+                        if (presetItems[i].isPersistent) {
+                            presetItems[i].isSelected = false;
+                            AddPresetItem();
+                        } else {
+                            presetItems[i].isSelected = true;
+                            currentPreset = presetItems[i];
+                            currentPresetIndex = i;
+                            selectedBrush = presetItems[i].color;
+                        }
                     }
                 }
             }
-        }
-
-        private void AddPresetItem(string selectedTitle) {
-            //
         }
 
         private void DeletePresetItem(string selectedTitle) {
@@ -363,6 +363,14 @@ namespace NAMEGEN.Control {
             for (int i = 0; i < 20; i++) {
                 nameFields.Add("");
             }
+        }
+
+        private void AddPresetItem() {
+            while (presetItems.Contains(new PresetItem("New Preset " + addCounter))) {
+                addCounter++;
+            }
+            presetItems.Add(new PresetItem("New Preset " + addCounter, "choose a path", false, presetBrushes));
+            addCounter++;
         }
 
         private int GetListItemAtIndex<T>(T objToFind, List<T> list) {
