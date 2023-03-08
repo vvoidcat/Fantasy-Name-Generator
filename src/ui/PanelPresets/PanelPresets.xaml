@@ -64,20 +64,40 @@
             <StackPanel Margin="20 0 0 0">
 
                 <!-- COLOR SWATCHES -->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <ToggleButton Background="{Binding presetBrushes[0]}" Style="{StaticResource styleSwatches}"/>
-                    <ToggleButton Background="{Binding presetBrushes[1]}" Style="{StaticResource styleSwatches}"/>
-                    <ToggleButton Background="{Binding presetBrushes[2]}" Style="{StaticResource styleSwatches}"/>
-                    <ToggleButton Background="{Binding presetBrushes[3]}" Style="{StaticResource styleSwatches}" IsChecked="True"/>
-                    <ToggleButton Background="{Binding presetBrushes[4]}" Style="{StaticResource styleSwatches}"/>
-                    <ToggleButton Background="{Binding presetBrushes[5]}" Style="{StaticResource styleSwatches}"/>
-                    <ToggleButton Background="{Binding presetBrushes[6]}" Style="{StaticResource styleSwatches}"/>
-                    <ToggleButton Background="{Binding presetBrushes[7]}" Style="{StaticResource styleSwatches}"/>
-                    <ToggleButton Background="{Binding presetBrushes[8]}" Style="{StaticResource styleSwatches}"/>
-                    <ToggleButton Background="{Binding presetBrushes[9]}" Style="{StaticResource styleSwatches}"/>
-                    <ToggleButton Background="{Binding presetBrushes[10]}" Style="{StaticResource styleSwatches}"/>
-                    <ToggleButton Background="{Binding presetBrushes[11]}" Style="{StaticResource styleSwatches}"/>
-                </StackPanel>
+                <ListView
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                    HorizontalAlignment="Center"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    ItemsSource="{Binding presetBrushes}"
+                    SelectedItem="{Binding selectedBrush, Mode=TwoWay}">
+
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Padding" Value="-1 -1"/>
+                            <Setter Property="Margin" Value="-1 -1"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Rectangle Name="rect" Fill="{Binding}" Width="20" Height="20"/>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}" Value="True">
+                                    <Setter TargetName="rect" Property="Width" Value="35"/>
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
                 <StackPanel>
 

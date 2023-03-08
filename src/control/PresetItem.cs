@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
@@ -62,13 +63,13 @@ namespace NAMEGEN.Control {
 
         public bool isPersistent { get; private set; }
 
-        public PresetItem(string newTitle) : this(newTitle, "", false, Brushes.Transparent) { }
+        public PresetItem(string newTitle) : this(newTitle, "", false, null) { }
 
-        public PresetItem(string newTitle, string newPath, bool newIsPersistent, Brush selectedBrush) {
+        public PresetItem(string newTitle, string newPath, bool newIsPersistent, List<Brush>? brushList) {
             title = newTitle;
             filepath = newPath;
-            color = selectedBrush;
             isPersistent = newIsPersistent;
+            AssignInitialBrush(brushList);
         }
 
         public static bool operator ==(PresetItem p1, PresetItem p2) {
@@ -81,6 +82,16 @@ namespace NAMEGEN.Control {
 
         public override bool Equals(object? obj) {
             return (obj is not null && obj is PresetItem && (PresetItem)obj == this) ? true : false;
+        }
+
+        private void AssignInitialBrush(List<Brush> brushList) {
+            if (brushList is null || isPersistent) {
+                color = Brushes.Transparent;
+            } else {
+                Random rand = new Random();
+                int index = rand.Next(0, brushList.Count - 1);
+                color = brushList[index];
+            }
         }
     }
 }

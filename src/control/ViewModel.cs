@@ -27,39 +27,31 @@ namespace NAMEGEN.Control {
             Brushes.PaleVioletRed,
             Brushes.LightCoral,
             Brushes.LightPink,
+            Brushes.Orange,
             Brushes.LightGoldenrodYellow,
             Brushes.CornflowerBlue,
             Brushes.LightSkyBlue,
             Brushes.LightCyan,
             Brushes.LightSeaGreen,
-            Brushes.LightGreen
+            Brushes.LightGreen,
         };
 
-        private int _selectedBrushIndex = -1;
-        public int selectedBrushIndex {
-            get {
-                int index = 0;
-                if (_selectedBrushIndex < 0) {
-                    Random rand = new Random();
-                    index = rand.Next(0, presetBrushes.Count - 1);
-                } else {
-                    index = _selectedBrushIndex;
-                }
-                return index;
-            }
+        private Brush _selectedBrush = presetBrushes[0];
+        public Brush selectedBrush {
+            get { return _selectedBrush; }
             set {
-                _selectedBrushIndex = value;
-                OnPropertyChanged(nameof(selectedBrushIndex));
+                _selectedBrush = value;
+                OnPropertyChanged(nameof(selectedBrush));
             }
         }
 
         public ObservableCollection<PresetItem> presetItems { get; set; } = new ObservableCollection<PresetItem>() {
-            new PresetItem("+", "", true, Brushes.Transparent),
-            new PresetItem("Italian", @"../../../materials/source-tables/italian.csv", false, presetBrushes[1]),
-            new PresetItem("Human", @"../../../materials/source-tables/human_generic.csv", false, presetBrushes[2]),
-            new PresetItem("Elven", @"../../../materials/source-tables/elven_generic.csv", false, presetBrushes[3]),
-            new PresetItem("Russian", @"../../../materials/source-tables/russian.csv", false, presetBrushes[4]),
-            new PresetItem("error", @"nosuchfile", false, presetBrushes[0])
+            new PresetItem("+", "", true, null),
+            new PresetItem("Italian", @"../../../materials/source-tables/italian.csv", false, presetBrushes),
+            new PresetItem("Human", @"../../../materials/source-tables/human_generic.csv", false, presetBrushes),
+            new PresetItem("Elven", @"../../../materials/source-tables/elven_generic.csv", false, presetBrushes),
+            new PresetItem("Russian", @"../../../materials/source-tables/russian.csv", false, presetBrushes),
+            new PresetItem("error", @"nosuchfile", false, presetBrushes)
         };
 
         private PresetItem _currentPreset;
@@ -326,6 +318,7 @@ namespace NAMEGEN.Control {
                         presetItems[i].isSelected = true;
                         currentPreset = presetItems[i];
                         currentPresetIndex = i;
+                        selectedBrush = presetItems[i].color;
                     }
                 }
             }
