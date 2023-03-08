@@ -62,7 +62,8 @@
                         Maximum="{Binding rowUpperbound}"
                         IsSnapToTickEnabled="True"
                         TickFrequency="1"
-                        AutoToolTipPlacement="TopLeft"/>
+                        AutoToolTipPlacement="TopLeft"
+                        Style="{StaticResource styleSliders}"/>
 
                     <TextBlock
                         Text="{Binding ElementName=sbarRow, Path=Value, Mode=OneWay}"

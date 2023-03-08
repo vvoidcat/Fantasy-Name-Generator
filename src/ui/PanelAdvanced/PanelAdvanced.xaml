@@ -74,7 +74,8 @@
                                 BoxWidth="90"
                                 ButtonHeight="18"
                                 Items="{Binding startingLetters}"
-                                ItemsSelectedIndex="{Binding selectedStartingLetter, Mode=OneWayToSource}"/>
+                                ItemsSelectedIndex="{Binding selectedStartingLetter, Mode=OneWayToSource}"
+                                Style="{StaticResource styleStartEndCombobox}"/>
                         </Grid>
                     </StackPanel>
 
@@ -90,7 +91,8 @@
                                 BoxWidth="90"
                                 ButtonHeight="18"
                                 Items="{Binding endingLetters}"
-                                ItemsSelectedIndex="{Binding selectedEndingLetter, Mode=OneWayToSource}"/>
+                                ItemsSelectedIndex="{Binding selectedEndingLetter, Mode=OneWayToSource}"
+                                Style="{StaticResource styleStartEndCombobox}"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

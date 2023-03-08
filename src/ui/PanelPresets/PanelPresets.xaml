@@ -38,7 +38,8 @@
             <ScrollViewer
                 Name="presetScroll"
                 Height="100"
-                Margin="25 0 0 0">
+                Margin="25 0 0 0"
+                Style="{StaticResource styleScrollers}">
 
                 <ItemsControl ItemsSource="{Binding presetItems}">
                     <ItemsControl.ItemsPanel>
@@ -62,12 +63,21 @@
             <!-- PRESET SETTINGS -->
             <StackPanel Margin="20 0 0 0">
 
-                <!-- SAVE LOAD BUTTONS -->
-                <TextBlock
-                    Text="EDIT PRESET"
-                    FontSize="15"
-                    FontWeight="Medium"
-                    HorizontalAlignment="Center"/>
+                <!-- COLOR SWATCHES -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}"/>
+                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}"/>
+                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}" IsChecked="True"/>
+                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}"/>
+                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}"/>
+                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}"/>
+                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}"/>
+                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}"/>
+                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}"/>
+                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}"/>
+                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}"/>
+                    <ToggleButton Background="AliceBlue" Style="{StaticResource styleSwatches}"/>
+                </StackPanel>
 
                 <StackPanel>
 

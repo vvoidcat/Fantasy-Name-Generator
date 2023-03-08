@@ -34,7 +34,8 @@
 
             <ScrollViewer 
                 Height="100"
-                Margin="25 0 0 0">
+                Margin="25 0 0 0"
+                Style="{StaticResource styleScrollers}">
 
                 <ItemsControl ItemsSource="{Binding historyNames}">
                     <ItemsControl.ItemsPanel>
