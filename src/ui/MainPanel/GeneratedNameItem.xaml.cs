@@ -42,5 +42,16 @@ namespace NAMEGEN.Ui {
         public GeneratedNameItem() {
             InitializeComponent();
         }
+
+        private void Grid_MouseLeave(object sender, MouseEventArgs e) {
+            addButton.Visibility = Visibility.Collapsed;
+
+        }
+
+        private void Grid_MouseEnter(object sender, MouseEventArgs e) {
+            if (!String.IsNullOrEmpty(Title)) {
+                addButton.Visibility = Visibility.Visible;
+            }
+        }
     }
 }

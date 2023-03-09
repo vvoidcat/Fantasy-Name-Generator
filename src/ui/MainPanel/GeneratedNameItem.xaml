@@ -15,15 +15,20 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid Margin="0 0 0 10">
+    <Grid
+        Margin="0 0 0 10"
+        Background="Transparent"
+        MouseEnter="Grid_MouseEnter"
+        MouseLeave="Grid_MouseLeave">
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="{Binding ElementName=textName_1, Path=ActualWidth, Mode=OneWay}"/>
+            <ColumnDefinition Width="{Binding ElementName=textName, Path=ActualWidth, Mode=OneWay}"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <TextBlock
-            Name="textName_1"
+            Name="textName"
             Text="{Binding Title, ElementName=rootGeneratedNameItem}"
             FontSize="{Binding ElementName=rootGeneratedNameItem, Path=ItemFontSize}"
             Grid.Column="1"
@@ -31,15 +36,17 @@
             Style="{StaticResource styleNameItemText}"/>
 
         <Button
+            Name="addButton"
             Content="+"
             Command="{Binding saveNameCommand}"
-            CommandParameter="{Binding ElementName=textName_1, Path=Text}"
+            CommandParameter="{Binding ElementName=textName, Path=Text}"
             Width="{Binding ElementName=rootGeneratedNameItem, Path=ButtonSize}"
             Height="{Binding ElementName=rootGeneratedNameItem, Path=ButtonSize}"
             Margin="10 0 0 2"
             Grid.Column="2"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom"
+            Visibility="Collapsed"
             Style="{StaticResource styleNameItemButton}"/>
     </Grid>
 </UserControl>
