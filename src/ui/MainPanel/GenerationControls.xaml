@@ -28,8 +28,7 @@
 
             <controls:StringSpinBox
                 BoxHeight="20"
-                BoxWidth="130"
-                BoxValue="{Binding currentPreset.displayText}"
+                BoxValue="{Binding displayedTitle}"
                 DecreaseCommand="{Binding presetLesserCommand}"
                 IncreaseCommand="{Binding presetGreaterCommand}"/>
         </StackPanel>

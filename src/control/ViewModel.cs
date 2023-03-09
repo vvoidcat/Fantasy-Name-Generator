@@ -17,9 +17,11 @@ using NAMEGEN.Core;
 
 namespace NAMEGEN.Control {
     class ViewModel : ObservableObject {
-        private Generator gen;
-        private int addCounter = 1;
+        private static string initDirectory = Environment.CurrentDirectory + "/" + @"../../../materials/source-tables";
         private string prevDirectory = "";
+        private int addCounter = 1;
+
+        private Generator gen;
 
 
         // PRESET SETTINGS
@@ -404,7 +406,7 @@ namespace NAMEGEN.Control {
         private void SavePresetSettings(object sender) {
             currentPreset.color = selectedBrush;
             currentPreset.filepath = displayedSourcepath;
-            currentPreset.title = displayedTitle;
+            currentPreset.displayText = displayedTitle;
         }
 
         private void DiscardPresetSettings(object sender) {
@@ -418,8 +420,8 @@ namespace NAMEGEN.Control {
                 prevDirectory = Path.GetFullPath(displayedSourcepath);
             }
             if (String.IsNullOrEmpty(prevDirectory)) {
-                if (Directory.Exists(@"../../../materials/source-tables")) {
-                    prevDirectory = Path.GetFullPath(@"../../../materials/source-tables");
+                if (Directory.Exists(initDirectory)) {
+                    prevDirectory = Path.GetFullPath(initDirectory);
                 } else {
                     prevDirectory = Environment.CurrentDirectory;
                 }

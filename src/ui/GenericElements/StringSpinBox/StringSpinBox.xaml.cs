@@ -18,13 +18,6 @@ namespace NAMEGEN.Ui {
     /// Interaction logic for StringSpinBox.xaml
     /// </summary>
     public partial class StringSpinBox : UserControl {
-        public static readonly DependencyProperty BoxWidthProperty =
-            DependencyProperty.Register("BoxWidth", typeof(int), typeof(StringSpinBox), new PropertyMetadata(100));
-        public int BoxWidth {
-            get { return (int)GetValue(BoxWidthProperty); }
-            set { SetValue(BoxWidthProperty, value); }
-        }
-
         public static readonly DependencyProperty BoxHeightProperty =
             DependencyProperty.Register("BoxHeight", typeof(int), typeof(StringSpinBox), new PropertyMetadata(20));
         public int BoxHeight {

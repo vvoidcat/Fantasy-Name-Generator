@@ -17,11 +17,10 @@
     </UserControl.Resources>
 
     <Grid 
-        Height="{Binding ElementName=gridContent, Path=ActualHeight}"
-        Width="{Binding ElementName=rootStringSpinbox, Path=BoxWidth}">
+        Height="{Binding ElementName=gridContent, Path=ActualHeight}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="{Binding ElementName=buttonLesser, Path=Height}"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="{Binding ElementName=textContent, Path=Width}"/>
             <ColumnDefinition Width="{Binding ElementName=buttonGreater, Path=Height}"/>
         </Grid.ColumnDefinitions>
 
@@ -34,7 +33,7 @@
 
         <Grid
             Name="gridContent"
-            
+            Margin="10 0 10 0"
             Height="{Binding ElementName=rootStringSpinbox, Path=BoxHeight}"
             Grid.Column="1">
             <TextBlock

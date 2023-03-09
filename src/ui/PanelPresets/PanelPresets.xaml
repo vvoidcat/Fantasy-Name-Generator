@@ -147,6 +147,7 @@
                             <TextBox 
                                 Name="tboxPresetName"
                                 Text="{Binding displayedTitle}"
+                                MaxLength="12"
                                 FontSize="12"
                                 Height="20"
                                 Width="170"

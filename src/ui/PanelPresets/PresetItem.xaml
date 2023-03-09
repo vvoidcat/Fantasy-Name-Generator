@@ -10,7 +10,6 @@
 
     <UserControl.Resources>
         <converter:BooleanToVisibilityConverter x:Key="boolConv"/>
-
     </UserControl.Resources>
 
     <Canvas
