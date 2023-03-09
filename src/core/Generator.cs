@@ -31,9 +31,9 @@ namespace NAMEGEN.Core {
         public int selectedEndIndex { get; private set; } = -1;
 
 
-        public Generator(string name, string sourcePath) {
+        public Generator(string sourcePath) {
             alphabet = new Alphabet();
-            preset = new Preset(alphabet, name, sourcePath);
+            preset = new Preset(alphabet, sourcePath);
         }
 
         public string GenerateName() {
@@ -42,11 +42,11 @@ namespace NAMEGEN.Core {
             return newName.namestring.ToString();
         }
 
-        public bool SetPreset(string newName, string newPath) {
+        public bool SetPreset(string newPath) {
             bool isValueSet = false;
 
             if (newPath != preset.sourcepath) {
-                preset = new Preset(alphabet, newName, newPath);
+                preset = new Preset(alphabet, newPath);
                 isValueSet = true;
             }
             return isValueSet;

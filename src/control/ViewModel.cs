@@ -60,7 +60,7 @@ namespace NAMEGEN.Control {
                 return (_currentPreset is null) ? presetItems[0] : _currentPreset;
             }
             set {
-                if (value is not null && gen is not null && gen.SetPreset(value.title, value.filepath)) {
+                if (value is not null && gen is not null && gen.SetPreset(value.filepath)) {
                     _currentPreset = value;
                     OnPropertyChanged(nameof(currentPreset));
                 }
@@ -446,7 +446,7 @@ namespace NAMEGEN.Control {
         private void Init() {
             displayedSourcepath = currentPreset.filepath;
             displayedTitle = currentPreset.displayText;
-            gen = new Generator(currentPreset.title, currentPreset.filepath);
+            gen = new Generator(currentPreset.filepath);
 
             startingLetters.Add("any");
             endingLetters.Add("any");

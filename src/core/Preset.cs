@@ -31,9 +31,8 @@ namespace NAMEGEN.Core {
 
         public string sourcepath { get; private set; } = "";
         public string sourceChecksum { get; private set; } = "";
-        public string presetName { get; set; } = "New Preset";
 
-        public Preset(Alphabet newAlphabet, string newName, string newSourcepath) {
+        public Preset(Alphabet newAlphabet, string newSourcepath) {
             alphabet = newAlphabet;
 
             permutationMatrixStart = new Matrix(alphabet.letters.Count, alphabet.letters.Count);
@@ -44,8 +43,6 @@ namespace NAMEGEN.Core {
             probabilityMatrixStart = new Matrix(1, alphabet.letters.Count);
 
             SetSourcepath(newSourcepath);
-
-            presetName = newName;
         }
 
         private void SetSourcepath(string newSourcepath) {
