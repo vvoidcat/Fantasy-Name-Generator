@@ -382,8 +382,9 @@ namespace NAMEGEN.Control {
             }
             if (presetItems.Count == 1) {
                 currentPresetIndex = 0;
-                currentPreset = presetItems[0];
-
+                currentPreset = presetItems[currentPresetIndex];
+                displayedSourcepath = currentPreset.filepath;
+                displayedTitle = currentPreset.displayText;
             }
         }
 

@@ -62,13 +62,15 @@ namespace NAMEGEN.Control {
         }
 
         public bool isDeletable { get; private set; }
+        public bool isEditable { get; private set; }
 
         public PresetItem(string newTitle) : this(newTitle, "", false, null) { }
 
-        public PresetItem(string newTitle, string newPath, bool newIsPersistent, List<Brush>? brushList) {
+        public PresetItem(string newTitle, string newPath, bool newIsDeletable, List<Brush>? brushList) {
             title = newTitle;
             filepath = newPath;
-            isDeletable = newIsPersistent;
+            isDeletable = newIsDeletable;
+            isEditable = !newIsDeletable;
             AssignInitialBrush(brushList);
         }
 

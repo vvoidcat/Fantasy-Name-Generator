@@ -4,18 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:NAMEGEN.Ui"
+             xmlns:converter="clr-namespace:System.Windows.Controls;assembly=PresentationFramework"
              mc:Ignorable="d" 
              d:DesignHeight="120" d:DesignWidth="830">
 
-    <!-- delete later -->
     <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../DictionaryStyles.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <converter:BooleanToVisibilityConverter x:Key="boolConv"/>
     </UserControl.Resources>
-
+    
     <Canvas 
         Name="canvasPanelPresets"
         Visibility="Visible">
@@ -58,126 +54,138 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-            </ScrollViewer>            
-
+            </ScrollViewer>
 
             <!-- PRESET SETTINGS -->
-            <StackPanel Margin="20 0 0 0">
+            <Canvas>
+                <StackPanel
+                    Margin="20 0 0 0"
+                    Canvas.ZIndex="0">
 
-                <!-- COLOR SWATCHES -->
-                <ListView
-                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                    HorizontalAlignment="Center"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    ItemsSource="{Binding presetBrushes}"
-                    SelectedItem="{Binding selectedBrush, Mode=TwoWay}">
+                    <!-- COLOR SWATCHES -->
+                    <ListView
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                        HorizontalAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        ItemsSource="{Binding presetBrushes}"
+                        SelectedItem="{Binding selectedBrush, Mode=TwoWay}">
 
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="Padding" Value="0"/>
-                            <Setter Property="Margin" Value="1 0"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
 
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Rectangle Name="rect" Fill="{Binding}" Width="18" Height="18"/>
-                            <DataTemplate.Triggers>
-                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}" Value="True">
-                                    <Setter TargetName="rect" Property="Width" Value="35"/>
-                                </DataTrigger>
-                            </DataTemplate.Triggers>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="Margin" Value="1 0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
 
-                <StackPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Rectangle Name="rect" Fill="{Binding}" Width="18" Height="18"/>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}" Value="True">
+                                        <Setter TargetName="rect" Property="Width" Value="35"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
 
                     <!-- INPUT FIELDS GENERAL -->
-                    <StackPanel Margin="0 3 0 0">
-                        <StackPanel 
-                            Orientation="Horizontal"
-                            Margin="0 2">
+                    <StackPanel
+                        Canvas.ZIndex = "0">
+                        
+                        <StackPanel Margin="0 3 0 0">
+                            <StackPanel 
+                                Orientation="Horizontal"
+                                Margin="0 2">
 
-                            <TextBlock
-                                Name="tblockSourcepath"
-                                Text="source table:"
-                                Padding="0 1 0 0"
-                                Margin="0 0 10 0"
-                                FontSize="12"
-                                Width="70"
-                                Height="20"/>
+                                <TextBlock
+                                    Name="tblockSourcepath"
+                                    Text="source table:"
+                                    Padding="0 1 0 0"
+                                    Margin="0 0 10 0"
+                                    FontSize="12"
+                                    Width="70"
+                                    Height="20"/>
 
-                            <TextBox
-                                Name="tboxSourcepath"
-                                Text="{Binding displayedSourcepath}"
-                                FontSize="12"
-                                Height="20"
-                                Width="150"
-                                Style="{StaticResource stylePanelTextBoxes}"/>
+                                <TextBox
+                                    Name="tboxSourcepath"
+                                    Text="{Binding displayedSourcepath}"
+                                    FontSize="12"
+                                    Height="20"
+                                    Width="150"
+                                    Style="{StaticResource stylePanelTextBoxes}"/>
 
-                            <Button
-                                Name="buttonSourcepath"
-                                Content="..."
-                                Command="{Binding openFinderCommand}"
-                                Height="20"
-                                Width="20"
-                                Style="{StaticResource stylePanelSquareButtons}"/>
-                        </StackPanel>
+                                <Button
+                                    Name="buttonSourcepath"
+                                    Content="..."
+                                    Command="{Binding openFinderCommand}"
+                                    Height="20"
+                                    Width="20"
+                                    Style="{StaticResource stylePanelSquareButtons}"/>
+                            </StackPanel>
 
-                        <StackPanel Orientation="Horizontal"
+                            <StackPanel Orientation="Horizontal"
                                         Margin="0 2">
-                            <TextBlock 
-                                Name="tblockPresetName"
-                                Text="preset name:"
-                                Padding="0 1 0 0"
-                                Margin="0 0 10 0"
-                                FontSize="12"
-                                Width="70"
-                                Height="20"/>
+                                <TextBlock 
+                                    Name="tblockPresetName"
+                                    Text="preset name:"
+                                    Padding="0 1 0 0"
+                                    Margin="0 0 10 0"
+                                    FontSize="12"
+                                    Width="70"
+                                    Height="20"/>
 
-                            <TextBox 
-                                Name="tboxPresetName"
-                                Text="{Binding displayedTitle}"
-                                MaxLength="12"
-                                FontSize="12"
-                                Height="20"
-                                Width="170"
-                                Style="{StaticResource stylePanelTextBoxes}"/>
+                                <TextBox 
+                                    Name="tboxPresetName"
+                                    Text="{Binding displayedTitle}"
+                                    MaxLength="12"
+                                    FontSize="12"
+                                    Height="20"
+                                    Width="170"
+                                    Style="{StaticResource stylePanelTextBoxes}"/>
+                            </StackPanel>
+
+                            <Grid Margin="0 3 0 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Button
+                                    Name="buttonSave"
+                                    Content="save changes"
+                                    Command="{Binding saveCommand}"
+                                    Grid.Column="1"
+                                    Style="{StaticResource stylePanelSaveloadButtons}"/>
+
+                                <Button
+                                    Name="buttonDiscard"
+                                    Content="discard"
+                                    Command="{Binding discardCommand}"
+                                    Grid.Column="2"
+                                    Style="{StaticResource stylePanelSaveloadButtons}"/>
+                            </Grid>
                         </StackPanel>
-
-                        <Grid Margin="0 3 0 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="80"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <Button
-                                Name="buttonSave"
-                                Content="save changes"
-                                Command="{Binding saveCommand}"
-                                Grid.Column="1"
-                                Style="{StaticResource stylePanelSaveloadButtons}"/>
-
-                            <Button
-                                Name="buttonDiscard"
-                                Content="discard"
-                                Command="{Binding discardCommand}"
-                                Grid.Column="2"
-                                Style="{StaticResource stylePanelSaveloadButtons}"/>
-                        </Grid>
                     </StackPanel>
                 </StackPanel>
-            </StackPanel>
+                
+                <Rectangle
+                    Canvas.ZIndex="1"
+                    Fill="Lavender"
+                    Opacity="0.5"
+                    Height="100"
+                    Width="300"
+                    Visibility="{Binding currentPreset.isEditable, Converter={StaticResource boolConv}}"/>
+            </Canvas>
         </StackPanel>
     </Canvas>
 </UserControl>
