@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -11,12 +12,14 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
+using Microsoft.Win32;
 using NAMEGEN.Core;
 
 namespace NAMEGEN.Control {
     class ViewModel : ObservableObject {
         private Generator gen;
         private int addCounter = 1;
+        private string prevDirectory = "";
 
 
         // PRESET SETTINGS
@@ -414,8 +417,31 @@ namespace NAMEGEN.Control {
             displayedTitle = currentPreset.displayText;
         }
 
-        private void OpenFileExplorer(object sender) {
-            //
+        private void OpenFileExplorer(object? sender) {
+            if (!String.IsNullOrEmpty(displayedSourcepath) && File.Exists(_displayedSourcepath)) {
+                prevDirectory = Path.GetFullPath(displayedSourcepath);
+            }
+            if (String.IsNullOrEmpty(prevDirectory)) {
+                if (Directory.Exists(@"../../../materials/source-tables")) {
+                    prevDirectory = Path.GetFullPath(@"../../../materials/source-tables");
+                } else {
+                    prevDirectory = Environment.CurrentDirectory;
+                }
+            }
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.InitialDirectory = prevDirectory;
+            openFileDialog.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.RestoreDirectory = false;
+
+            var result = openFileDialog.ShowDialog();
+            
+            if (!String.IsNullOrEmpty(openFileDialog.FileName)) {
+                prevDirectory = openFileDialog.FileName;
+                displayedSourcepath = openFileDialog.FileName;
+            }
         }
 
 
@@ -440,11 +466,16 @@ namespace NAMEGEN.Control {
         }
 
         private void AddPresetItem() {
-            while (presetItems.Contains(new PresetItem("New Preset " + addCounter))) {
+            OpenFileExplorer(null);
+
+            if (currentPreset.filepath != displayedSourcepath) {
+                while (presetItems.Contains(new PresetItem("New Preset " + addCounter))) {
+                    addCounter++;
+                }
+                presetItems.Add(new PresetItem("New Preset " + addCounter, displayedSourcepath, true, presetBrushes));
                 addCounter++;
+                UpdatePresetSelection(presetItems.Last().title);
             }
-            presetItems.Add(new PresetItem("New Preset " + addCounter, "choose a path", true, presetBrushes));
-            addCounter++;
         }
 
         private int GetListItemAtIndex<T>(T objToFind, List<T> list) {
