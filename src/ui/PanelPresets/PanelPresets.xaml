@@ -82,15 +82,14 @@
                     
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
-                            <Setter Property="Padding" Value="-1 -1"/>
-                            <Setter Property="Margin" Value="-1 -1"/>
-                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="Margin" Value="1 0"/>
                         </Style>
                     </ListView.ItemContainerStyle>
 
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Rectangle Name="rect" Fill="{Binding}" Width="20" Height="20"/>
+                            <Rectangle Name="rect" Fill="{Binding}" Width="18" Height="18"/>
                             <DataTemplate.Triggers>
                                 <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}" Value="True">
                                     <Setter TargetName="rect" Property="Width" Value="35"/>
@@ -103,7 +102,7 @@
                 <StackPanel>
 
                     <!-- INPUT FIELDS GENERAL -->
-                    <StackPanel Margin="0 5 0 0">
+                    <StackPanel Margin="0 3 0 0">
                         <StackPanel 
                             Orientation="Horizontal"
                             Margin="0 2">
@@ -154,7 +153,7 @@
                                 Style="{StaticResource stylePanelTextBoxes}"/>
                         </StackPanel>
 
-                        <Grid Margin="0 5 0 0">
+                        <Grid Margin="0 3 0 0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="80"/>
                                 <ColumnDefinition Width="*"/>

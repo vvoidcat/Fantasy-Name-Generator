@@ -24,20 +24,16 @@ namespace NAMEGEN.Control {
 
         // PRESET SETTINGS
 
+        //Brushes.PaleVioletRed,
         public static List<Brush> presetBrushes { get; } = new List<Brush> {
-            Brushes.White,
-            Brushes.LightGray,
-            Brushes.Gray,
-            Brushes.PaleVioletRed,
-            Brushes.LightCoral,
+            Brushes.LemonChiffon,
+            Brushes.MistyRose,
+            Brushes.PeachPuff,
             Brushes.LightPink,
-            Brushes.Orange,
-            Brushes.LightGoldenrodYellow,
-            Brushes.CornflowerBlue,
-            Brushes.LightSkyBlue,
+            Brushes.Thistle,
+            Brushes.LightBlue,
             Brushes.LightCyan,
-            Brushes.LightSeaGreen,
-            Brushes.LightGreen,
+            Brushes.PaleTurquoise
         };
 
         private Brush _selectedBrush = presetBrushes[0];
